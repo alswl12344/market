@@ -148,7 +148,7 @@
 		<ul class="nav justify-content-end">
     		<c:if test="${user==null }">
     		<li class="nav-item">
-				<a class="nav-link" href="${contextPath}/board/login">로그인</a>
+				<a class="nav-link" href="${contextPath}/user/login">로그인</a>
 			</li>
 			</c:if>
 			<c:if test="${user!=null }">
@@ -156,11 +156,11 @@
 				<a class="nav-link" href="#">${user.name }님</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="${contextPath }/board/logout">로그아웃</a>
+				<a class="nav-link" href="${contextPath }/Product/plist">로그아웃</a>
 			</li>
 			</c:if>
 			<li class="nav-item">
-    			<a class="nav-link" href="#">상품목록</a>
+    			<a class="nav-link" href="${contextPath }/user/logout">상품목록</a>
     		</li>
     		<li class="nav-item">
     			<a class="nav-link" href="#">특가상품</a>
