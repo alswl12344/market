@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.dong.delivery">
+	<!-- 배송현황 목록 -->
+	<select id="dview" resultType="DeliveryDTO">
+		select *
+		from delivery
+		order by dcode desc
+	</select>
+	
+	<!-- 주소록 관리 목록 -->
+	<select id="management" resultType="ManagementDTO">
+		select *
+		from management		
+		order by mcode desc
+	</select>
+	
+	<!-- 주소록 선택 조회 -->
+	<select id="managementdetail" resultType="ManagementDTO">
+		select *
+		from management	
+		where mcode = #{mcode}	
+		order by mcode desc
+	</select>
+	
+	<!-- 글 추가하는 SQL -->
+	<insert id="insert" parameterType="ManagementDTO">
+		insert into management(mcode, mname,maddress,mnum,userid)
+		values(#{mcode},#{mname},#{maddress},#{mnum},#{userid})
+	</insert>
+	
+	<!-- 글 수정하는 SQL -->
+	<update id="update" parameterType="ManagementDTO">
+	update management
+	set
+    mname=#{mname}, maddress=#{maddress}, mnum=#{mnum} ,userid=#{userid}	
+    where mcode = #{mcode}
+	</update>
+	
+	<!-- 글 삭제하는 SQL :del 컬럼을 작성하여 1로 변경 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+	delete from management
+	where mcode = #{mcode}
+	</delete>
+
+</mapper>

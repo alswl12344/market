@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.co.dong.Product">
+  
+  
+  <!-- 상품 전체목록수 -->
+  <select id="plist" resultType="ProductDTO">
+  	select *
+  	from product
+  	where pdel = 0
+  	order by pcode desc
+  </select>
+  
+    <!-- 상품 삭제 목록 수 -->
+  <select id="pdellist" resultType="ProductDTO">
+  	select *
+  	from product
+  	where pdel = 1
+  	order by pcode desc
+  </select>
+  
+  
+  <!--  선택조회(글읽기)   -->
+  <select id="pdetail" parameterType="java.lang.Integer" resultType="ProductDTO">
+  	select *
+  	from product
+  	where pcode = #{pcode}
+  </select>
+ 
+ 
+ <!-- 상품 등록하기 -->
+  
+  <insert id="pinsert" parameterType="ProductDTO">
+  insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcode, pcontent, pdel) 
+values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #{pcontent}, 0)
+  </insert>
+  
+  <!-- 상품 수정하기 -->
+  
+  <update id="pupdate" parameterType="ProductDTO">
+  update product
+  set
+  pname = #{pname}, pprice=#{pprice}, pcount=#{pcount}, pimage = #{pimage}, plimit= now(), ptcode = #{ptcode}, pcontent = #{pcontent}
+  where pcode=#{pcode}
+  </update>
+  
+  <!-- 상품 삭제하기 -->
+  
+  <update id="pdelete">
+  	update product
+  	set
+  	pdel= 1
+  	where pcode = #{pcode}
+  </update>
+  
+  
+  
+  <!-- 총 게시글 갯수 출력 -->
+<select id="countProduct" resultType="java.lang.Integer">
+	select count(*) from product where pdel = 0
+</select>
+
+  <!-- 전체목록수(페이징 처리) -->
+	<select id="selectProduct" resultType="ProductDTO">
+		select
+		@rownum:=@rownum+1 as no, product.*
+		from product
+		where (@rownum:=0)=0 and pdel = 0
+		order by pcode desc
+		limit #{start}, #{cntPerPage}
+		
+	</select>
+  
+  
+  
+  
+  
+  
+  
+  <!-- 특정 속성으로 상품 정렬하기 -->
+  
+  <!-- 상품 검색하기 -->
+  
+  
+  </mapper>

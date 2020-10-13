@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.co.dong.board">
+  	<!-- 전체 목록 수  -->
+  	<select id="listall" resultType="BoardDTO">
+  		select *
+  		from board
+  		order by bno desc
+  	</select>
+  	
+  	<!-- 선택 조회(글 읽기) / 번호로 선택하니까 int로 요청 -->
+  	<select id="detail" parameterType="java.lang.Integer" resultType="BoardDTO">
+  		select *
+  		from board
+  		where bno = #{bno}
+  	</select>
+  	
+  	<!-- 글 추가 -->
+  	<insert id="insert" parameterType="BoardDTO">
+  		insert into board(bno,btitle,bcontent,bwriter,bdate,breadcnt,sbcode)
+  		values(#{bno},#{btitle},#{bcontent},#{bwriter},curdate(),0,#{sbcode})
+  	</insert>
+  		
+  	 <!-- 글 수정하는 SQL -->
+    <update id="update" parameterType="BoardDTO">
+	    update board
+	    set
+	    btitle=#{btitle}, 
+	    bcontent=#{bcontent},
+	    bdate=curdate( )
+	    where bno = #{bno}
+   </update> 
+   
+  	<!-- 글 삭제하는 SQL : del 컬럼을 작성하여 1로 변경 -->
+  	<delete id="delete" parameterType="java.lang.Integer">
+		delete from board
+		where bno = #{bno}
+  	</delete>
+  	
+  	<!-- 조회수 1 증가시키는 SQL -->
+  	 <update id="updatereadcnt" parameterType="java.lang.Integer">
+  	 	update board
+  	 	set
+  	 	breadcnt = breadcnt + 1
+  	 	where bno = #{bno}
+  	 </update>
+	
+	<!-- 게시글 번호에 해당하는 모든 댓글 조회 SQL -->
+	<select id="detail1" parameterType="java.lang.Integer" resultType="BoardReply">
+		select *
+		from board_reply
+		where bno = #{bno}
+		order by reno desc
+	</select>
+
+	<!-- 댓글 쓰기 -->
+	<insert id="reply" parameterType="BoardReply">
+		insert into
+		board_reply(rewriter,rememo,redate,bno)
+		values(#{rewriter},#{rememo},curdate(),#{bno})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyupdate" parameterType="BoardReply">
+		update board_reply
+		set
+		rewriter = #{rewriter},
+		rememo = #{rememo},
+		redate = curdate()
+		where reno = #{reno}
+	</update>
+
+	<select id="replydetail" parameterType="java.lang.Integer" resultType="BoardReply">
+  		select *
+  		from board_reply
+  		where reno = #{reno}
+  	</select>
+  	
+  	<!-- 댓글 삭제 -->
+  	<delete id="replydelete" parameterType="java.lang.Integer">
+		delete from board_reply
+		where reno = #{reno}
+  	</delete>
+  	
+  	  <!-- 게시글 갯수 카운트 -->
+	<select id="countBoard" resultType="java.lang.Integer">
+		select count(*) 
+		from board
+	</select>
+
+	<!-- 전체목록수(페이징 처리) -->
+	<select id="selectBoard" resultType="BoardDTO">
+		select
+		@rownum:=@rownum+1 as no, board.*
+		from board
+		where (@rownum:=0)=0
+		order by bno desc
+		limit #{start}, #{cntPerPage}
+	</select>
+	
+	<!-- 카테고리 -->
+	<select id="selectCategory" parameterType="java.lang.Integer">
+		select sbcode
+		from board_category
+		where sbname=#{sbname}
+	</select>
+	
+  </mapper>
