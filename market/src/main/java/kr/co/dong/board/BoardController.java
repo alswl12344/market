@@ -29,7 +29,7 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	// 목록 테스트 수정
+	// 목록 테스트 수정123123
 	@RequestMapping(value="board/list", method=RequestMethod.GET)
 	public ModelAndView ListAll() {
 		ModelAndView mav = new ModelAndView();
