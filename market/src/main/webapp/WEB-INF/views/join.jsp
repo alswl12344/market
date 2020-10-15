@@ -2,7 +2,15 @@
 			pageEncoding="UTF-8"%>
 		
 		<%@include file="include/header.jsp"%>
-		
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="logo">
+						<img src="../resources/image/logo.png" class="logo-detail" />
+					</div>
+				</div>
+			</div>
+		</div>
 		<section class="content">
 			<div class="box-header">
 				<h3 class="box-title">회원가입</h3>
@@ -13,11 +21,11 @@
 			<form role="form" method="post">
 				<div class="box-body">
 					<div class="form-group">
-						<label>ID : </label> 
+						<label>아이디 : </label> 
 						<input type="text"	name="userid" class="form-control" placeholder="ID를 입력하세요">
 					</div>					
 					<div class="form-group">
-						<label>Password : </label>
+						<label>비밀번호 : </label>
 						<input type = "text" name="userpw" class="form-control" placeholder="비밀번호를 입력하세요" >
 					</div>
 					<div class="form-group">
@@ -38,11 +46,13 @@
 					</div>
 		
 				</div>
-		
+				<br>
 				<div class="box-footer">
-					<button type="submit" class="btn btn-primary">작성완료</button>
+					<button type="submit" class="login-button">작성완료</button>
 				</div>
-		
+				<br>
+				<br>
+				
 			</form>
 			</tabel>
 		</section>

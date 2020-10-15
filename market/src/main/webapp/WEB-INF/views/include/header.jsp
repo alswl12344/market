@@ -71,6 +71,10 @@
 	background: #ced0f5;
 }
 
+body {
+	font-family: 'NanumBarunGothic';
+}
+
 .topnav {
 	overflow : visible;
 	height : 40px;
@@ -78,6 +82,8 @@
 	font-size: 5pt;
 	padding : 0 2px;
 }
+
+
 
 .nav-logo {
 	width: 25px;
@@ -94,11 +100,11 @@
 
 .topnav-right a:hover {
 	color: white;
-	background: #ced0f5;
+	background: #5f4f6e;
 }
 
 .topnav-right a:active {
-	color: #ced0f5;
+	color: #5f4f6e;
 }
 
 .topnav-right {
@@ -124,7 +130,7 @@
 }
 
 .logo-detail {
-	width: 220px;
+	width: 200px;
 }
 
 .main-footer {
@@ -200,6 +206,58 @@
 	line-height: 180%;
 }
 
+.search-sign {
+	text-align : right;
+	font-size : 10pt;
+}
+
+.search-sign a {
+	text-decoration: none;
+	color : black;
+}
+
+.search-sign a:hover {
+	color: #ced0f5;
+}
+
+
+.content {
+	margin : 0 30%;
+}
+
+.login-box {
+	position : absolute;
+	width : 100%;
+	padding : 10px;
+	height: 50px;
+	display : block;
+	margin : auto;
+}
+
+.login-button {
+	width : 100%;
+	height : 50px;
+	display : block;
+	background-color: #5f4f6e;
+	color : white;
+	font-weight: bold;
+	border: 0;
+	outline: 0;
+	margin : 10px 0;
+}
+
+.signup-button {
+	width : 100%;
+	height : 50px;
+	display : block;
+	background-color: white;
+	color : #5f4f6e;
+	font-weight: bold;
+	border: 0;
+	outline: none;
+	margin : 10px 0;
+}
+
 .main-footer{
 	font-family: 'NanumBarunGothic';
 }
@@ -220,8 +278,7 @@
 .footer-copyright {
 	font-size: 8pt;
 }
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
 </style>
 </head>
 <body>
@@ -286,3 +343,4 @@
 			</ul>
 			</div>
 	</div>
+	
