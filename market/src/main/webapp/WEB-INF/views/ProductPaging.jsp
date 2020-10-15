@@ -21,6 +21,13 @@
 <body>
 <%@include file="./include/header.jsp" %>
  <div>${msg}</div>
+ <div class="wrapper">
+		<header class="main-header">
+			<div class="page-header">
+				<h1>상품 목록</h1>
+			</div>
+		</header>
+	</div>
 <div class="table-responsive">
   <div style="float:right;">
   	<select id="cntPerPage" name="sel" onchange="selChange()">

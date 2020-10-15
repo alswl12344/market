@@ -14,6 +14,13 @@
 </head>
 <body>
 <%@include file="./include/header.jsp" %>
+ <div class="wrapper">
+		<header class="main-header">
+			<div class="page-header">
+				<h1>상품 목록</h1>
+			</div>
+		</header>
+	</div>
  <div>${msg}</div>
 <div class="table-responsive">
   <table class="table">
