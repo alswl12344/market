@@ -57,6 +57,16 @@ values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #
   
   
   
+    <!-- 상품 삭제 복구하기 -->
+  
+  <update id="pdeldelete">
+  	update product
+  	set
+  	pdel= 0
+  	where pcode = #{pcode}
+  </update>
+  
+  
   <!-- 총 게시글 갯수 출력 -->
 <select id="countProduct" resultType="java.lang.Integer">
 	select count(*) from product where pdel = 0
@@ -65,23 +75,53 @@ values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #
   <!-- 전체목록수(페이징 처리) -->
 	<select id="selectProduct" resultType="ProductDTO">
 		select
-		@rownum:=@rownum+1 as no, product.*
+		@rownum rn, product.*
 		from product
 		where (@rownum:=0)=0 and pdel = 0
 		order by pcode desc
 		limit #{start}, #{cntPerPage}
 		
 	</select>
+
   
+
   
+
   
+  <!-- 특정 속성으로 상품 정렬하기
   
+  <select id="" parameterType="java.lang.Integer" resultType="ProductDTO">
+  	select *
+  	from product
+  	where pdel = 0,
+  </select>
+   -->
   
+    <!-- 속성 게시글 갯수 출력 -->
+<select id="countProduct2" parameterType="PagingPVO" resultType="java.lang.Integer">
+	select count(*) from product
+	where 
+	pname like CONCAT('%',#{keyWord},'%') 
+	and pdel = 0
+</select>
   
+<!-- 검색하기 -->
+  <select id="psearchlist" resultType="ProductDTO" parameterType="PagingPVO">
+  select pcode, pname, pprice, pcount, pdate, plimit, pimage, ptcode, pcontent
+  from product
+  where 
+  pname like CONCAT('%',#{keyWord},'%')
+  or pcontent like CONCAT('%',#{keyWord},'%')
+  and pdel = 0
+  order by pcode desc
+limit #{start}, #{cntPerPage}
+
+  </select>
   
-  <!-- 특정 속성으로 상품 정렬하기 -->
-  
-  <!-- 상품 검색하기 -->
-  
-  
+<!--  게시글 레코드 갯수
+  <select id="countArticle" resultType="java.lang.Integer">
+  	select count(*) from product
+   where pname like CONCAT('%',#{KeyWord},'%')
+  </select>
+   -->
   </mapper>

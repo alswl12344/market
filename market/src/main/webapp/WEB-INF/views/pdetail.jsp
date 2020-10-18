@@ -25,6 +25,10 @@
 		$('#pdelete').on('click' , function(){
 			location.href="pdelete?pcode=" + ${Product.pcode};
 		})
+		
+		$('#pdeldelete').on('click' , function(){
+			location.href="pdeldelete?pcode=" + ${Product.pcode};
+		})
 
 	});
 	
@@ -73,6 +77,7 @@
 		<input class="btn btn-primary" type="button" value="목록으로 돌아가기"  id="plist" />
 		<input class="btn btn-warning" type="button" value="상품 수정하기"  id="pupdate" />
 		<input class="btn btn-danger" type="button" value="상품 삭제하기"  id="pdelete" />
+		<input class="btn btn-danger" type="button" value="삭제 상품 되돌리기"  id="pdeldelete" />
 		</div>
 	
 	</section>
