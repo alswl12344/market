@@ -14,9 +14,11 @@
 	function selChange() {
 		var sel = document.getElementById('cntPerPage').value;
 
-		location.href = "${contextPath }/dong/Product/ProductPagingSearch?nowPage=${paging.nowPage}&cntPerPage="
+		location.href = "${contextPath }/dong/Product/ProductPagingSearch2?nowPage=${paging.nowPage}&cntPerPage="
 				+ sel;
 	}
+	
+	
 </script>
 
 <body>
@@ -52,11 +54,11 @@
 				<td>상품수량</td>
 				<td>분류코드</td>
 			</tr>
-			<c:forEach var="Product" items="${viewAll }">
+			<c:forEach var="Product" items="${viewAll}">
 				<tr>
 					<td>${Product.pcode}</td>
 					<td><a href="pdetail?pcode=${Product.pcode}">
-					${Product.pname} </a></td>
+							${Product.pname} </a></td>
 					<td>${Product.pimage}</td>
 					<td>${Product.pdate}</td>
 					<td>${Product.plimit}</td>
@@ -70,28 +72,15 @@
 					type="button" value="메인으로" id="main" /> <input
 					class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert" />
 					<input class="btn btn-danger" type="button" value="삭제 상품 목록보기"
-					id="pdellist" /></td>
-				<td>
+					id="pdellist" />
 					<h6>상품 정렬</h6>
 					<button type="button" id="clothes">의류</button></td>
 			</tr>
 		</table>
-		
-		<div>
-			<form method ="post" action="${contextPath }/Product/ProductPagingSearch?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}">
-				<select name="SearchOption">
-					<option value="pname">제목</option>
-				</select> <input type="text" name="keyWord" id = "keyWord"/>
-<!-- 				<input type="hidden" name="nowPage" value="" /> -->
-<%-- 				<input type="hidden" name="cntPerPage" value="${paging.cntPerPage}"/> --%>
-				<button type="submit">검색</button>
-				</form>
-			</div>
-		</div>
 
 		<div style="display: block; text-align: center;">
 			<c:if test="${paging.startPage != 1 }">
-				<a href="${contextPath }/Product/ProductPagingSearch?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&keyWord=${paging.keyWord}">
+				<a href="${contextPath }/dong/Product/ProductPagingSearch2?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">
 					&lt; </a>
 			</c:if>
 			<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
@@ -100,19 +89,28 @@
 						<b>&nbsp; ${p } &nbsp;</b>
 					</c:when>
 					<c:when test="${p != paging.nowPage }">
-<%-- 					<c:if test ="${paging.keyWord !=null}  ">  --%>
-						<a href="${contextPath }/Product/ProductPagingSearch?nowPage=${p }&cntPerPage=${paging.cntPerPage}&keyWord=${paging.keyWord}">&nbsp;${p } &nbsp;</a>
-<%-- 					</c:if > --%>
-<%-- 						<a href="${contextPath }/Product/ProductPagingSearch?nowPage=${p }&cntPerPage=${paging.cntPerPage}">&nbsp;${p } &nbsp;</a> --%>
+						<a href="${contextPath }/dong/Product/ProductPagingSearch2?nowPage=${p }&cntPerPage=${paging.cntPerPage}">&nbsp;${p } &nbsp;</a>
 					</c:when>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${paging.endPage != paging.lastPage }">
-				<a href="${contextPath }/Product/ProductPagingSearch?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">
+				<a href="${contextPath }/dong/Product/ProductPagingSearch2?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">
 					&gt; </a>
 			</c:if>
 
-			
+			<div>
+			<form name="form1" method ="get" action = "/Product/ProductPagingSearch2">
+				<select name="SearchOption">
+					<option value="pname"<c:out value="${map.SearchOptiopn=='pname'?'selected':''}"/>>상품명</option>
+					
+				</select> 
+				<input name="KeyWord" value="${map.KeyWord }">
+				<input type="submit" value="조회">
+
+				<button type="button">검색</button>
+				</form>
+			</div>
+		</div>
 
 	</div>
 

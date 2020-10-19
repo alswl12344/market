@@ -1,6 +1,7 @@
 package kr.co.dong.Product;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -56,6 +57,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public int pdeldelete(int pcode) {
+		// TODO Auto-generated method stub
+		return productDAO.pdeldelete(pcode);
+	}
+
+	
+	@Override
 	public List<ProductDTO> pdellist() {
 		// TODO Auto-generated method stub
 		return productDAO.pdellist();
@@ -73,6 +81,31 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.selectProduct(pvo);
 	}
 
+	@Override
+	public List<ProductDTO> ProductSort(int ptcode) {
+		// TODO Auto-generated method stub
+		return productDAO.ProductSort(ptcode);
+	}
+
+	@Override
+	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.psearchlist(pvo);
+	}
+//
+//	@Override
+//	public int countArticle(String SearchOption, String KeyWord) throws Exception {
+//		// TODO Auto-generated method stub
+//		return productDAO.countArticle(SearchOption, KeyWord);
+//	}
+
+	@Override
+	public int countProduct2(PagingPVO pvo) {
+		// TODO Auto-generated method stub
+		return productDAO.countProduct2(pvo);
+	}
+
+	
 
 
 	
