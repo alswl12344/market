@@ -101,11 +101,11 @@ body {
 
 .topnav-right a:hover {
 	color: white;
-	background: #ced0f5;
+	background: #5f4f6e;
 }
 
 .topnav-right a:active {
-	color: #ced0f5;
+	color: #5f4f6e;
 }
 
 .topnav-right {
