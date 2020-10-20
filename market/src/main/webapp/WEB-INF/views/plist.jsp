@@ -14,13 +14,6 @@
 </head>
 <body>
 <%@include file="./include/header.jsp" %>
- <div class="wrapper">
-		<header class="main-header">
-			<div class="page-header">
-				<h1>상품 목록</h1>
-			</div>
-		</header>
-	</div>
  <div>${msg}</div>
 <div class="table-responsive">
   <table class="table">
@@ -52,7 +45,7 @@
 id="main" />
 <input class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert"/>
 <input class="btn btn-danger" type="button" value="삭제 상품 목록보기" id="pdellist"/>
-<h6>상품 정렬</h6><button type="button" id="btnClothes">의류</button>
+<h6>상품 정렬</h6><button type="button" id="clothes">의류</button>
 </td>
 </tr>
   </table>

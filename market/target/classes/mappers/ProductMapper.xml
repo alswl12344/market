@@ -25,16 +25,30 @@
   <!--  선택조회(글읽기)   -->
   <select id="pdetail" parameterType="java.lang.Integer" resultType="ProductDTO">
   	select *
-  	from product
-  	where pcode = #{pcode}
+  	from product 
+  	where pcode = #{pcode}  	
   </select>
- 
+  
+<!--   선택조회(등록된 이미지 불러오기) -->
+   <select id="pdetailimg" parameterType="java.lang.Integer" resultType="ImgDTO">
+  	select *
+  	from imagetable
+  	where imgfromno = #{imgfromno}
+  </select>
  
  <!-- 상품 등록하기 -->
   
   <insert id="pinsert" parameterType="ProductDTO">
-  insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcode, pcontent, pdel) 
-values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #{pcontent}, 0)
+  	insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcode, pcontent, pdel, puserid) 
+	values(#{pname}, #{pprice}, #{pcount}, now(), now(), 0, #{ptcode}, #{pcontent}, 0, #{puserid})
+  </insert>
+  
+
+ <!-- 이미지 등록하기 -->
+  
+  <insert id="pimageinsert" parameterType="ImgDTO">
+  	insert into imagetable(imgfrom, imgfromno, imgrealpath, imgviewpath) 
+	values(#{imgfrom}, #{imgfromno}, #{imgrealpath}, #{imgviewpath})
   </insert>
   
   <!-- 상품 수정하기 -->
@@ -57,16 +71,6 @@ values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #
   
   
   
-    <!-- 상품 삭제 복구하기 -->
-  
-  <update id="pdeldelete">
-  	update product
-  	set
-  	pdel= 0
-  	where pcode = #{pcode}
-  </update>
-  
-  
   <!-- 총 게시글 갯수 출력 -->
 <select id="countProduct" resultType="java.lang.Integer">
 	select count(*) from product where pdel = 0
@@ -75,53 +79,23 @@ values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #
   <!-- 전체목록수(페이징 처리) -->
 	<select id="selectProduct" resultType="ProductDTO">
 		select
-		@rownum rn, product.*
+		@rownum:=@rownum+1 as no, product.*
 		from product
 		where (@rownum:=0)=0 and pdel = 0
 		order by pcode desc
 		limit #{start}, #{cntPerPage}
 		
 	</select>
-
   
-
   
-
   
-  <!-- 특정 속성으로 상품 정렬하기
   
-  <select id="" parameterType="java.lang.Integer" resultType="ProductDTO">
-  	select *
-  	from product
-  	where pdel = 0,
-  </select>
-   -->
   
-    <!-- 속성 게시글 갯수 출력 -->
-<select id="countProduct2" parameterType="PagingPVO" resultType="java.lang.Integer">
-	select count(*) from product
-	where 
-	pname like CONCAT('%',#{keyWord},'%') 
-	and pdel = 0
-</select>
   
-<!-- 검색하기 -->
-  <select id="psearchlist" resultType="ProductDTO" parameterType="PagingPVO">
-  select pcode, pname, pprice, pcount, pdate, plimit, pimage, ptcode, pcontent
-  from product
-  where 
-  pname like CONCAT('%',#{keyWord},'%')
-  or pcontent like CONCAT('%',#{keyWord},'%')
-  and pdel = 0
-  order by pcode desc
-limit #{start}, #{cntPerPage}
-
-  </select>
   
-<!--  게시글 레코드 갯수
-  <select id="countArticle" resultType="java.lang.Integer">
-  	select count(*) from product
-   where pname like CONCAT('%',#{KeyWord},'%')
-  </select>
-   -->
+  <!-- 특정 속성으로 상품 정렬하기 -->
+  
+  <!-- 상품 검색하기 -->
+  
+  
   </mapper>

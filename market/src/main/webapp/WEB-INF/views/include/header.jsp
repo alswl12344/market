@@ -13,10 +13,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
+<script>
+	var media = window.matchMedia(mediaQueryString);
+</script>
 <style>
-
 @font-face {
 	font-family: 'SDKukdetopokki-Lt';
 	src:
@@ -49,41 +49,12 @@
  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
 }
 
-@font-face {
-    font-family: 'KyoboHand';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/KyoboHand.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: '777Newyorkers';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/777Newyorkers.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-::moz-selection {
-	background: #ced0f5;
-}
-
-::selection {
-	background: #ced0f5;
-}
-
-body {
-	font-family: 'NanumBarunGothic';
-}
-
 .topnav {
-	overflow : visible;
-	height : 40px;
+	overflow: hidden;
 	background-color: white;
+	height: 40px;
 	font-size: 5pt;
-	padding : 0 2px;
 }
-
-
 
 .nav-logo {
 	width: 25px;
@@ -100,37 +71,24 @@ body {
 
 .topnav-right a:hover {
 	color: white;
-	background: #5f4f6e;
+	background: #ced0f5;
 }
 
 .topnav-right a:active {
-	color: #5f4f6e;
+	color: #ced0f5;
 }
 
 .topnav-right {
 	float: right;
 }
 
-.dropdown-menu {
-    position:absolute;
-    left: 0;
-    top: 0 /*according to your menu height */
-}
-
-
-@media (max-width:768px) {
-	
-
-}
-
 .logo {
-	margin: 0 0 20px 0;
+	margin: 40px 0 50px 0;
 	text-align: center;
-	float: center;
 }
 
 .logo-detail {
-	width: 200px;
+	width: 150px;
 }
 
 .main-footer {
@@ -144,118 +102,19 @@ body {
 
 .box-title {
 	font-family: 'SDKukdetopokki-Lt';
-	font-size: 22pt;
+	font-size: 18pt;
 	padding: 10px 20px;
+	background-color: #f0f0f0;
 	text-align: center;
 }
 
-.product-container {
-	margin-top: 40px;
-}
-
 .container {
-	margin-top: 20px;
-	animation: fadein 2s;
-    -moz-animation: fadein 2s; 
-    -webkit-animation: fadein 2s; 
-    -o-animation: fadein 2s; 
-}
-
-@keyframes fadein {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-@-moz-keyframes fadein { /* Firefox */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-@-webkit-keyframes fadein { /* Safari and Chrome */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-@-o-keyframes fadein { /* Opera */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity: 1;
-    }
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 .product-galley-i {
-	text-align: left;
-	width : 100%;
-}
-
-.product-galley-title {
-	margin-top : 10px;
-	font-size : 14pt;
-	font-family: 'NanumBarunGothic';
-	line-height: 180%;
-}
-
-.search-sign {
-	text-align : right;
-	font-size : 10pt;
-}
-
-.search-sign a {
-	text-decoration: none;
-	color : black;
-}
-
-.search-sign a:hover {
-	color: #ced0f5;
-}
-
-
-.content {
-	margin : 0 30%;
-}
-
-.login-box {
-	position : absolute;
-	width : 100%;
-	padding : 10px;
-	height: 50px;
-	display : block;
-	margin : auto;
-}
-
-.login-button {
-	width : 100%;
-	height : 50px;
-	display : block;
-	background-color: #5f4f6e;
-	color : white;
-	font-weight: bold;
-	border: 0;
-	outline: 0;
-	margin : 10px 0;
-}
-
-.signup-button {
-	width : 100%;
-	height : 50px;
-	display : block;
-	background-color: white;
-	color : #5f4f6e;
-	font-weight: bold;
-	border: 0;
-	outline: none;
-	margin : 10px 0;
+	text-align: center;
 }
 
 .main-footer{
@@ -268,7 +127,6 @@ body {
 
 .footer-contact{
 	text-align: center;
-	
 }
 
 .footer-detail {
@@ -282,16 +140,6 @@ body {
 </style>
 </head>
 <body>
-	<script>
-	$(window).resize(function(){
-		if($(window).width()>768) {
-			
-			
-		} else {
-					
-		}
-	});
-	</script>
 	<div class="topnav">
 			<a class="navbar-brand" href="${pageContext.request.contextPath}">
 				<img src="https://img.icons8.com/dusk/2x/eggplant.png" class="nav-logo">
@@ -305,22 +153,17 @@ body {
 			</c:if>
 			<c:if test="${user!=null }">
 			<li class="nav-item">
-				<a class="nav-link" href="${contextPath }/user/logout">${user.userid }님 로그아웃</a>
+				<a class="nav-link" href="#">${user.username }님</a>
 			</li>
-				<div>
-				 <li class="nav-item dropdown">
-			     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-			     	마이페이지
-			     </a>
-			     <div class="dropdown-menu">
-			       <a class="dropdown-item" href="${contextPath }/delivery/management">주소지 관리</a>
-			       <a class="dropdown-item" href="${contextPath }/delivery/dview">배송 현황</a>
-			     </div>
-			    </li>
-			    </div>
+			<li class="nav-item">
+				<a class="nav-link" href="${contextPath }/user/logout">로그아웃</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${contextPath }/Product/pinsert">상품등록</a>
+			</li>
 			</c:if>
 			<li class="nav-item">
-    			<a class="nav-link" href="${contextPath }/Product/ProductPaging">상품목록</a>
+    			<a class="nav-link" href="${contextPath }/Product/plist">상품목록</a>
     		</li>
     		<li class="nav-item">
     			<a class="nav-link" href="#">특가상품</a>
@@ -332,15 +175,21 @@ body {
     			<a class="nav-link" href="#">고객센터</a>
     		</li>
     		<li class="nav-item">
-    			<a class="nav-link" href="${contextPath }/delivery/management">이벤트</a>
+    			<a class="nav-link" href="#">이벤트</a>
     		</li>
     		<c:if test="${user==null }">
     			<li class="nav-item">
 					<a class="nav-link" href="${contextPath }/user/join">회원가입</a>
 				</li>
 			</c:if>
-			
+			<c:if test="${user!=null }">
+				<li class="nav-item">
+					<a class="nav-link" href="#">구매내역</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">장바구니</a>
+				</li>
+			</c:if>
 			</ul>
 			</div>
 	</div>
-	

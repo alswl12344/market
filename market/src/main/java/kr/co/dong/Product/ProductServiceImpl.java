@@ -1,11 +1,12 @@
 package kr.co.dong.Product;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+
+import kr.co.dong.ImgDTO;
 
 
 @Service
@@ -57,13 +58,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int pdeldelete(int pcode) {
-		// TODO Auto-generated method stub
-		return productDAO.pdeldelete(pcode);
-	}
-
-	
-	@Override
 	public List<ProductDTO> pdellist() {
 		// TODO Auto-generated method stub
 		return productDAO.pdellist();
@@ -82,30 +76,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> ProductSort(int ptcode) {
+	public int pimageinsert(ImgDTO imgDTO) {
 		// TODO Auto-generated method stub
-		return productDAO.ProductSort(ptcode);
+		return productDAO.pimageinsert(imgDTO);
 	}
 
 	@Override
-	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception {
+	public List<ImgDTO> pdetailimg(int imgfromno) {
 		// TODO Auto-generated method stub
-		return productDAO.psearchlist(pvo);
-	}
-//
-//	@Override
-//	public int countArticle(String SearchOption, String KeyWord) throws Exception {
-//		// TODO Auto-generated method stub
-//		return productDAO.countArticle(SearchOption, KeyWord);
-//	}
-
-	@Override
-	public int countProduct2(PagingPVO pvo) {
-		// TODO Auto-generated method stub
-		return productDAO.countProduct2(pvo);
+		return productDAO.pdetailimg(imgfromno);
 	}
 
-	
 
 
 	

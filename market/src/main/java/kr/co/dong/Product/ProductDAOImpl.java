@@ -11,15 +11,14 @@
 
 package kr.co.dong.Product;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.dong.ImgDTO;
 import kr.co.dong.board.PagingVO;
 
 
@@ -79,13 +78,6 @@ public class ProductDAOImpl implements ProductDAO{
 
 
 	@Override
-	public int pdeldelete(int pcode) {
-		// TODO Auto-generated method stub
-		return sqlSession.update(namespace+".pdeldelete", pcode);
-	}
-
-
-	@Override
 	public List<ProductDTO> pdellist() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".pdellist");
@@ -107,35 +99,17 @@ public class ProductDAOImpl implements ProductDAO{
 
 
 	@Override
-	public List<ProductDTO> ProductSort(int ptcode) {
+	public int pimageinsert(ImgDTO imgDTO) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".ProductSort", ptcode);
+		return sqlSession.insert(namespace+".pimageinsert", imgDTO);
 	}
 
 
 	@Override
-	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception {
-	
-		return sqlSession.selectList(namespace+".psearchlist", pvo);
-	}
-//
-//
-//	@Override
-//	public int countArticle(String SearchOption, String KeyWord) throws Exception {
-//		// 검색 옵션, 키워드 맵에 저장
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("SearchOption", SearchOption);
-//		map.put("KeyWord", KeyWord);
-//		return sqlSession.selectOne(namespace+".countArticle", map);
-//	}
-
-
-	@Override
-	public int countProduct2(PagingPVO pvo) {
+	public List<ImgDTO> pdetailimg(int imgfromno) {
 		// TODO Auto-generated method stub
-		 return sqlSession.selectOne(namespace+".countProduct2", pvo);
+		return sqlSession.selectList(namespace+".pdetailimg", imgfromno);
 	}
-
 
 
 

@@ -25,10 +25,6 @@
 		$('#pdelete').on('click' , function(){
 			location.href="pdelete?pcode=" + ${Product.pcode};
 		})
-		
-		$('#pdeldelete').on('click' , function(){
-			location.href="pdeldelete?pcode=" + ${Product.pcode};
-		})
 
 	});
 	
@@ -48,9 +44,21 @@
 				</div>
 				<div class="form-group">
 					<label>상품 이미지</label>
-					<textarea name="content" rows="5" readonly="readonly"
-						class="form-control">${Product.pimage}</textarea>
+					<c:forEach var="img" items="${Image }">
+ 					<tr>
+ 					<td><img src = "${img.imgviewpath}"/></td>					
+ 					
+ 					</tr>
+ 					</c:forEach>
 				</div>
+<!-- 				 	<td><img src = "C:\\Users\\YONSAI\\git\\market2\\market\\src\\main\\webapp\\resources\\images\\1603097099545구글.PNG"/></td> -->
+				 	<td><img src = "..\\resources\\images\\1603097099545구글.PNG"/></td>
+				 	<td><img src = "../resources/images/1603097099545구글.PNG"/></td>
+<!--  					<td><img src = "C:\Users\YONSAI\git\market2\market\src\main\webapp\resources\images\1603097099545구글.PNG"/></td> 					 -->
+<!--  					<td><img src = "..\webapp\resources\images\1603097099545구글.PNG"/></td> 					 -->
+<!--  					<td><img src = "..//market//src//main//webapp//resources//images//1603097099545구글.PNG"/></td> 					 -->
+<!--  					<td><img src = "..\market\src\main\webapp\resources\images\1603097099545구글.PNG"/></td> 					 -->
+<!--  					<td><img src = "..\\market\\src\\main\\webapp\\resources\\images\\1603097099545구글.PNG"/></td>  -->
 				<div class="form-group">
 					<label>상품 설명</label>
 					<textarea name="content" rows="5" readonly="readonly"
@@ -77,7 +85,6 @@
 		<input class="btn btn-primary" type="button" value="목록으로 돌아가기"  id="plist" />
 		<input class="btn btn-warning" type="button" value="상품 수정하기"  id="pupdate" />
 		<input class="btn btn-danger" type="button" value="상품 삭제하기"  id="pdelete" />
-		<input class="btn btn-danger" type="button" value="삭제 상품 되돌리기"  id="pdeldelete" />
 		</div>
 	
 	</section>

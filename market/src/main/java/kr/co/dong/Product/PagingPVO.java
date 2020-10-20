@@ -6,33 +6,23 @@ public class PagingPVO {
 	// 현재페이지, 시작페이지, 끝페이지, 게시글 총 갯수, 페이지당 글 갯수, 마지막페이지, SQL쿼리에 쓸 start, end
 		private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end, exPage;
 		private int cntPage = 10;
-		private String keyWord;
 		
-	
 		public PagingPVO() {
 		}
-		public PagingPVO(int total, int nowPage, int cntPerPage, String keyWord) {
+		public PagingPVO(int total, int nowPage, int cntPerPage) {
 			setNowPage(nowPage);
 			setCntPerPage(cntPerPage);
 			setTotal(total);
-			if(keyWord!=null) {
-				setkeyWord(keyWord);
-				System.out.println("누구나 : "+keyWord);
-			} else {
-				setkeyWord("");
-			}
-			
 			calcLastPage(getTotal(), getCntPerPage());
 			calcStartEndPage(getNowPage(), cntPage);
 			calcStartEnd(getNowPage(), getCntPerPage());
-			
 		}
 		
 		// DB 쿼리에서 사용할 start, end 값 계산
 		private void calcStartEnd(int nowPage, int cntPerPage) {
 			// TODO Auto-generated method stub
 			setEnd(nowPage * cntPerPage);
-			setStart(getEnd() - cntPerPage);
+			setStart(getEnd() - cntPerPage + 1);
 			if(nowPage > lastPage) {
 				setExPage(lastPage);
 			}else {
@@ -47,7 +37,7 @@ public class PagingPVO {
 			if(getLastPage() < getEndPage()) {
 				setEndPage(getLastPage());
 			}
-			setStartPage(getEndPage() - cntPage);
+			setStartPage(getEndPage() - cntPage + 1);
 			if(getStartPage() < 1) {
 				setStartPage(1);
 			}
@@ -59,12 +49,7 @@ public class PagingPVO {
 			setLastPage((int)Math.ceil((double)total / (double)cntPerPage));
 		}
 		
-		public String getkeyWord() {
-			return keyWord;
-		}
-		public void setkeyWord(String keyWord) {
-			this.keyWord = keyWord;
-		}
+		
 		public int getNowPage() {
 			return nowPage;
 		}
@@ -125,11 +110,11 @@ public class PagingPVO {
 		public void setExPage(int exPage) {
 			this.exPage = exPage;
 		}
+		
 		@Override
 		public String toString() {
-			return "PagingPVO [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total="
-					+ total + ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end="
-					+ end + ", exPage=" + exPage + ", cntPage=" + cntPage + ", keyWord=" + keyWord + "]";
+			return "PagingVO [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total=" + total
+					+ ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end
+					+ ", exPage=" + exPage + ", cntPage=" + cntPage + "]";
 		}
-	
 	}

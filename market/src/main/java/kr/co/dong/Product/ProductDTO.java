@@ -10,8 +10,16 @@ public class ProductDTO {
 	private String pimage;
 	private int ptcode;
 	private String pcontent;
+	private String puserid;
 	private int pdel;
 	
+	
+	public String getPuserid() {
+		return puserid;
+	}
+	public void setPuserid(String puserid) {
+		this.puserid = puserid;
+	}
 	public int getPcode() {
 		return pcode;
 	}
@@ -76,8 +84,9 @@ public class ProductDTO {
 	public String toString() {
 		return "ProductDTO [pcode=" + pcode + ", pname=" + pname + ", pprice=" + pprice + ", pcount=" + pcount
 				+ ", pdate=" + pdate + ", plimit=" + plimit + ", pimage=" + pimage + ", ptcode=" + ptcode
-				+ ", pcontent=" + pcontent + ", pdel=" + pdel + "]";
+				+ ", pcontent=" + pcontent + ", puserid=" + puserid + ", pdel=" + pdel + "]";
 	}
+
 
 
 }

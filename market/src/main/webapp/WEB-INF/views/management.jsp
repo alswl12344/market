@@ -27,9 +27,10 @@
 		<!-- sidebar: style can be found in sidebar.less -->
 		<section class="sidebar">
 			<ul class="nav nav-tabs">
-				<div align="right">
+				<li role="presentation" class="active">주소록 관리</li>
 				<button onclick='location.href="minsert"' class="btn btn-primary" style="float:right">등록</button>
-				</div>
+	
+				
 			</ul>
 		</section>
 		<!-- /.sidebar -->

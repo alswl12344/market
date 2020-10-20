@@ -10,6 +10,6 @@
  		<typeAlias alias="ManagementDTO" type="kr.co.dong.delivery.ManagementDTO"/>
  		 <typeAlias alias="ProductDTO" type="kr.co.dong.Product.ProductDTO" />
  		 <typeAlias alias="UserDTO" type="kr.co.dong.user.UserDTO"/>
- 		 <typeAlias alias="PagingPVO" type="kr.co.dong.Product.PagingPVO"/>
+ 		 <typeAlias alias="ImgDTO" type="kr.co.dong.ImgDTO"/>
  	</typeAliases>
  </configuration>
