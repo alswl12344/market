@@ -14,7 +14,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="logo">
-					<img src="../resources/image/logo.png" class="logo-detail" />
+					<img src="../resources/logo/logo.png" class="logo-detail" />
 				</div>
 				<div class="box-header">
 					<span class="box-title">비밀번호 찾기</span>
