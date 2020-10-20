@@ -127,7 +127,7 @@
 		// val = value
 		var editmemo = $("#editmemo").val();
 		console.log(rewriter);
-		var url = "${pageContext.request.contextPath}/board/replyUpdate2"; //아작스 수정
+		var url = "${pageContext.request.contextPath}/board/replyUpdate"; //아작스 수정
 		var paramData = {
 				"reno" : reno,
 				"rewriter" : rewriter,

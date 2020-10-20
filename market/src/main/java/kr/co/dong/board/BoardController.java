@@ -42,15 +42,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="board/selectCategory",method=RequestMethod.POST)
-	public ModelAndView Category(@RequestParam("sbcode") int sbcode) {
+	public ModelAndView Category(@RequestParam("bcategory") int bcategory) {
 		ModelAndView mav = new ModelAndView();
-		String category = boardService.SelectCategory(sbcode);
-		mav.addObject("category", category);
-		mav.setViewName("category");
+		String category = boardService.SelectCategory(bcategory);
 		return mav;
 	}
 	
-	// 글 작성
 	@RequestMapping(value="board/insert", method=RequestMethod.GET)
 	public String MoveInsert() {
 		return "insert";
@@ -70,7 +67,7 @@ public class BoardController {
 	@RequestMapping(value="board/detail",method=RequestMethod.GET)
 	public String Detail(@RequestParam("bno") int bno, Model model) {
 		// 조회수 증가와 글읽기 ===> service에서 처리해야함.
-		boardService.ListDetail(bno);
+		boardService.RreadCnt(bno);
 		BoardDTO boardDTO = boardService.ListDetail(bno);
 		model.addAttribute("board", boardDTO);
 		return "detail";

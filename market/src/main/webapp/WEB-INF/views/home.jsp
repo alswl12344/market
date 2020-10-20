@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <html>
 <head>
-<title>Home</title>
+<title>가지마켓</title>
 </head>
 <body>
 
