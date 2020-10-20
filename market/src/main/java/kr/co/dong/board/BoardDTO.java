@@ -8,8 +8,8 @@ public class BoardDTO {
 	private String bwriter;
 	private String bdate;
 	private int breadcnt;
-	private int sbcode;
-	private String sbname;
+	private int bcategory;
+	private String bcategorydetail;
 	
 	public int getBno() {
 		return bno;
@@ -47,25 +47,25 @@ public class BoardDTO {
 	public void setBreadcnt(int breadcnt) {
 		this.breadcnt = breadcnt;
 	}
-	public int getSbcode() {
-		return sbcode;
+	public int getbcategory() {
+		return bcategory;
 	}
-	public void setSbcode(int sbcode) {
-		this.sbcode = sbcode;
+	public void setbcategory(int bcategory) {
+		this.bcategory = bcategory;
 	}
 	
 	
-	public String getSbname() {
-		return sbname;
+	public String getbcategorydetail() {
+		return bcategorydetail;
 	}
-	public void setSbname(String sbname) {
-		this.sbname = sbname;
+	public void setbcategorydetail(String bcategorydetail) {
+		this.bcategorydetail = bcategorydetail;
 	}
 	
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", btitle=" + btitle + ", bcontent=" + bcontent + ", bwriter=" + bwriter
-				+ ", bdate=" + bdate + ", breadcnt=" + breadcnt + ", sbcode=" + sbcode + ", sbname=" + sbname + "]";
+				+ ", bdate=" + bdate + ", breadcnt=" + breadcnt + ", bcategory=" + bcategory + ", bcategorydetail=" + bcategorydetail + "]";
 	}
 	
 	

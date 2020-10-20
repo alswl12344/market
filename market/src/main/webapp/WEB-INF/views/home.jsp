@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <html>
 <head>
-<title>Home</title>
+<title>가지마켓</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 <%@include file="include/header.jsp"%>

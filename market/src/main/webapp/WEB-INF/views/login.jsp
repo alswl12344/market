@@ -8,7 +8,7 @@
 <head>
 <title>Home</title>
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
 	<%@include file="include/header.jsp"%>
 	<div class="container">

@@ -13,6 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 <style>
@@ -246,7 +247,37 @@ body {
 	margin : 10px 0;
 }
 
+
+.search-table {
+	width : 100%;
+	vertical-align : middle;
+}
+
+.input-tr {
+	width : 50px;
+	padding : 5px;
+}
+
+.searchid-box {
+	width : 100%;
+	height: 40px;
+	display : block;
+	margin : auto;
+}
+
 .signup-button {
+	width : 100%;
+	height : 50px;
+	display : block;
+	background-color: white;
+	color : #5f4f6e;
+	font-weight: bold;
+	border: 0;
+	outline: none;
+	margin : 10px 0;
+}
+
+.search-button {
 	width : 100%;
 	height : 50px;
 	display : block;
@@ -267,7 +298,7 @@ body {
 }
 
 .footer-contact{
-	text-align: center;
+	line-height: 250%;
 	
 }
 

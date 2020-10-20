@@ -36,7 +36,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 조회수
 	@Override
 	public int RreadCnt(int bno) {
-		return sqlSession.update(nameSpace + ".updateReadCnt", bno);
+		return sqlSession.update(nameSpace + ".rreadCnt", bno);
 	}
 
 	// 글 수정
@@ -94,8 +94,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public String SelectCategory(int sbcode) {
-		return sqlSession.selectOne(nameSpace+".selectCategory", sbcode);
+	public String SelectCategory(int bcategory) {
+		return sqlSession.selectOne(nameSpace+".selectCategory", bcategory);
 	}
 
 	

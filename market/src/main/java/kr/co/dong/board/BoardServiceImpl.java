@@ -83,8 +83,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public String SelectCategory(int sbcode) {
-		return boardDAO.SelectCategory(sbcode);
+	public String SelectCategory(int bcategory) {
+		return boardDAO.SelectCategory(bcategory);
 	}
 	
 	

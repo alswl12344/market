@@ -19,8 +19,8 @@
   	
   	<!-- 글 추가 -->
   	<insert id="insert" parameterType="BoardDTO">
-  		insert into board(bno,btitle,bcontent,bwriter,bdate,breadcnt,sbcode)
-  		values(#{bno},#{btitle},#{bcontent},#{bwriter},curdate(),0,#{sbcode})
+  		insert into board(bno,btitle,bcontent,bwriter,bdate,breadcnt,bcategory,bcategorydetail)
+  		values(#{bno},#{btitle},#{bcontent},#{bwriter},curdate(),0,#{bcategory},#{bcategorydetail})
   	</insert>
   		
   	 <!-- 글 수정하는 SQL -->
@@ -40,7 +40,7 @@
   	</delete>
   	
   	<!-- 조회수 1 증가시키는 SQL -->
-  	 <update id="updatereadcnt" parameterType="java.lang.Integer">
+  	 <update id="rreadCnt" parameterType="java.lang.Integer">
   	 	update board
   	 	set
   	 	breadcnt = breadcnt + 1
@@ -102,9 +102,9 @@
 	
 	<!-- 카테고리 -->
 	<select id="selectCategory" parameterType="java.lang.Integer">
-		select sbcode
+		select bcategory
 		from board_category
-		where sbname=#{sbname}
+		where bcategorydetail=#{bcategorydetail}
 	</select>
 	
   </mapper>

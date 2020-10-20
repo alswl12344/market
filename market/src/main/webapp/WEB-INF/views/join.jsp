@@ -22,7 +22,7 @@
 				<div class="box-body">
 					<div class="form-group">
 						<label>아이디 : </label> 
-						<input type="text"	name="userid" class="form-control" placeholder="ID를 입력하세요">
+						<input type="text"	name="userid" class="form-control" placeholder="아이디를 입력하세요">
 					</div>					
 					<div class="form-group">
 						<label>비밀번호 : </label>
@@ -34,7 +34,7 @@
 					</div>
 					<div class="form-group">
 						<label>생년월일</label> 
-						<input type="text" name="birth" class="form-control" placeholder="예)200101">
+						<input type="text" name="birth" class="form-control" placeholder="예)20200101">
 					</div>
 					<div class="form-group">
 						<label>E-mail</label> 

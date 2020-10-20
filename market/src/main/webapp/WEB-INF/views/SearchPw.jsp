@@ -6,22 +6,52 @@
 
 <html>
 <head>
-<title>아이디 찾기</title>
+<title>비밀번호 찾기</title>
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	<%@include file="include/header.jsp"%>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="logo">
+					<img src="../resources/image/logo.png" class="logo-detail" />
+				</div>
+				<div class="box-header">
+					<span class="box-title">비밀번호 찾기</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
 	<section class="content">
-
-		<Form method="post">
-			아이디 : <input type="text" name="userid" id="userid" /><br> 생년월일
-			: <input type="text" name="birth" id="birth" /><br> 연락처 : <input
-				type="text" name="phone" id="phone" /><br> <input type="button"
-				value="비밀번호찾기" id="btnSearchPw" />
-		</Form>
+		<form method="post">
+		<table class="search-table">
+			<tr class="input-tr">
+				<td class="input-title">아이디</td>
+				<td class="input-info"><input type="text" name="userid" id="userid" class="searchid-box"/><br></td>
+			</tr>
+			<tr class="input-tr">
+				<td class="input-title">생년월일</td>
+				<td class="input-info"><input type="text" name="birth" id="birth" class="searchid-box"/><br></td>
+			</tr>
+			<tr class="input-tr">
+				<td class="input-title">연락처</td>
+				<td class="input-info"><input type="text" name="phone" id="phone" class="searchid-box"/><br></td>
+			</tr>
+		</table>
+				<input type="button" value="비밀번호 찾기" id="btnSearchPw" class="login-button"/>
+				<button type="button" class="search-button">로그인으로 이동</button>
+				<div id="answer"></div>
+		</form>
 
 	</section>
-
+	<br>
+	<br>
+	</div>
+	</div>
+	</div>
 	<div id="answer"></div>
 
 	<script>
@@ -53,24 +83,38 @@
 					dataType : 'json',
 					success : function(result) { // 사용자가 정하는 임의의 변수
 						console.log(result);
-						alert("비밀번호 찾기 성공");
+						Swal.fire({
+							icon : 'success',
+							title : '비밀번호 찾기에 성공하였습니다!',
+							text : '해당 아이디의 비밀번호는 '+result+'입니다.'
+							
+						})
 						if (result == null) { // result값의 크기를 조건으로 댓글이 있는지 확인  / 리턴된 값이 있다 => 길이가 1보다 크다
 							htmls = htmls + ("<h3>입력한 정보를 확인해주세요.</h3>");
 						} else {
-							htmls = htmls + "<div>" + result + "</div>";
+							htmls = htmls + "<div></div>";
 						}
 						$("#answer").html(htmls)
 					},
 					error : function(msg) {
 						console.log(msg);
-						alert("비밀번호 찾기 실패");
-						htmls = htmls + ("<h3>입력한 정보를 확인해주세요.</h3>");
+						Swal.fire({
+							icon : 'error',
+							title : '비밀번호 찾기에 실패하였습니다!',
+							text : '입력된 정보를 다시 한 번 확인해주세요.'
+						})
+						htmls = htmls + ("<div></div>");
 						$("#answer").html(htmls)
 					}
 				});
 
 			});
 		});
+		$(function(){
+			$(".search-button").click(function(){
+				location.href="login"
+			});
+		})
 	</script>
 	<%@include file="include/footer.jsp"%>
 

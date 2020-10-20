@@ -49,6 +49,6 @@ public interface BoardDAO {
 	public List<BoardDTO> SelectBoard(PagingVO vo);
 	
 	// 카테고리 불러오기
-	public String SelectCategory(int sbcode);
+	public String SelectCategory(int bcategory);
 	
 }
