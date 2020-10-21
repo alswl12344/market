@@ -82,9 +82,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> ProductSort(int ptcode) {
+	public int productSort(int ptcode) {
 		// TODO Auto-generated method stub
-		return productDAO.ProductSort(ptcode);
+		return productDAO.productSort(ptcode);
 	}
 
 	@Override
@@ -92,17 +92,18 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.psearchlist(pvo);
 	}
-//
-//	@Override
-//	public int countArticle(String SearchOption, String KeyWord) throws Exception {
-//		// TODO Auto-generated method stub
-//		return productDAO.countArticle(SearchOption, KeyWord);
-//	}
+
 
 	@Override
 	public int countProduct2(PagingPVO pvo) {
 		// TODO Auto-generated method stub
 		return productDAO.countProduct2(pvo);
+	}
+
+	@Override
+	public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.productSortList(spvo);
 	}
 
 	

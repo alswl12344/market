@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -85,42 +86,9 @@ public class ProductController {
 			if(r>0) {
 				rttr.addFlashAttribute("msg", "상품 등록 성공");
 			} 
-			return "redirect:ProductPagingSearchSearch";
+			return "redirect:ProductPaging";
 		}		
-	//상품 정렬(Sort)
-		
-
-		@SuppressWarnings("unchecked")
-		@RequestMapping(value="Product/ProductSort", method = RequestMethod.POST)
-		public ModelAndView ProductSort(@RequestParam("ptcode") int ptcode) {
-			
-			ModelAndView mav = new ModelAndView();
-			List<ProductDTO> plist = productService.ProductSort(ptcode);
-			JSONArray jsonArray = new JSONArray();
-			
-			for (ProductDTO pt: plist) {
-
-				
-				
-				jsonArray.add(pt.getPcode()); 
-				jsonArray.add(pt.getPname()); 
-				jsonArray.add(pt.getPimage()); 
-				jsonArray.add(pt.getPdate()); 
-				jsonArray.add(pt.getPlimit()); 
-				jsonArray.add(pt.getPprice()); 
-				jsonArray.add(pt.getPcount()); 
-				jsonArray.add(pt.getPtcode()); 
-				}
-			
-			mav.addObject("ProductSort", jsonArray);
-			mav.addObject("ProductSortl", plist);
-			mav.setViewName("ProductPagingSearch");
-			logger.info("ptcode는 " + Integer.toString(ptcode));
-			
-			return mav;
-			
-		}
-		
+	
 	
 	//상품 수정 GET
 		
@@ -140,7 +108,7 @@ public class ProductController {
 			
 			if(r>0) {
 				rttr.addFlashAttribute("msg", "상품 수정 성공");			
-			return "redirect:ProductPagingSearch";
+			return "redirect:ProductPaging";
 			
 			}
 			//수정에 성공하면 수정된 상품 목록으로 
@@ -157,21 +125,21 @@ public class ProductController {
 			if(r>0) {
 				rttr.addFlashAttribute("msg","상품 삭제 성공");
 				
-				return "redirect: ProductPagingSearch";
+				return "redirect: ProductPaging";
 			}
 			
 			return "redirect:detail?pcode=" + pcode;
 					}
 	
-	//상품 삭제 복구ㄴ
+	//상품 재등록
 		
 		@RequestMapping(value="Product/pdeldelete", method = RequestMethod.GET)
 		public String pdeldelete(@RequestParam("pcode") int pcode, RedirectAttributes rttr) {
 			int r = productService.pdeldelete(pcode);
 			if(r>0) {
-				rttr.addFlashAttribute("msg","상품 복구 성공");
+				rttr.addFlashAttribute("msg","상품 재등록 성공");
 				
-				return "redirect: ProductPagingSearch";
+				return "redirect: ProductPaging";
 			}
 			
 			return "redirect:detail?pcode=" + pcode;
@@ -241,34 +209,71 @@ public class ProductController {
 				model.addAttribute("paging", pvo);
 				model.addAttribute("viewAll", productService.psearchlist(pvo));
 				
-//				
-//			   ModelAndView mav = new ModelAndView();
-//			   mav.addObject("psearchlist", model);
-//			   mav.setViewName("ProductPagingSearch");
 				return "ProductPagingSearch";
 			}
 		   
-//		   //게시글 목록
-//		   @RequestMapping(value="Product/ProductPagingSearchSearch2", method=RequestMethod.GET)
-//		   public ModelAndView plistAll(@RequestParam(defaultValue = "pname")String SearchOption, @RequestParam(defaultValue="")String KeyWord) throws Exception
-//		   {
-//			 List<ProductDTO> plistAll = productService.plistAll(SearchOption, KeyWord);  
-//			 //레코드의 갯수
-//			 int count= productService.countArticle(SearchOption, KeyWord);
-//			 //모델과 뷰
-//			 ModelAndView mav = new ModelAndView();
-//			 //데이터를 맵에 저장
-//			 
-//			 
-//			 Map<String, Object> map = new HashMap<String, Object>();
-//			 map.put("plistAll", plistAll);
-//			 map.put("count", count);
-//			 map.put("SearchOption", SearchOption);
-//			 map.put("KeyWord", KeyWord);
-//			 mav.addObject("map", map);
-//			 mav.setViewName("Product/ProductPagingSearchSearch2");
-//			 
-//			 return mav;
-//		   
+		   
+		   
+		   
+		   
+		   
+		   // 상품 정렬 처리 GET
+		   
+		   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.GET)
+		   public String ProductSortList1 (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcode") int ptcode)throws Exception  {
+			   
+			   logger.info("상품정렬코드: "+ptcode);
+			   // 전체 숫자
+			   int total = productService.productSort(ptcode);
+				if(nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "5";
+				} else if(nowPage == null) {
+					nowPage = "1";
+				} else if(cntPerPage == null) {
+					cntPerPage = "5";
+				}
+			
+				spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcode);
+			
+				model.addAttribute("paging", spvo);
+				model.addAttribute("viewAll", productService.productSortList(spvo));
+				
+				return "ProductPagingSort";
+			}
+		   
+		   
+		   // 상품 정렬 처리 POST 
+		   
+		   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.POST)
+		   public String ProductSortList (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcode") int ptcode)throws Exception  {
+			   
+			
+			   // 전체 숫자
+			   int total = productService.productSort(ptcode);
+				if(nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "5";
+				} else if(nowPage == null) {
+					nowPage = "1";
+				} else if(cntPerPage == null) {
+					cntPerPage = "5";
+				}
+		
+				spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcode);
+			
+				model.addAttribute("paging", spvo);
+				model.addAttribute("viewAll", productService.productSortList(spvo));
+				
+				logger.info("ptcode는: "+  ptcode);
+				
+				return "ProductPagingSort";
+			}
+		   
+		   
+		   
+		   
+		   
+		   
 		   
 }

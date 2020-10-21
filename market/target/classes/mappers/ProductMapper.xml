@@ -90,12 +90,39 @@ values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #
   
   <!-- 특정 속성으로 상품 정렬하기
   
-  <select id="" parameterType="java.lang.Integer" resultType="ProductDTO">
+  <select id="ProductSort" parameterType="java.lang.Integer" resultType="ProductDTO">
   	select *
   	from product
-  	where pdel = 0,
+  	where pdel = 0
+  	and ptcode=#{ptcode}
+  	order by pcode desc
   </select>
    -->
+   
+   
+   
+   <!-- 상품 코드로 검색할 상품 개수  -->
+  
+  <select id="productSort" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*)
+  	from product
+  	where pdel = 0
+  	and ptcode=#{ptcode}
+  </select>
+  
+   <!-- 특정 속성으로 검색한 상품  -->
+  
+  <select id="productSortList" parameterType="PagingSortPVO" resultType="ProductDTO">
+  	select pcode, pname, pprice, pcount, pdate, plimit, pimage, ptcode
+  	from product
+  	where pdel = 0
+  	and ptcode=#{ptcode}
+  	order by pcode desc
+  	limit #{start}, #{cntPerPage}
+  </select>
+ 
+ 
+   
   
     <!-- 속성 게시글 갯수 출력 -->
 <select id="countProduct2" parameterType="PagingPVO" resultType="java.lang.Integer">
@@ -107,7 +134,7 @@ values(#{pname}, #{pprice}, #{pcount}, now(), curdate(), #{pimage}, #{ptcode}, #
   
 <!-- 검색하기 -->
   <select id="psearchlist" resultType="ProductDTO" parameterType="PagingPVO">
-  select pcode, pname, pprice, pcount, pdate, plimit, pimage, ptcode, pcontent
+  select pcode, pname, pprice, pcount, pdate, plimit, pimage, ptcode
   from product
   where 
   pname like CONCAT('%',#{keyWord},'%')

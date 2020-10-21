@@ -76,8 +76,18 @@
 		<input class="btn btn-success" type="button" value="메인으로 돌아가기"  id="main" />
 		<input class="btn btn-primary" type="button" value="목록으로 돌아가기"  id="plist" />
 		<input class="btn btn-warning" type="button" value="상품 수정하기"  id="pupdate" />
-		<input class="btn btn-danger" type="button" value="상품 삭제하기"  id="pdelete" />
-		<input class="btn btn-danger" type="button" value="삭제 상품 되돌리기"  id="pdeldelete" />
+		
+		<c:set var="ifdelete" value="${Product.pdel}"/>
+		
+		<c:choose>
+			<c:when test="${ifdelete eq '0'}">
+			<input class="btn btn-danger" type="button" value="상품 삭제하기"  id="pdelete" />
+			</c:when>
+		<c:when test="${ifdelete eq '1'}">
+			<input class="btn btn-danger" type="button" value="상품 재등록하기"  id="pdeldelete"  />
+			</c:when>
+		</c:choose>
+		
 		</div>
 	
 	</section>

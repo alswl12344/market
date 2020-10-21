@@ -106,34 +106,32 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 
-	@Override
-	public List<ProductDTO> ProductSort(int ptcode) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".ProductSort", ptcode);
-	}
-
 
 	@Override
 	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception {
 	
 		return sqlSession.selectList(namespace+".psearchlist", pvo);
 	}
-//
-//
-//	@Override
-//	public int countArticle(String SearchOption, String KeyWord) throws Exception {
-//		// 검색 옵션, 키워드 맵에 저장
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("SearchOption", SearchOption);
-//		map.put("KeyWord", KeyWord);
-//		return sqlSession.selectOne(namespace+".countArticle", map);
-//	}
+
+	@Override
+	public int productSort(int ptcode) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".productSort", ptcode);
+	}
+	
 
 
 	@Override
 	public int countProduct2(PagingPVO pvo) {
 		// TODO Auto-generated method stub
 		 return sqlSession.selectOne(namespace+".countProduct2", pvo);
+	}
+
+
+	@Override
+	public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".productSortList", spvo);
 	}
 
 

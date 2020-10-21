@@ -28,6 +28,11 @@ public class PagingPVO {
 			
 		}
 		
+		
+		
+		
+		
+		
 		// DB 쿼리에서 사용할 start, end 값 계산
 		private void calcStartEnd(int nowPage, int cntPerPage) {
 			// TODO Auto-generated method stub

@@ -71,23 +71,31 @@
 					class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert" />
 					<input class="btn btn-danger" type="button" value="삭제 상품 목록보기"
 					id="pdellist" /></td>
-				<td>
-					<h6>상품 정렬</h6>
-					<button type="button" id="clothes">의류</button></td>
 			</tr>
 		</table>
 		
-		<div>
-			<form method ="post" action="${contextPath }/Product/ProductPagingSearch?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}">
-				<select name="SearchOption">
-					<option value="pname">제목</option>
-				</select> <input type="text" name="keyWord" id = "keyWord"/>
-<!-- 				<input type="hidden" name="nowPage" value="" /> -->
-<%-- 				<input type="hidden" name="cntPerPage" value="${paging.cntPerPage}"/> --%>
-				<button type="submit">검색</button>
-				</form>
-			</div>
-		</div>
+		  <!-- 검색 창 div -->
+	  <div>
+				<form method ="post" action="${contextPath }/Product/ProductPagingSearch?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}">
+					<select name="SearchOption">
+						<option value="pname">제목</option>
+					</select> <input type="text" name="keyWord" id = "keyWord"/>
+	<!-- 				<input type="hidden" name="nowPage" value="" /> -->
+	<%-- 				<input type="hidden" name="cntPerPage" value="${paging.cntPerPage}"/> --%>
+					<button type="submit">검색</button>
+					</form>
+				</div>
+			
+	  <hr>
+	  <!-- 소트 창 div -->
+	  
+	  <div>
+	  
+	  <button onclick="location.href='${contextPath }/Product/ProductPagingSort?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}&ptcode=0'">의류 </button>
+	  <button onclick="location.href='${contextPath }/Product/ProductPagingSort?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}&ptcode=1'">기타 </button>
+	  <button onclick="location.href='${contextPath }/Product/ProductPagingSort?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}&ptcode=2'">식품</button>
+	  
+	  </div>
 
 		<div style="display: block; text-align: center;">
 			<c:if test="${paging.startPage != 1 }">

@@ -11,5 +11,6 @@
  		 <typeAlias alias="ProductDTO" type="kr.co.dong.Product.ProductDTO" />
  		 <typeAlias alias="UserDTO" type="kr.co.dong.user.UserDTO"/>
  		 <typeAlias alias="PagingPVO" type="kr.co.dong.Product.PagingPVO"/>
+ 		 <typeAlias alias="PagingSortPVO" type="kr.co.dong.Product.PagingSortPVO"/>
  	</typeAliases>
  </configuration>

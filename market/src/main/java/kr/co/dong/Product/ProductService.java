@@ -8,8 +8,7 @@ import java.util.Map;
 public interface ProductService {
 	//상품 전체보기 
 	public List<ProductDTO> plist();
-	//상품 정렬하기 
-	public List<ProductDTO> ProductSort(int ptcode);
+	
 	//상품 상세보기
 	public ProductDTO pdetail(int pcode);
 	//상품 등록하기
@@ -38,8 +37,11 @@ public interface ProductService {
 
 	//게시글 전체 목록 ==> 검색 옵션, 키워드 매개 변수
 	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception;
-//	
-//	// 게시글 레코드 갯수 메서드 증가
-//	public int countArticle(String SearchOption, String KeyWord) throws Exception;
 	
+	//상품 정렬 개수 쿼리
+		public int productSort(int ptcode);
+		
+		//소트 정렬 목록 ==> 검색 옵션, 키워드 매개 변수
+				public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception;
+
 }
