@@ -29,12 +29,22 @@
         <beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
         <!-- defaultEncoding -->
         <beans:property name="defaultEncoding" value="utf-8" />
-    </beans:bean>
-    
-  
+    </beans:bean>    
+
 	
-	<context:component-scan base-package="kr.co.dong" />
-	
-	
+<!-- MessageSource -->
+<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+<beans:property name="defaultEncoding">
+<beans:value>utf-8</beans:value>
+</beans:property>
+   <beans:property name="basenames">
+        <beans:list>
+               <beans:value>messages/messages_ko</beans:value>
+        </beans:list>
+   </beans:property>
+</beans:bean>	
+
+
+	<context:component-scan base-package="kr.co.dong" />	
 	
 </beans:beans>

@@ -10,6 +10,13 @@
 		insert into user (userid, userpw, username, birth, email, phone, point, userdel, lvcode)
 		values (#{userid}, #{userpw}, #{username}, #{birth}, #{email}, #{phone}, 0, 0, 1)
 	</insert>
+	
+<!-- 	회원가입 - 유저아이디 중복체크 -->
+	<select id="Validation" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*)
+		from user
+		where userid = #{userid}
+	</select>
 
 <!-- //	로그인	user/login -->
 <!-- 	public int login(UserDTO userDTO); -->

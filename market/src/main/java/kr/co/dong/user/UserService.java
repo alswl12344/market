@@ -6,6 +6,9 @@ public interface UserService {
 //	회원가입	user/join
 	public int join(UserDTO userDTO);
 	
+//	회원가입 - 유저아이디 중복 체크
+	public int Validation(String userid);
+	
 //	이동	로그인	user/login
 //	로그인	user/login
 	public UserDTO login(UserDTO userDTO);

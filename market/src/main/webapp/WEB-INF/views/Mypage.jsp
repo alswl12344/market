@@ -22,7 +22,6 @@
 			<tr>
 				<td><b>ID : ${mypage.userid }</b></td>
 			</tr>
-
 			<tr>
 				<td>비밀번호 : ${mypage.userpw}</td>
 			</tr>
