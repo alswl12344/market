@@ -7,13 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>상품 목록</title>
-<script>
-
-</script>
-
 </head>
 <body>
-<%@include file="./include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
  <div>${msg}</div>
 <div class="table-responsive">
   <table class="table">
@@ -27,7 +23,7 @@
   	<td>상품수량</td>
   	<td>분류코드</td>
   </tr>
-<c:forEach var="Product" items="${plist }">
+<c:forEach var="Product" items="${pdellist }">
  	<tr>
  	<td>${Product.pcode}</td>
  	<td><a href="pdetail?pcode=${Product.pcode}"> ${Product.pname} </a></td>
@@ -39,37 +35,28 @@
  	<td>${Product.ptcode}</td>
  	</tr>
 </c:forEach>
+
 <tr>
 <td colspan="5" align="center">
 <input class="btn btn-success" type="button" value="메인으로" 
 id="main" />
-<input class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert"/>
-<input class="btn btn-danger" type="button" value="삭제 상품 목록보기" id="pdellist"/>
-<h6>상품 정렬</h6><button type="button" id="clothes">의류</button>
-</td>
-</tr>
+<input class="btn btn-primary" type="button" value="상품목록으로 돌아가기 " 
+id="plist" />
+</td></tr>
+
   </table>
 </div>
 
-
-
-
-<%@include file="./include/footer.jsp" %>
+<%@include file="../include/footer.jsp" %>
 </body>
 
-  
-  
 <script>
 	$('#main').on('click' , function(){
 		location.href="${pageContext.request.contextPath}";
 	})
 	
-	$('#pinsert').on('click', function(){
-		location.href="pinsert";
-	})
-	
-	$('#pdellist').on('click', function(){
-		location.href="pdellist";
+	$('#plist').on('click' , function(){
+		location.href="ProductPaging";
 	})
 </script>
 

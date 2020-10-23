@@ -8,8 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>상품 목록</title>
 </head>
-<body>
-<%@include file="./include/header.jsp" %>
+<body oncontextmenu="return false" ondragstart="return false"
+	onselectstart="return false">
+<%@include file="../include/header.jsp" %>
+<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+					<div class="box-header">
+						<h3 class="box-title">상품 목록</h3>
+					</div>
  <div>${msg}</div>
 <div class="table-responsive">
   <table class="table">
@@ -39,17 +46,18 @@
 <td colspan="5" align="center">
 <input class="btn btn-success" type="button" value="메인으로" 
 id="main" />
-
-
+<input class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert"/>
+<input class="btn btn-danger" type="button" value="삭제 상품 목록보기" id="pdellist"/>
+<h6>상품 정렬</h6><button type="button" id="clothes">의류</button>
 </td>
 </tr>
   </table>
 </div>
+</div>
+</div>
+</div>
 
-
-
-
-<%@include file="./include/footer.jsp" %>
+<%@include file="../include/footer.jsp" %>
 </body>
 
   
@@ -59,7 +67,13 @@ id="main" />
 		location.href="${pageContext.request.contextPath}";
 	})
 	
-
+	$('#pinsert').on('click', function(){
+		location.href="pinsert";
+	})
+	
+	$('#pdellist').on('click', function(){
+		location.href="pdellist";
+	})
 </script>
 
 

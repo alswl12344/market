@@ -8,7 +8,7 @@
 <title>주소 등록</title>
 </head>
 <body>
-		<%@include file="include/header.jsp"%>
+		<%@include file="../include/header.jsp"%>
 		
 		<section class="content">
 			<div class="box-header">
@@ -41,7 +41,7 @@
 				</div>
 			</form>
 		</section>
-		<%@include file="include/footer.jsp"%>
+		<%@include file="../include/footer.jsp"%>
 					
 
 </body>

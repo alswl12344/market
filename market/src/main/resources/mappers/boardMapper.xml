@@ -103,7 +103,7 @@
 	<!-- 카테고리 -->
 	<select id="selectCategory" parameterType="java.lang.Integer">
 		select bcategory
-		from board_category
+		from board
 		where bcategorydetail=#{bcategorydetail}
 	</select>
 	

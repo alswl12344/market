@@ -37,7 +37,7 @@ public class BoardController {
 		List<BoardDTO> listAll = boardService.ListAll();
 		
 		mav.addObject("list", listAll);
-		mav.setViewName("list");
+		mav.setViewName("board/list");
 		return mav;
 	}
 	
@@ -50,7 +50,7 @@ public class BoardController {
 	
 	@RequestMapping(value="board/insert", method=RequestMethod.GET)
 	public String MoveInsert() {
-		return "insert";
+		return "board/insert";
 	}
 	
 	@RequestMapping(value="board/insert", method=RequestMethod.POST)
@@ -60,7 +60,7 @@ public class BoardController {
 		if(r>0) { //성공
 			rttr.addFlashAttribute("msg", "글을 등록했습니다.");
 		}
-		return "redirect:list";
+		return "redirect:board/paginglist";
 	}
 	
 	// 상세 보기
@@ -70,13 +70,13 @@ public class BoardController {
 		boardService.RreadCnt(bno);
 		BoardDTO boardDTO = boardService.ListDetail(bno);
 		model.addAttribute("board", boardDTO);
-		return "detail";
+		return "board/detail";
 	}
 	
 	// 글 수정
 	@RequestMapping(value="board/update", method=RequestMethod.GET)
 	public String MoveUpdate(int bno) {
-		return "update";
+		return "board/update";
 	}
 	
 	@RequestMapping(value="board/update", method=RequestMethod.POST)
@@ -85,7 +85,7 @@ public class BoardController {
 		if(r>0) {
 			rttr.addFlashAttribute("msg", "수정되었습니다.");
 		}
-		return "redirect:list";
+		return "redirect:board/paginglist";
 	}
 
 	// 글 삭제
@@ -95,7 +95,7 @@ public class BoardController {
 		if(r>0) {
 			rttr.addFlashAttribute("msg", "삭제되었습니다.");
 		}
-		return "redirect:list";
+		return "redirect:board/paginglist";
 	}
 	
 	// ajax 댓글을 위한 매핑, 댓글 목록
@@ -145,7 +145,7 @@ public class BoardController {
 	
 	// 페이징 처리
 	@RequestMapping(value="board/paginglist", method=RequestMethod.GET)
-	public String PagingList(PagingVO vo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+	public String list(PagingVO vo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		int total = boardService.CountBoard();
 		if(nowPage == null && cntPerPage == null) {
 			nowPage = "1";
@@ -158,7 +158,7 @@ public class BoardController {
 		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", vo);
 		model.addAttribute("listAll", boardService.SelectBoard(vo));
-		return "paginglist";
+		return "board/paginglist";
 	}
 	
 }

@@ -9,7 +9,7 @@
 <title>아이디 찾기</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-	<%@include file="include/header.jsp"%>
+	<%@include file="../include/header.jsp"%>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -115,7 +115,7 @@
 			});
 		})
 	</script>
-	<%@include file="include/footer.jsp"%>
+	<%@include file="../include/footer.jsp"%>
 
 </body>
 </html>

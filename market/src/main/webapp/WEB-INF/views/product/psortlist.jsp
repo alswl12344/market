@@ -9,7 +9,7 @@
 <title>상품 목록</title>
 </head>
 <body>
-<%@include file="./include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
  <div>${msg}</div>
 <div class="table-responsive">
   <table class="table">
@@ -23,7 +23,7 @@
   	<td>상품수량</td>
   	<td>분류코드</td>
   </tr>
-<c:forEach var="Product" items="${pdellist }">
+<c:forEach var="Product" items="${plist }">
  	<tr>
  	<td>${Product.pcode}</td>
  	<td><a href="pdetail?pcode=${Product.pcode}"> ${Product.pname} </a></td>
@@ -35,29 +35,31 @@
  	<td>${Product.ptcode}</td>
  	</tr>
 </c:forEach>
-
 <tr>
 <td colspan="5" align="center">
 <input class="btn btn-success" type="button" value="메인으로" 
 id="main" />
-<input class="btn btn-primary" type="button" value="상품목록으로 돌아가기 " 
-id="plist" />
-</td></tr>
 
+
+</td>
+</tr>
   </table>
 </div>
 
-<%@include file="./include/footer.jsp" %>
+
+
+
+<%@include file="../include/footer.jsp" %>
 </body>
 
+  
+  
 <script>
 	$('#main').on('click' , function(){
 		location.href="${pageContext.request.contextPath}";
 	})
 	
-	$('#plist').on('click' , function(){
-		location.href="ProductPaging";
-	})
+
 </script>
 
 

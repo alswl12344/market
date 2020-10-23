@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,8 +14,15 @@
 	}
 </script>
 </head>
-<body>
-<%@include file="./include/header.jsp" %>
+<body oncontextmenu="return false" ondragstart="return false"
+	onselectstart="return false">
+<%@include file="../include/header.jsp" %>
+<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+					<div class="box-header">
+						<h3 class="box-title">게시판</h3>
+					</div>
 <div id="outter">
 	<div style="float: right;">
 		<select id="cntPerPage" name="sel" onchange="selChange()">
@@ -27,7 +35,7 @@
 			<option value="20"
 				<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
 		</select>
-</div> 
+	</div> 
  <div>${msg}</div>
 <div class="table-responsive">
   <table class="table">
@@ -38,24 +46,18 @@
   	<td>작성자</td>
   	<td>조회수</td>
   </tr>
-<c:forEach var="board" items="${list }">
+<c:forEach var="board" items="${listAll }">
  	<tr>
  	<td>${board.bno}</td>
- 	<td>${board.bcategory} <a href="detail?bno=${board.bno}"> ${board.btitle} </a></td>
+ 	<td><a href="detail?bno=${board.bno}"> ${board.btitle} </a></td>
  	<td>${board.bdate}</td>
  	<td>${board.bwriter}</td>
  	<td><span class="badge">${board.breadcnt }</span></td>
  	</tr>
 </c:forEach>
-<tr>
-<td colspan="5" align="center">
-<input class="btn btn-success" type="button" value="메인으로" 
-id="main" />
-
-</td>
-</tr>
-  </table>
-  	<div style="display: block; text-align: center;">		
+	</table>
+	
+	<div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
 			<a href="${contextPath }/board/paginglist?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 		</c:if>
@@ -73,15 +75,27 @@ id="main" />
 			<a href="${contextPath }/board/paginglist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>
+	<input class="btn btn-success" type="button" value="메인으로" 
+id="main" />
+<input class="btn" type="button" value="글쓰기" 
+id="insert" />
+<br>
 </div>
 
+</div>
+</div>
+</div>
+</div>
 
-<%@include file="include/footer.jsp" %>
+<%@include file="../include/footer.jsp" %>
 </body>
 
 <script>
 	$('#main').on('click' , function(){
 		location.href="${pageContext.request.contextPath}";
+	})
+	$('#insert').on('click' , function(){
+		location.href="insert";
 	})
 </script>
 

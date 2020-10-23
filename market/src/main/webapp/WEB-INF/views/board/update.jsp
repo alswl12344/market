@@ -1,7 +1,7 @@
 		<%@ page language="java" contentType="text/html; charset=UTF-8"
 			pageEncoding="UTF-8"%>
 		
-		<%@include file="include/header.jsp"%>
+		<%@include file="../include/header.jsp"%>
 		
 		<section class="content">
 			<div class="box-header">
@@ -33,5 +33,5 @@
 				</div>
 			</form>
 		</section>
-		<%@include file="include/footer.jsp"%>
+		<%@include file="../include/footer.jsp"%>
 					

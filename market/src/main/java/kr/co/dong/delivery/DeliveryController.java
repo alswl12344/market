@@ -32,7 +32,7 @@ public class DeliveryController {
 			List<DeliveryDTO> list = deliveryService.dview();
 			
 			if(list == null) {
-				mav.setViewName("dview");
+				mav.setViewName("delivery/dview");
 				return mav;
 			}
 				
@@ -40,7 +40,7 @@ public class DeliveryController {
 
 			
 			mav.addObject("list", list);
-			mav.setViewName("dview");
+			mav.setViewName("delivery/dview");
 			return mav;
 		}
 		
@@ -55,7 +55,7 @@ public class DeliveryController {
 			
 			
 			mav.addObject("list", list);
-			mav.setViewName("management");
+			mav.setViewName("management/management");
 			return mav;
 		}
 		
@@ -63,7 +63,7 @@ public class DeliveryController {
 		   @RequestMapping(value="delivery/minsert", method=RequestMethod.GET)
 		   public String insert() {
 		      
-		      return "minsert";
+		      return "management/minsert";
 		   }
 		   
 		   @RequestMapping(value="delivery/minsert", method=RequestMethod.POST)
@@ -73,14 +73,14 @@ public class DeliveryController {
 		      if(r>0) { //성공
 		         rttr.addFlashAttribute("msg", "추가에 성공하였습니다.");
 		      }
-		      return "redirect:management";
+		      return "redirect:management/management";
 		   }
 		   
 		   //주소 수정
 		   @RequestMapping(value="delivery/mupdate", method=RequestMethod.GET)
 		   public String update() {
 
-		      return "mupdate";
+		      return "management/mupdate";
 		   }
 		   @RequestMapping(value="delivery/mupdate", method=RequestMethod.POST)
 		   public String update(ManagementDTO managementDTO,RedirectAttributes rttr) {
@@ -88,7 +88,7 @@ public class DeliveryController {
 		      if(r>0) {
 		         rttr.addFlashAttribute("msg", "수정에 성공하였습니다.");
 		      }
-		      return "redirect:management";
+		      return "redirect:management/management";
 		   }
 		   
 		   //주소 삭제
@@ -98,6 +98,6 @@ public class DeliveryController {
 		      if(r>0) {
 		         rttr.addFlashAttribute("msg", "삭제에 성공하였습니다.");
 		      }
-		      return "redirect:management";
+		      return "redirect:management/management";
 		   }
 }

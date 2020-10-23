@@ -34,7 +34,7 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		List<ProductDTO> plist = productService.plist();
 		mav.addObject("plist", plist);
-		mav.setViewName("plist");
+		mav.setViewName("product/plist");
 
 		return mav;
 
@@ -47,7 +47,7 @@ public class ProductController {
 		ModelAndView mav = new ModelAndView();
 		List<ProductDTO> pdellist = productService.pdellist();
 		mav.addObject("pdellist", pdellist);
-		mav.setViewName("pdellist");
+		mav.setViewName("product/pdellist");
 
 		return mav;
 
@@ -65,14 +65,14 @@ public class ProductController {
 		model.addAttribute("Product", productDTO);
 		model.addAttribute("Product", productService.pdetail(pcode));	
 
-		return "pdetail";
+		return "product/pdetail";
 	}
 
 	// 상품 등록 GET
 	@RequestMapping(value = "Product/pinsert", method = RequestMethod.GET)
 	public String pinsert() {
 
-		return "pinsert";
+		return "product/pinsert";
 
 	}
 
@@ -87,7 +87,7 @@ public class ProductController {
         String imgfrom = "Product"; // 상품 등록에서 넣는 이미지라는 것을 명시하기 위해 imgfrom 컬럼값으로 Product 입력
         int imgfromno = productService.countProduct() + 1; // Product 테이블의 몇번 상품에 입력된 이미지인지 확인을 위해 pcode를 확인 후 1을 더한다
         
-        String realpath = "C:\\Users\\YONSAI\\git\\market2\\market\\src\\main\\webapp\\resources\\images\\";
+        String realpath = "C:\\Users\\YONSAI\\git\\market22\\market\\src\\main\\webapp\\resources\\images\\";
         String viewpath = "../resources/images/";
 
         for (MultipartFile mf : fileList) {// 다중 이미지를 받은 경우 순차대로 for문을 통해 db 저장 및 파일 생성 
@@ -122,7 +122,7 @@ public class ProductController {
         String src = mtfRequest.getParameter("src");
         System.out.println("src value : " + src);
 
-        String path = "C:\\Users\\YONSAI\\git\\market2\\market\\src\\main\\webapp\\resources\\images\\";
+        String path = "C:\\Users\\YONSAI\\git\\market22\\market\\src\\main\\webapp\\resources\\images\\";
 
         for (MultipartFile mf : fileList) {
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -158,7 +158,7 @@ public class ProductController {
 		ProductDTO prodto = productService.pdetail(pcode);
 
 		model.addAttribute("prodto", prodto);
-		return "pupdate";
+		return "product/pupdate";
 	}
 
 	// 상품 수정 POST
@@ -208,7 +208,7 @@ public class ProductController {
 		pvo = new PagingPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pvo);
 		model.addAttribute("viewAll", productService.selectProduct(pvo));
-		return "ProductPaging";
+		return "product/ProductPaging";
 	}
 
 	// 상품 페이징 검색 처리
@@ -228,6 +228,6 @@ public class ProductController {
 		pvo = new PagingPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", pvo);
 		model.addAttribute("viewAll", productService.selectProduct(pvo));
-		return "ProductPaging";
+		return "product/ProductPaging";
 	}
 }

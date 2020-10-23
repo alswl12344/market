@@ -6,11 +6,11 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <html>
 <head>
-<title>Home</title>
+<title>로그인</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
-	<%@include file="include/header.jsp"%>
+	<%@include file="../include/header.jsp"%>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -61,6 +61,6 @@
 			</div>
 			
 		</div>
-	<%@include file="include/footer.jsp"%>
+	<%@include file="../include/footer.jsp"%>
 </body>
 </html>

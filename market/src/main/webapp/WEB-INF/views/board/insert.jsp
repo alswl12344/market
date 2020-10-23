@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 <section class="content">
 	<div class="box-header">
 		<h3 class="box-title">게시판 글쓰기</h3>
@@ -36,5 +36,5 @@
 		</div>
 	</form>
 </section>
-<%@include file="include/footer.jsp"%>
+<%@include file="../include/footer.jsp"%>
 

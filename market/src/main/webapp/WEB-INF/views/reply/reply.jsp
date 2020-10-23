@@ -5,31 +5,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>댓글 수정</title>
+<title>댓글 쓰기</title>
 <!-- 상세 보기  -->
 </head>
 <body>
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 	<section class="content">
 			<div class="box-header">
-				<h3 class="box-title">댓글 수정</h3>
+				<h3 class="box-title">댓글 작성</h3>
 			</div>
 		
 			<form role="form" method="post">
 				<div class="box-body">
 					<div class="form-group">
 						<label>작성자</label> <input type="text"
-							name='rewriter' class="form-control" placeholder="${list.rewriter}">
-						<label>댓글 내용</label> 
+							name='rewriter' class="form-control" placeholder="작성자">
 						<textarea class="form-control" name="rememo" rows="3"
-							placeholder="${list.rememo}"></textarea>
-						<label>글 번호</label>
-						<input type="text" name="bno"
-						class="form-control" value="${list.bno}" readonly="readonly" />
+							placeholder="내용을 입력하세요"></textarea>
 					</div>
-					<!-- 수정에 사용할 글 번호 -->
-					<input type="hidden" name="bno" value="" />
-					</div>
+				<!-- 수정에 사용할 글 번호 (bno를 넘겨야 하는데 bno를 작성할 수 없으니 hidden으로) -->
+				<input type="hidden" name="bno" value="" />
 				</div>
 		
 				<div class="box-footer">
@@ -37,6 +32,6 @@
 				</div>
 			</form>
 		</section>
-	<%@include file="include/footer.jsp" %>
+	<%@include file="../include/footer.jsp" %>
 </body>
 </html>

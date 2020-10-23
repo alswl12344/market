@@ -43,7 +43,7 @@ public class UserController {
 //	이동	회원가입	user/join
 	@RequestMapping(value = "user/join", method = RequestMethod.GET)
 	public String MoveJoin() throws Exception {
-		return "join";
+		return "user/join";
 	}
 	
 //	회원가입	user/join
@@ -60,7 +60,7 @@ public class UserController {
 //	이동	로그인	user/login
 	@RequestMapping(value = "user/login", method = RequestMethod.GET)
 	public String MoveLogin() throws Exception {
-		return "login";
+		return "user/login";
 	}
 	
 //	로그인	user/login
@@ -89,7 +89,7 @@ public class UserController {
 //	이동	아이디 찾기	user/SearchId 이름, 생년월일 , 연락처로 찾기
 	@RequestMapping(value = "user/SearchId", method = RequestMethod.GET)
 	public String MoveSearchId() throws Exception {
-		return "SearchId";
+		return "user/SearchId";
 	}
 	
 	
@@ -109,7 +109,7 @@ public class UserController {
 //	이동	비밀번호 찾기	user/SerachPw 아이디, 생년월일 , 연락처로 찾기
 	@RequestMapping(value = "user/SearchPw", method = RequestMethod.GET) 
 	public String MoveSerachPw() throws Exception {
-		return "SearchPw";
+		return "user/SearchPw";
 	}
 	
 //	Ajax 비밀번호 찾기	user/SerachPw
@@ -127,11 +127,11 @@ public class UserController {
 	
 //	이동 + 마이페이지 	user/Mypage
 	@RequestMapping(value = "user/Mypage", method = RequestMethod.GET) 
-	public ModelAndView Mypage(String userid, Model model) throws Exception {
+	public ModelAndView Mypage(@RequestParam("userid")String userid, Model model) throws Exception {
 		ModelAndView mav = new ModelAndView();		
 		UserDTO mypage = userService.Mypage(userid);
 		mav.addObject("mypage", mypage);
-		mav.setViewName("Mypage");
+		mav.setViewName("user/Mypage");
 		System.out.println(mypage + " : 컨트롤러 마이페이지");
 		return mav;
 	}
@@ -144,7 +144,7 @@ public class UserController {
 		user= userService.Mypage(userid);
 		System.out.println(user + " : 유저DTO확인용");
 		mav.addObject("user", user);
-		mav.setViewName("UserUpdate");
+		mav.setViewName("user/UserUpdate");
 //		System.out.println(user + " : 컨트롤러 마이페이지");
 		return mav;
 	}

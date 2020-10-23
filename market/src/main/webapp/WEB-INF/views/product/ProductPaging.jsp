@@ -19,7 +19,7 @@
 </script>
 
 <body>
-<%@include file="./include/header.jsp" %>
+<%@include file="../include/header.jsp" %>
  <div>${msg}</div>
 <div class="table-responsive">
   <div style="float:right;">
@@ -88,7 +88,7 @@ id="main" />
 </div>
 
 
-<%@include file="include/footer.jsp" %>
+<%@include file="../include/footer.jsp" %>
 </body>
 
 <script>

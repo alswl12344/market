@@ -1,9 +1,15 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 
-<%@include file="include/header.jsp"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<html>
+<head>
+<title>가지마켓</title>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+<%@include file="../include/header.jsp"%>
 <section class="content">
 	<div class="box-header">
 		<h3 class="box-title">회원정보수정</h3>
@@ -12,11 +18,11 @@
 	<form role="form" method="post" action="UserUpdate">
 		<div class="box-body">
 			<div class="form-group">
-				<label>ID : </label> <input type="text" name="userid" value = "${user.userid }"
+				<label>아이디</label> <input type="text" name="userid" value = "${user.userid }"
 					class="form-control" readonly>
 			</div>
 			<div class="form-group">
-				<label>Password : </label> <input type="text" name="userpw"  value="${user.userpw }" 
+				<label>비밀번호 </label> <input type="text" name="userpw"  value="${user.userpw }" 
 				class="form-control" >
 			</div>
 			<div class="form-group">
@@ -28,7 +34,7 @@
 					class="form-control" placeholder="예)200101" readonly>
 			</div>
 			<div class="form-group">
-				<label>E-mail</label> <input type="text" name="email" value = "${user.email }"
+				<label>이메일</label> <input type="text" name="email" value = "${user.email }"
 					class="form-control" placeholder="예)market@naver.com">
 			</div>
 			<div class="form-group">
@@ -37,14 +43,13 @@
 			</div>
 		</div>
 		<button type="submit">수정완료</button>
-		<input type=button value="초기화" onclick="location.reload()">
+		<input type="button" value="초기화" onclick="location.reload()" id="userupdate">
 	</form>
 
 	<c:if test="${msg!=null }">
 		<h3 class="box-title">${msg }</h3>
 	</c:if>
 
-
 </section>
-<%@include file="include/footer.jsp"%>
+<%@include file="../include/footer.jsp"%>
 

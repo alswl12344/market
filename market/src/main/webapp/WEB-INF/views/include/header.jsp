@@ -76,6 +76,11 @@ body {
 	font-family: 'NanumBarunGothic';
 }
 
+button {
+	border: 0;
+	outline: none;
+}
+
 .topnav {
 	overflow : visible;
 	height : 40px;
@@ -116,12 +121,6 @@ body {
     position:absolute;
     left: 0;
     top: 0 /*according to your menu height */
-}
-
-
-@media (max-width:768px) {
-	
-
 }
 
 .logo {
@@ -242,8 +241,6 @@ body {
 	background-color: #5f4f6e;
 	color : white;
 	font-weight: bold;
-	border: 0;
-	outline: 0;
 	margin : 10px 0;
 }
 
@@ -272,8 +269,6 @@ body {
 	background-color: white;
 	color : #5f4f6e;
 	font-weight: bold;
-	border: 0;
-	outline: none;
 	margin : 10px 0;
 }
 
@@ -284,9 +279,45 @@ body {
 	background-color: white;
 	color : #5f4f6e;
 	font-weight: bold;
-	border: 0;
-	outline: none;
 	margin : 10px 0;
+}
+
+.mng-button {
+	width: 80px;
+	height: 40px;
+	background-color: #5f4f6e;
+	color: white;
+	font-weight: bold;
+	margin : 5px;
+}
+
+.mng-button-white {
+	width: 80px;
+	height: 40px;
+	background-color: white;
+	color: #5f4f6e;
+	font-weight: bold;
+	margin : 5px;
+	border : 0;
+	outline: none;
+}
+
+.mypage-title {
+	text-align: center;
+	
+}
+
+.mypage-hr {
+	border: 0;
+	height: 3px;
+	background-color: #5f4f6e;
+}
+
+.mypage-table {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	margin-top: 20px;
 }
 
 .main-footer{
@@ -336,7 +367,7 @@ body {
 			</c:if>
 			<c:if test="${user!=null }">
 			<li class="nav-item">
-				<a class="nav-link" href="${contextPath }/user/logout">${user.userid }님 로그아웃</a>
+				<a class="nav-link" href="${contextPath }/user/logout">${user.username }님 로그아웃</a>
 			</li>
 				<div>
 				 <li class="nav-item dropdown">
@@ -344,6 +375,7 @@ body {
 			     	마이페이지
 			     </a>
 			     <div class="dropdown-menu">
+			       <a class="dropdown-item" href="${contextPath }/user/Mypage?userid=${user.userid }">내 정보</a>
 			       <a class="dropdown-item" href="${contextPath }/delivery/management">주소지 관리</a>
 			       <a class="dropdown-item" href="${contextPath }/delivery/dview">배송 현황</a>
 			     </div>
@@ -363,7 +395,7 @@ body {
     			<a class="nav-link" href="#">고객센터</a>
     		</li>
     		<li class="nav-item">
-    			<a class="nav-link" href="${contextPath }/delivery/management">이벤트</a>
+    			<a class="nav-link" href="#">이벤트</a>
     		</li>
     		<c:if test="${user==null }">
     			<li class="nav-item">

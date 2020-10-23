@@ -7,7 +7,7 @@
 <title>상세보기</title>
 </head>
 <body>
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 	<script>
 	
 	$(function(){

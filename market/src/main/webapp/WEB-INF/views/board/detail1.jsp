@@ -51,7 +51,7 @@ ${boardreply.rememo}</textarea></td>
 	</script>
 
 </form>	
-<%@ include file="include/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>
 </section>		
 
 </body>

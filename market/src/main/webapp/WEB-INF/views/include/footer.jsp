@@ -11,6 +11,7 @@
       			<h5>전화 문의</h5>
       			<h5 class="footer-contact">카카오톡</h5>
       			<h5>1:1 문의</h5>
+      			<br>
     		</div>
    			<div class="col-sm-4">
    				<h4>회사 소개</h4>

@@ -10,7 +10,7 @@
 <!-- 상세 보기  -->
 </head>
 <body>
-	<%@ include file="include/header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 <script>
 	// ajax를 통한 댓글 쓰기
 	$(document).ready(function(){
@@ -213,7 +213,7 @@
 		});
 		//목록 버튼을 눌렀을 때 처리
 		$(".btn-primary").click(function(){
-			location.href="list";
+			location.href="paginglist";
 		});
 		//삭제 버튼을 눌렀을 때 처리
 		$(".btn-danger").click(function(){

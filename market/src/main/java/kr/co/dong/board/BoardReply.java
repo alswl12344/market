@@ -5,9 +5,8 @@ public class BoardReply {
 	private String rewriter;
 	private String rememo;
 	private String redate;
-	private int bno; //게시글 번호(외래키)
+	private int bno; //게시글 번호
 	
-	// Getter setter = > lombok 라이브러리 사용하면 어노테이션에 처리됨
 	public int getReno() {
 		return reno;
 	}
