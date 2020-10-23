@@ -18,7 +18,7 @@ public class ImgDTO {
 	public int getImgno() {
 		return imgno;
 	}
-	public void setImgno(int imgno) {
+	public void setImgno(int imgno) { 
 		this.imgno = imgno;
 	}
 	public String getImgfrom() {
