@@ -39,8 +39,8 @@
  <!-- 상품 등록하기 -->
   
   <insert id="pinsert" parameterType="ProductDTO">
-  	insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcode, pcontent, pdel, puserid) 
-	values(#{pname}, #{pprice}, #{pcount}, now(), now(), 0, #{ptcode}, #{pcontent}, 0, #{puserid})
+  	insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcodesub, pcontent, pdel, puserid) 
+	values(#{pname}, #{pprice}, #{pcount}, now(), now(), #{pimage}, #{ptcodesub}, #{pcontent}, 0, #{puserid})
   </insert>
   
 

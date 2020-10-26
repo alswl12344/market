@@ -9,14 +9,23 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
+import org.hamcrest.core.IsNull;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.ThrowsAdvice;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +37,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mysql.cj.Session;
 
-import kr.co.dong.HomeController;
 
 @Controller
 public class UserController {
@@ -36,26 +44,57 @@ public class UserController {
 	// Service의 메소드 사용
 	@Inject
 	UserService userService;
-	UserDTO userDTO;
-
+	UserDTO userDTO;	
+	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 
+	
 //	이동	회원가입	user/join
 	@RequestMapping(value = "user/join", method = RequestMethod.GET)
-	public String MoveJoin() throws Exception {
+	public String MoveJoin(@ModelAttribute UserDTO userDTO) throws Exception {
 		return "user/join";
 	}
 	
+//	회원가입 - 아이디 중복 검사
+	@ResponseBody 
+	@RequestMapping(value = "user/validation", method = RequestMethod.POST)
+	public int Validation(@RequestParam("userid") String userid) throws Exception {
+		System.out.println("입력받은 userid 는 " + userid);
+		int usercount = userService.Validation(userid);
+		System.out.println("중복 검사 결과 usercount는  " + usercount);
+
+		return usercount;
+	}	
+	
 //	회원가입	user/join
 	@RequestMapping(value = "user/join", method = RequestMethod.POST)
-	public String Join(UserDTO userDTO, HttpServletRequest request, RedirectAttributes rttr)	throws Exception {		
+	// binding한 결과가 result에 담긴다.
+	public String join(@ModelAttribute @Valid UserDTO userDTO, BindingResult result) {
 		
-		int chk = userService.join(userDTO);
-		if (chk > 0) {
-			rttr.addFlashAttribute("msg", "회원가입 성공");
+		System.out.println("입력받은 "+ userDTO.getUserid());
+		System.out.println("입력받은 "+userDTO.getUserpw());
+		System.out.println("입력받은 "+userDTO.getUsername());
+		System.out.println("입력받은 "+userDTO.getBirth());
+		System.out.println("입력받은 "+userDTO.getEmail());
+		System.out.println("입력받은 "+userDTO.getPhone());
+		// 에러가 있는지 검사
+		if( result.hasErrors() ) {
+
+			// 에러를 List로 저장
+			List<ObjectError> list = result.getAllErrors();
+			for( ObjectError error : list ) {
+//				System.out.println(error);
+			}
+			System.out.println("========= 입력한 정보에 문제가 있음 ============");
+			return "join";
 		}
-			return "redirect:/";		
+		
+		userService.join(userDTO);
+		return "redirect:/";
 	}
+
+
 	
 //	이동	로그인	user/login
 	@RequestMapping(value = "user/login", method = RequestMethod.GET)

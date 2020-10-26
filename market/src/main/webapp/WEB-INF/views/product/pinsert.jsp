@@ -23,20 +23,40 @@
 				}; 
 				console.log(image); reader.readAsDataURL(image); } 
 		} 
+	
+	function setThumbnail2(event) { 
+		for (var image of event.target.files) { 
+			var reader = new FileReader(); 
+			reader.onload = function(event) { 
+				var img = document.createElement("img"); 
+				img.setAttribute("src", event.target.result);
+				img.setAttribute('width', 200);
+				img.setAttribute('height', 200);
+				document.querySelector("div#image_container2").appendChild(img); 
+				}; 
+				console.log(image); reader.readAsDataURL(image); } 
+		} 
 	</script>
 
 
-	<form name="fileForm" 	method="post" enctype="multipart/form-data">
-		<label>상품 이미지</label><br>
-			<input multiple="multiple" type="file" name="file" onchange="setThumbnail(event);"/> 
-			<input type="text" name="src" /> 
+	<form name="fileForm" method="post" enctype="multipart/form-data">
 	
-	<div id="image_container" style="width:100; height:100"></div>
-	<hr>
+		<label>상품 썸네일</label><br> <input multiple="multiple" type="file"
+			name="Thumbnail" onchange="setThumbnail(event);" /> <br> <br>
+		<div id="image_container" style="width: 100; height: 100">
+		</div>
+		<br>
+
+		<label>상품 소개 이미지</label><br> <input multiple="multiple"
+			type="file" name="file" onchange="setThumbnail2(event);" />
+		<div id="image_container2" style="width: 100; height: 100">
+			<br>
+		</div>
+		<hr>
 		<div class="box-body">
 			<div class="form-group">
-				<label>상품명</label> 
-				<input type="text" name="pname"	class="form-control" placeholder="상품명을 입력하세요">
+				<label>상품명</label> <input type="text" name="pname"
+					class="form-control" placeholder="상품명을 입력하세요">
 			</div>
 
 			<div class="form-group">
@@ -54,12 +74,12 @@
 					class="form-control">
 			</div>
 			<div class="col-sm-4">
-				<label>상품 분류 코드</label> <input type="text" name="ptcode" placeholder="0:의류 , 1:기타"
-					class="form-control">
+				<label>상품 분류 코드</label> <input type="text" name="ptcodesub"
+					placeholder="0:의류 , 1:기타" class="form-control">
 			</div>
 			<div class="col-sm-4">
-				<label>상품 분류 코드</label> <input type="hidden" name="puserid" placeholder="사용자id" value = "${user.userid }"
-					class="form-control">
+				<label>상품 분류 코드</label> <input type="hidden" name="puserid"
+					placeholder="사용자id" value="${user.userid }" class="form-control">
 			</div>
 		</div>
 

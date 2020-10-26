@@ -51,14 +51,7 @@
  					</tr>
  					</c:forEach>
 				</div>
-<!-- 				 	<td><img src = "C:\\Users\\YONSAI\\git\\market2\\market\\src\\main\\webapp\\resources\\images\\1603097099545구글.PNG"/></td> -->
-				 	<td><img src = "..\\resources\\images\\1603097099545구글.PNG"/></td>
-				 	<td><img src = "../resources/images/1603097099545구글.PNG"/></td>
-<!--  					<td><img src = "C:\Users\YONSAI\git\market2\market\src\main\webapp\resources\images\1603097099545구글.PNG"/></td> 					 -->
-<!--  					<td><img src = "..\webapp\resources\images\1603097099545구글.PNG"/></td> 					 -->
-<!--  					<td><img src = "..//market//src//main//webapp//resources//images//1603097099545구글.PNG"/></td> 					 -->
-<!--  					<td><img src = "..\market\src\main\webapp\resources\images\1603097099545구글.PNG"/></td> 					 -->
-<!--  					<td><img src = "..\\market\\src\\main\\webapp\\resources\\images\\1603097099545구글.PNG"/></td>  -->
+
 				<div class="form-group">
 					<label>상품 설명</label>
 					<textarea name="content" rows="5" readonly="readonly"

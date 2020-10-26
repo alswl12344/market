@@ -8,32 +8,14 @@ public class ProductDTO {
 	private String pdate;
 	private String plimit;
 	private String pimage;
-	private int ptcode;
+	private int ptcodesub;
 	private String pcontent;
 	private String puserid;
 	private int pdel;
 	
 	
-	public String getPuserid() {
-		return puserid;
-	}
-	public void setPuserid(String puserid) {
-		this.puserid = puserid;
-	}
 	public int getPcode() {
 		return pcode;
-	}
-	public String getPcontent() {
-		return pcontent;
-	}
-	public void setPcontent(String pcontent) {
-		this.pcontent = pcontent;
-	}
-	public int getPdel() {
-		return pdel;
-	}
-	public void setPdel(int pdel) {
-		this.pdel = pdel;
 	}
 	public void setPcode(int pcode) {
 		this.pcode = pcode;
@@ -74,19 +56,37 @@ public class ProductDTO {
 	public void setPimage(String pimage) {
 		this.pimage = pimage;
 	}
-	public int getPtcode() {
-		return ptcode;
+	public int getPtcodesub() {
+		return ptcodesub;
 	}
-	public void setPtcode(int ptcode) {
-		this.ptcode = ptcode;
+	public void setPtcodesub(int ptcodesub) {
+		this.ptcodesub = ptcodesub;
 	}
+	public String getPcontent() {
+		return pcontent;
+	}
+	public void setPcontent(String pcontent) {
+		this.pcontent = pcontent;
+	}
+	public String getPuserid() {
+		return puserid;
+	}
+	public void setPuserid(String puserid) {
+		this.puserid = puserid;
+	}
+	public int getPdel() {
+		return pdel;
+	}
+	public void setPdel(int pdel) {
+		this.pdel = pdel;
+	}
+	
 	@Override
 	public String toString() {
 		return "ProductDTO [pcode=" + pcode + ", pname=" + pname + ", pprice=" + pprice + ", pcount=" + pcount
-				+ ", pdate=" + pdate + ", plimit=" + plimit + ", pimage=" + pimage + ", ptcode=" + ptcode
+				+ ", pdate=" + pdate + ", plimit=" + plimit + ", pimage=" + pimage + ", ptcodesub=" + ptcodesub
 				+ ", pcontent=" + pcontent + ", puserid=" + puserid + ", pdel=" + pdel + "]";
 	}
-
-
-
 }
+
+	

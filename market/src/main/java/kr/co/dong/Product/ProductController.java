@@ -32,7 +32,7 @@ public class ProductController {
 	public ModelAndView plist() {
 
 		ModelAndView mav = new ModelAndView();
-		List<ProductDTO> plist = productService.plist();
+		List<ProductDTO> plist = productService.plist();		
 		mav.addObject("plist", plist);
 		mav.setViewName("product/plist");
 
@@ -80,16 +80,25 @@ public class ProductController {
 	@RequestMapping(value = "Product/pinsert", method = RequestMethod.POST)
 	public String pinsert(ProductDTO productDTO, RedirectAttributes rttr, MultipartHttpServletRequest mtfRequest) throws Exception  {
 
-        List<MultipartFile> fileList = mtfRequest.getFiles("file"); // 다중 이미지를 받는 input 박스 name = file 
-        String src = mtfRequest.getParameter("src"); // src = 사용자 입력값
-        System.out.println("src value : " + src);
+		// 파일 실제저장위치, 이미지 불러올 위치에 대한 기본 경로 정의
+        String realpath = "C:\\Users\\YONSAI\\git\\market2\\market\\src\\main\\webapp\\resources\\images\\";
+        String viewpath = "../resources/images/";
+		
+//		1. 입력받은 섬네일 이미지 정보 처리
+		MultipartFile thumbnail = mtfRequest.getFile("Thumbnail"); // 섬네일 이미지를 받은 input 박스의 name = pimage
+        String originalName = thumbnail.getOriginalFilename(); // 섬네일 원본 파일 명
+
+        String thumbrealpath = realpath + System.currentTimeMillis() + originalName; //실제 경로 + 현재 시간 + 파일이름 으로 데이터 중복 방지
+        String thumbviewpath = viewpath + System.currentTimeMillis() + originalName; //상대 경로 + 현재 시간 + 파일이름
+        thumbnail.transferTo(new File(thumbrealpath)); //  realpath 경로에 파일 생성
+        productDTO.setPimage(thumbviewpath);
         
-        String imgfrom = "Product"; // 상품 등록에서 넣는 이미지라는 것을 명시하기 위해 imgfrom 컬럼값으로 Product 입력
+//		2. 이미지 다중 업로드 정보 처리
+		List<MultipartFile> fileList = mtfRequest.getFiles("file"); // 다중 이미지를 받는 input 박스 name = file 
+        
+		String imgfrom = "Product"; // 상품 등록에서 넣는 이미지라는 것을 명시하기 위해 imgfrom 컬럼값으로 Product 입력
         int imgfromno = productService.countProduct() + 1; // Product 테이블의 몇번 상품에 입력된 이미지인지 확인을 위해 pcode를 확인 후 1을 더한다
         
-        String realpath = "C:\\Users\\YONSAI\\git\\market22\\market\\src\\main\\webapp\\resources\\images\\";
-        String viewpath = "../resources/images/";
-
         for (MultipartFile mf : fileList) {// 다중 이미지를 받은 경우 순차대로 for문을 통해 db 저장 및 파일 생성 
         	
             String originFileName = mf.getOriginalFilename(); // 원본 파일 명
@@ -115,37 +124,6 @@ public class ProductController {
 		return "redirect:plist";
 
 	}
-	
-	@RequestMapping(value = "Product/pinsert2", method = RequestMethod.POST)
-    public String requestupload2(MultipartHttpServletRequest mtfRequest) {
-        List<MultipartFile> fileList = mtfRequest.getFiles("file");
-        String src = mtfRequest.getParameter("src");
-        System.out.println("src value : " + src);
-
-        String path = "C:\\Users\\YONSAI\\git\\market22\\market\\src\\main\\webapp\\resources\\images\\";
-
-        for (MultipartFile mf : fileList) {
-            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-            long fileSize = mf.getSize(); // 파일 사이즈
-
-            System.out.println("originFileName : " + originFileName);
-            System.out.println("fileSize : " + fileSize);
-
-            String saveFile = path + System.currentTimeMillis() + originFileName;
-            try {
-                mf.transferTo(new File(saveFile));
-                System.out.println("saveFile : " + saveFile);
-            } catch (IllegalStateException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-        return "redirect:/";
-    }
 
 	
 	// 상품 정렬(Sort)

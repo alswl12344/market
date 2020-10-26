@@ -1,9 +1,47 @@
 package kr.co.dong.user;
 
+import java.sql.Date;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserDTO {
 
-	private int usercode, birth, point, lvcode;
-	private String userid, userpw, username, email, phone, userdel, lvname;	
+	private int usercode;
+	
+	@NotEmpty
+	@Pattern(regexp="^[0-9a-zA-Z]*$")
+	private String userid;
+
+	@NotEmpty
+	@Pattern(regexp="^[0-9a-zA-Z!@#$%^&]*$")
+	@Length(min=4)
+	private String userpw;
+	
+	@NotEmpty
+	@Length
+	private String username;	
+	
+	@NotEmpty
+	@Length(min=5, max=6)
+	private String birth;
+	
+	@NotEmpty
+	private String  email;
+	
+	@NotEmpty
+	private String phone;
+	
+	
+	
+	private String userdel;
+	private String lvname;	
+	private int point;
+	private int lvcode;
 	
 	
 	public String getLvname() {
@@ -18,10 +56,10 @@ public class UserDTO {
 	public void setUsercode(int usercode) {
 		this.usercode = usercode;
 	}
-	public int getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(int birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public int getPoint() {

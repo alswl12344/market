@@ -46,4 +46,10 @@ public class UserServiceImpli implements UserService{
 		return userDAO.UserUpdate(userDTO);
 	}
 
+	@Override
+	public int Validation(String userid) {
+		// TODO Auto-generated method stub
+		return userDAO.Validation(userid);
+	}
+
 }

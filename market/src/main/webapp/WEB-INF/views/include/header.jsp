@@ -382,6 +382,11 @@ button {
 			    </li>
 			    </div>
 			</c:if>
+			<li>
+			<c:if test="${user.userid == 'admin'}">
+				<a class="dropdown-item" href="${contextPath }/Product/pinsert">상품등록</a>
+			</c:if>
+			</li>
 			<li class="nav-item">
     			<a class="nav-link" href="${contextPath }/Product/plist">상품목록</a>
     		</li>

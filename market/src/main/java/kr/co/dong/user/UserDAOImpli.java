@@ -48,4 +48,10 @@ public class UserDAOImpli implements UserDAO {
 		return sqlSession.update(namespace+".UserUpdate", userDTO);
 	}
 
+	@Override
+	public int Validation(String userid) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".Validation", userid);
+	}
+
 }
