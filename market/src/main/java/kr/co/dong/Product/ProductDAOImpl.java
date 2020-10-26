@@ -43,7 +43,13 @@ public class ProductDAOImpl implements ProductDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".pdetail", pcode);
 	}
-
+	
+	@Override
+	public List<ImgDTO> pdetailimg(int imgfromno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".pdetailimg", imgfromno);
+	}
+	
 
 	@Override
 	public int pinsert(ProductDTO productDTO) {
@@ -51,12 +57,13 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.insert(namespace+".pinsert", productDTO);
 		
 	}
-
+	
 	@Override
-	public List<ProductDTO> psort(int ptcode) {
+	public int pimageinsert(ImgDTO imgDTO) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".psort", ptcode);
+		return sqlSession.insert(namespace+".pimageinsert", imgDTO);
 	}
+
 
 	@Override
 	public ProductDTO psearch(String pname) {
@@ -75,7 +82,13 @@ public class ProductDAOImpl implements ProductDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".pdelete", pcode);
 	}
+	
 
+	@Override
+	public int pdeldelete(int pcode) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".pdeldelete", pcode);
+	}
 
 	@Override
 	public List<ProductDTO> pdellist() {
@@ -83,13 +96,17 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.selectList(namespace+".pdellist");
 	}
 
-
 	@Override
 	public int countProduct() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".countProduct");
 	}
 
+	@Override
+	public int countProduct2(PagingPVO pvo) {
+		// TODO Auto-generated method stub
+		 return sqlSession.selectOne(namespace+".countProduct2", pvo);
+	}
 
 	@Override
 	public List<ProductDTO> selectProduct(PagingPVO pvo) {
@@ -97,22 +114,24 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.selectList(namespace+".selectProduct", pvo);
 	}
 
-
+	
 	@Override
-	public int pimageinsert(ImgDTO imgDTO) {
+	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception {
 		// TODO Auto-generated method stub
-		return sqlSession.insert(namespace+".pimageinsert", imgDTO);
+		return sqlSession.selectList(namespace+".psearchlist", pvo);
 	}
 
-
 	@Override
-	public List<ImgDTO> pdetailimg(int imgfromno) {
+	public int productSort(int ptcodemain) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".pdetailimg", imgfromno);
+		return sqlSession.selectOne(namespace+".productSort", ptcodemain);
 	}
 
-
-
+@Override
+	public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".productSortList", spvo);
+	}
 
 
 	}

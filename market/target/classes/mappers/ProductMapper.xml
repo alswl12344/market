@@ -39,8 +39,8 @@
  <!-- 상품 등록하기 -->
   
   <insert id="pinsert" parameterType="ProductDTO">
-  	insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcodesub, pcontent, pdel, puserid) 
-	values(#{pname}, #{pprice}, #{pcount}, now(), now(), #{pimage}, #{ptcodesub}, #{pcontent}, 0, #{puserid})
+  	insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcodemain, ptcodesub, pcontent, pdel, puserid) 
+	values(#{pname}, #{pprice}, #{pcount}, now(), now(), #{pimage}, #{ptcodemain}, #{ptcodesub}, #{pcontent}, 0, #{puserid})
   </insert>
   
 
@@ -56,7 +56,7 @@
   <update id="pupdate" parameterType="ProductDTO">
   update product
   set
-  pname = #{pname}, pprice=#{pprice}, pcount=#{pcount}, pimage = #{pimage}, plimit= now(), ptcode = #{ptcode}, pcontent = #{pcontent}
+  pname = #{pname}, pprice=#{pprice}, pcount=#{pcount}, plimit= now(), ptcodemain = #{ptcodemain}, sptcodesub = #{ptcodesub}, pcontent = #{pcontent}
   where pcode=#{pcode}
   </update>
   
@@ -69,6 +69,15 @@
   	where pcode = #{pcode}
   </update>
   
+    
+    <!-- 상품 삭제 복구하기 -->
+  
+  <update id="pdeldelete">
+  	update product
+  	set
+  	pdel= 0
+  	where pcode = #{pcode}
+  </update>
   
   
   <!-- 총 게시글 갯수 출력 -->
@@ -91,11 +100,76 @@
   
   
   
+ <!-- 상품 코드로 검색할 상품 개수  (대분류)-->
   
+  <select id="productSort" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*)
+  	from product
+  	where pdel = 0
+  	and ptcodemain=#{ptcodemain}
+  </select>
   
-  <!-- 특정 속성으로 상품 정렬하기 -->
+   <!-- 특정 속성으로 검색한 상품  -->
   
-  <!-- 상품 검색하기 -->
+  <select id="productSortList" parameterType="PagingSortPVO" resultType="ProductDTO">
+  	select pcode, pname, pprice, pcount, pdate, plimit, ptcodemain, pimage
+  	from product
+  	where pdel = 0
+  	and ptcodemain=#{ptcodemain}
+  	order by pcode desc
+  	limit #{start}, #{cntPerPage}
+  </select>
+ 
+ 
+ 
+   
+ <!-- 상품 코드로 검색할 상품 개수  (중분류)-->
+  
+  <select id="productSort2" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*)
+  	from product
+  	where pdel = 0
+  	and ptcodesub=#{ptcodesub}
+  </select>
+  
+   <!-- 특정 속성으로 검색한 상품 (중분류)  -->
+  
+  <select id="productSortList2" parameterType="PagingSortPVO" resultType="ProductDTO">
+  	select pcode, pname, pprice, pcount, pdate, plimit, ptcodesub, pimage
+  	from product
+  	where pdel = 0
+  	and ptcodesub=#{ptcodesub}
+  	order by pcode desc
+  	limit #{start}, #{cntPerPage}
+  </select>
+ 
+ 
+ 
+ 
+   
+  
+    <!-- 속성 게시글 갯수 출력 -->
+<select id="countProduct2" parameterType="PagingPVO" resultType="java.lang.Integer">
+	select count(*) from product
+	where 
+	pname like CONCAT('%',#{keyWord},'%') 
+	and pdel = 0
+</select>
+  
+<!-- 검색하기 -->
+  <select id="psearchlist" resultType="ProductDTO" parameterType="PagingPVO">
+  select pcode, pname, pprice, pcount, pdate, plimit
+  from product
+  where 
+  pname like CONCAT('%',#{keyWord},'%')
+  or pcontent like CONCAT('%',#{keyWord},'%')
+  and pdel = 0
+  order by pcode desc
+limit #{start}, #{cntPerPage}
+
+  </select>
+  
+
   
   
   </mapper>

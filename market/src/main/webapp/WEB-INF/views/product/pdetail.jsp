@@ -17,7 +17,7 @@
 			location.href="${pageContext.request.contextPath}";
 		})
 		$('#plist').on('click' , function(){
-			location.href="plist";
+			location.href="ProductPaging";
 		})
 		$('#pupdate').on('click' , function(){
 			location.href="pupdate?pcode=" + ${Product.pcode};
@@ -25,7 +25,12 @@
 		$('#pdelete').on('click' , function(){
 			location.href="pdelete?pcode=" + ${Product.pcode};
 		})
-
+	
+		$('#pdeldelete').on('click' , function(){
+			location.href="pdeldelete?pcode=" + ${Product.pcode};
+		})
+		
+		
 	});
 	
 	
@@ -75,9 +80,20 @@
 		
 		<div class="box-footer">
 		<input class="btn btn-success" type="button" value="메인으로 돌아가기"  id="main" />
-		<input class="btn btn-primary" type="button" value="목록으로 돌아가기"  id="plist" />
+		<input class="btn btn-primary" type="button" value="목록으로 돌아가기"  id="ProductPaging" />
 		<input class="btn btn-warning" type="button" value="상품 수정하기"  id="pupdate" />
-		<input class="btn btn-danger" type="button" value="상품 삭제하기"  id="pdelete" />
+
+		<c:set var="ifdelete" value="${Product.pdel}"/>
+		
+		<c:choose>
+			<c:when test="${ifdelete eq '0'}">
+			<input class="btn btn-danger" type="button" value="상품 삭제하기"  id="pdelete" />
+			</c:when>
+		<c:when test="${ifdelete eq '1'}">
+			<input class="btn btn-danger" type="button" value="상품 재등록하기"  id="pdeldelete"  />
+			</c:when>
+		</c:choose>
+		
 		</div>
 	
 	</section>

@@ -41,18 +41,18 @@
   	<td>등록기한</td>
   	<td>상품가격</td>
   	<td>상품수량</td>
-  	<td>분류코드</td>
+
   </tr>
 <c:forEach var="Product" items="${viewAll}">
  	<tr>
  	<td>${Product.pcode}</td>
  	<td><a href="pdetail?pcode=${Product.pcode}"> ${Product.pname} </a></td>
- 	<td>${Product.pimage}</td>
+ 	<td><img src="${Product.pimage}" style = "width:150px; height:150px"></td>
  	<td>${Product.pdate}</td>
  	<td>${Product.plimit}</td>
  	<td>${Product.pprice}</td>
  	<td>${Product.pcount}</td>
- 	<td>${Product.ptcode}</td>
+
  	</tr>
 </c:forEach>
 <tr>
@@ -61,10 +61,34 @@
 id="main" />
 <input class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert"/>
 <input class="btn btn-danger" type="button" value="삭제 상품 목록보기" id="pdellist"/>
-<h6>상품 정렬</h6><button type="button" id="clothes">의류</button>
+
 </td>
 </tr>
   </table>
+  </div>
+  
+    <!-- 검색 창 div -->
+	  <div>
+				<form method ="post" action="${contextPath }/Product/ProductPagingSearch?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}">
+					<select name="SearchOption">
+						<option value="pname">제목</option>
+					</select> <input type="text" name="keyWord" id = "keyWord"/>
+					<button type="submit">검색</button>
+					</form>
+				</div>
+			
+	  <hr>
+	  <!-- 소트 창 div -->
+	  
+	  <div>
+	  
+	  <button onclick="location.href='${contextPath }/Product/ProductPagingSort?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}&ptcodemain=1'">의류 </button>
+	  <button onclick="location.href='${contextPath }/Product/ProductPagingSort?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}&ptcodemain=2'">기타 </button>
+	  <button onclick="location.href='${contextPath }/Product/ProductPagingSort?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}&ptcodemain=3'">식품</button>
+	  
+	  </div>
+  <div>
+	
   
   <div style="display: block; text-align: center;">
   	<c:if test="${paging.startPage != 1 }">

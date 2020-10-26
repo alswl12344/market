@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,6 +28,7 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
+	
 	// 상품 목록
 	@RequestMapping(value = "Product/plist", method = RequestMethod.GET)
 	public ModelAndView plist() {
@@ -81,7 +83,7 @@ public class ProductController {
 	public String pinsert(ProductDTO productDTO, RedirectAttributes rttr, MultipartHttpServletRequest mtfRequest) throws Exception  {
 
 		// 파일 실제저장위치, 이미지 불러올 위치에 대한 기본 경로 정의
-        String realpath = "C:\\Users\\YONSAI\\git\\market2\\market\\src\\main\\webapp\\resources\\images\\";
+        String realpath = "C:\\Users\\YONSAI\\git\\market10\\market\\src\\main\\webapp\\resources\\images\\";
         String viewpath = "../resources/images/";
 		
 //		1. 입력받은 섬네일 이미지 정보 처리
@@ -121,12 +123,10 @@ public class ProductController {
 		if (r > 0) {
 			rttr.addFlashAttribute("msg", "상품 등록 성공");
 		}		
-		return "redirect:plist";
+		return "redirect:product/ProductPaging";
 
 	}
 
-	
-	// 상품 정렬(Sort)
 
 	// 상품 수정 GET
 
@@ -147,7 +147,7 @@ public class ProductController {
 
 		if (r > 0) {
 			rttr.addFlashAttribute("msg", "상품 수정 성공");
-			return "redirect:plist";
+			return "redirect:product/ProductPaging";
 
 		}
 		// 수정에 성공하면 수정된 상품 목록으로
@@ -163,49 +163,156 @@ public class ProductController {
 		if (r > 0) {
 			rttr.addFlashAttribute("msg", "상품 삭제 성공");
 
-			return "redirect: plist";
+			return "redirect: product/ProductPaging";
 		}
 
 		return "redirect:detail?pcode=" + pcode;
 	}
 
-	// 상품 페이징 처리
-	@RequestMapping(value = "Product/ProductPaging", method = RequestMethod.GET)
-	public String ProductPaging(PagingPVO pvo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
-		int total = productService.countProduct();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) {
-			cntPerPage = "5";
-		}
-		pvo = new PagingPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", pvo);
-		model.addAttribute("viewAll", productService.selectProduct(pvo));
-		return "product/ProductPaging";
-	}
+	
+	//상품 재등록
+	
+			@RequestMapping(value="Product/pdeldelete", method = RequestMethod.GET)
+			public String pdeldelete(@RequestParam("pcode") int pcode, RedirectAttributes rttr) {
+				int r = productService.pdeldelete(pcode);
+				if(r>0) {
+					rttr.addFlashAttribute("msg","상품 재등록 성공");
+					
+					return "redirect: product/ProductPaging";
+				}
+				
+				return "redirect:detail?pcode=" + pcode;
+						}
+			
+	
 
-	// 상품 페이징 검색 처리
-	@RequestMapping(value = "Product/ProductPagingSearch", method = RequestMethod.GET)
-	public String ProductPagingSearch(PagingPVO pvo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
-		int total = productService.countProduct();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) {
-			cntPerPage = "5";
-		}
-		pvo = new PagingPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", pvo);
-		model.addAttribute("viewAll", productService.selectProduct(pvo));
-		return "product/ProductPaging";
-	}
+			//상품 페이징 처리 
+			   @RequestMapping(value="Product/ProductPaging", method=RequestMethod.GET)
+			   public String ProductPaging(PagingPVO pvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage)
+			   {
+					int total = productService.countProduct();
+					if(nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if(nowPage == null) {
+						nowPage = "1";
+					} else if(cntPerPage == null) {
+						cntPerPage = "5";
+					}
+				
+					
+					pvo = new PagingPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), pvo.getkeyWord());
+					model.addAttribute("paging", pvo);
+					model.addAttribute("viewAll", productService.selectProduct(pvo));
+			
+					return "product/ProductPaging";
+					
+
+					
+				}
+			   
+			   
+//			 상품 페이징 검색 처리 
+			   @RequestMapping(value="Product/ProductPagingSearch", method=RequestMethod.GET)
+			   public String ProductPagingSearch(PagingPVO pvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage,  @RequestParam(value="keyWord", required=false)String keyWord) throws Exception
+			   {
+					int total = productService.countProduct2(pvo);
+					if(nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if(nowPage == null) {
+						nowPage = "1";
+					} else if(cntPerPage == null) {
+						cntPerPage = "5";
+					}
+					pvo = new PagingPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), keyWord);
+					model.addAttribute("paging", pvo);
+					model.addAttribute("viewAll", productService.psearchlist(pvo));
+					return "product/ProductPagingSearch";
+				}
+			   
+			   //상품 검색 처리 POST
+			   
+			   @RequestMapping(value="Product/ProductPagingSearch", method=RequestMethod.POST)
+			   public String ProductPagingSearch1(PagingPVO pvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam(value="keyWord", required=false)String keyWord) throws Exception  {
+				   logger.info("키워드1 "+pvo.getkeyWord());
+				   logger.info("키: "+keyWord);
+				   int total = productService.countProduct2(pvo);
+					if(nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if(nowPage == null) {
+						nowPage = "1";
+					} else if(cntPerPage == null) {
+						cntPerPage = "5";
+					}
+					logger.info(cntPerPage);
+					logger.info(nowPage);
+					  logger.info("키워드2 "+pvo.getkeyWord());
+					pvo = new PagingPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), keyWord);
+					logger.info("키워드3 "+pvo.getkeyWord());
+					model.addAttribute("paging", pvo);
+					model.addAttribute("viewAll", productService.psearchlist(pvo));
+					
+					return "product/ProductPagingSearch";
+				}
+			   
+			   
+			   
+			   
+			   
+			   
+			   // 상품 정렬 처리 GET 대분류
+			   
+			   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.GET)
+			   public String ProductSortList1 (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+				   
+				   logger.info("상품정렬코드: "+ptcodemain);
+				   // 전체 숫자
+				   int total = productService.productSort(ptcodemain);
+					if(nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if(nowPage == null) {
+						nowPage = "1";
+					} else if(cntPerPage == null) {
+						cntPerPage = "5";
+					}
+				
+					spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain);
+				
+					model.addAttribute("paging", spvo);
+					model.addAttribute("viewAll", productService.productSortList(spvo));
+					
+					return "product/ProductPagingSort";
+				}
+			   
+			   
+			   // 상품 정렬 처리 POST 대분류
+			   
+			   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.POST)
+			   public String ProductSortList (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+				   
+				
+				   // 전체 숫자
+				   int total = productService.productSort(ptcodemain);
+					if(nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if(nowPage == null) {
+						nowPage = "1";
+					} else if(cntPerPage == null) {
+						cntPerPage = "5";
+					}
+			
+					spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),ptcodemain);
+				
+					model.addAttribute("paging", spvo);
+					model.addAttribute("viewAll", productService.productSortList(spvo));
+					
+					logger.info("ptcodemain는: "+  ptcodemain);
+					
+					return "product/ProductPagingSort";
+				}
+			   
 }

@@ -27,17 +27,27 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.pdetail(pcode);
 	}
 
+	
+
+	@Override
+	public List<ImgDTO> pdetailimg(int imgfromno) {
+		// TODO Auto-generated method stub
+		return productDAO.pdetailimg(imgfromno);
+	}
+	
 	@Override
 	public int pinsert(ProductDTO productDTO) {
 		// TODO Auto-generated method stub
 		return productDAO.pinsert(productDTO);
 	}
+	
 
 	@Override
-	public List<ProductDTO> psort(int ptcode) {
+	public int pimageinsert(ImgDTO imgDTO) {
 		// TODO Auto-generated method stub
-		return productDAO.psort(ptcode);
+		return productDAO.pimageinsert(imgDTO);
 	}
+
 
 	@Override
 	public ProductDTO psearch(String pname) {
@@ -58,6 +68,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public int pdeldelete(int pcode) {
+		// TODO Auto-generated method stub
+		return productDAO.pdeldelete(pcode);
+	}
+	
+	@Override
 	public List<ProductDTO> pdellist() {
 		// TODO Auto-generated method stub
 		return productDAO.pdellist();
@@ -68,24 +84,37 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.countProduct();
 	}
+	
+	@Override
+	public int countProduct2(PagingPVO pvo) {
+		// TODO Auto-generated method stub
+		return productDAO.countProduct2(pvo);
+	}
 
 	@Override
 	public List<ProductDTO> selectProduct(PagingPVO pvo) {
 		// TODO Auto-generated method stub
 		return productDAO.selectProduct(pvo);
 	}
-
+	
 	@Override
-	public int pimageinsert(ImgDTO imgDTO) {
+	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception {
 		// TODO Auto-generated method stub
-		return productDAO.pimageinsert(imgDTO);
+		return productDAO.psearchlist(pvo);
 	}
 
 	@Override
-	public List<ImgDTO> pdetailimg(int imgfromno) {
+	public int productSort(int ptcodemain) {
 		// TODO Auto-generated method stub
-		return productDAO.pdetailimg(imgfromno);
+		return productDAO.productSort(ptcodemain);
 	}
+
+	@Override
+	public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.productSortList(spvo);
+	}
+
 
 
 

@@ -73,9 +73,13 @@
 				<label>상품 가격</label> <input type="text" name="pprice"
 					class="form-control">
 			</div>
+				<div class="col-sm-4">
+				<label>상품 분류 코드</label> <input type="text" name="ptcodemain"
+					placeholder="1:의류 , 2:기타" class="form-control">
+			
 			<div class="col-sm-4">
 				<label>상품 분류 코드</label> <input type="text" name="ptcodesub"
-					placeholder="0:의류 , 1:기타" class="form-control">
+					placeholder="1:의류 , 2:기타" class="form-control">
 			</div>
 			<div class="col-sm-4">
 				<label>상품 분류 코드</label> <input type="hidden" name="puserid"
