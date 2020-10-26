@@ -35,7 +35,7 @@
 </c:forEach>
 </table>
 <div align="center">
-	<button class="mng-button" id="minsert">등록</button>
+	<button onclick='location.href="minsert"' class="mng-button" id="insert">등록</button>
 	<input class="mng-button-white" type="button" value="메인으로" id="main" />
 <br>
 </div>
@@ -47,9 +47,7 @@
 	$('#main').on('click' , function(){
 		location.href="${pageContext.request.contextPath}";
 	})
-	$('#minsert').on('click' , function(){
-		location.href="minsert";
-	})
+
 	$('#mdelete').on('click' , function(){
 		location.href="delete?mcode=" + ${delivery.mcode};
 	})
