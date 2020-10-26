@@ -10,7 +10,7 @@
 <script>
 	function selChange() {
 		var sel = document.getElementById('cntPerPage').value;
-		location.href="${contextPath }/dong/board/paginglist?nowPage=${paging.nowPage}&cntPerPage="+sel;
+		location.href="${contextPath }/dong/board/paginglist?nowPage=${paging.nowPage}&cntPerPage=5";
 	}
 </script>
 </head>

@@ -73,7 +73,7 @@ public class DeliveryController {
 		      if(r>0) { //성공
 		         rttr.addFlashAttribute("msg", "추가에 성공하였습니다.");
 		      }
-		      return "redirect:management/management";
+		      return "redirect:management";
 		   }
 		   
 		   //주소 수정
@@ -88,7 +88,7 @@ public class DeliveryController {
 		      if(r>0) {
 		         rttr.addFlashAttribute("msg", "수정에 성공하였습니다.");
 		      }
-		      return "redirect:management/management";
+		      return "redirect:management";
 		   }
 		   
 		   //주소 삭제
@@ -98,6 +98,6 @@ public class DeliveryController {
 		      if(r>0) {
 		         rttr.addFlashAttribute("msg", "삭제에 성공하였습니다.");
 		      }
-		      return "redirect:management/management";
+		      return "redirect:management";
 		   }
 }
