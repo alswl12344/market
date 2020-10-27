@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.dong.ImgDTO;
 import kr.co.dong.board.PagingVO;
+import kr.co.dong.cart.CartDTO;
 
 
 @Repository
@@ -109,6 +110,13 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ImgDTO> pdetailimg(int imgfromno) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".pdetailimg", imgfromno);
+	}
+
+
+	@Override
+	public int AddCart(CartDTO cartDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace+".AddCart", cartDTO);
 	}
 
 

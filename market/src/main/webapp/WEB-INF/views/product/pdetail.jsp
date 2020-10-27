@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -9,10 +10,13 @@
 <body>
 	<%@ include file="../include/header.jsp"%>
 	<script>
+	$(document).ready(function() {
+		
+	});
 	
 	$(function(){
-		//메인 버튼을 눌렀을 때 처리
-		
+// 		
+		//메인 버튼을 눌렀을 때 처리		
 		$('#main').on('click' , function(){
 			location.href="${pageContext.request.contextPath}";
 		})
@@ -25,13 +29,21 @@
 		$('#pdelete').on('click' , function(){
 			location.href="pdelete?pcode=" + ${Product.pcode};
 		})
+		$('#addcart').on('click' , function(){
+			location.href="addcart?pcode=${Product.pcode}&userid="+ '${user.userid }';
+			var msg;
+			
+			if(${msg} != null){
+				msg = ${msg};
+				alert(msg);
+			}
+		});
 
 	});
 	
-	
 
 	</script>
-	
+
 	<section class="content">
 		<div class="box">
 			<div class="box-header">
@@ -45,11 +57,11 @@
 				<div class="form-group">
 					<label>상품 이미지</label>
 					<c:forEach var="img" items="${Image }">
- 					<tr>
- 					<td><img src = "${img.imgviewpath}"/></td>					
- 					
- 					</tr>
- 					</c:forEach>
+						<tr>
+							<td><img src="${img.imgviewpath}" /></td>
+
+						</tr>
+					</c:forEach>
 				</div>
 
 				<div class="form-group">
@@ -59,29 +71,40 @@
 				</div>
 
 				<div class="form-group">
-				<div class="col-sm-4"><label>수량</label> <input type="text" name="id"
-						class="form-control" value="${Product.pcount}" readonly="readonly" /></div>
-				<div class="col-sm-4">	
-					<label>가격</label> <input type="text" name="id"
-						class="form-control" value="${Product.pprice}" readonly="readonly" />
+					<div class="col-sm-4">
+						<label>수량</label> <input type="text" name="id"
+							class="form-control" value="${Product.pcount}"
+							readonly="readonly" />
 					</div>
-					<div class="col-sm-4"><label>등록일자</label> <input type="text" name="id"
-						class="form-control" value="${Product.pdate}" readonly="readonly" />		
-				</div>
+					<div class="col-sm-4">
+						<label>가격</label> <input type="text" name="id"
+							class="form-control" value="${Product.pprice}"
+							readonly="readonly" />
+					</div>
+					<div class="col-sm-4">
+						<label>등록일자</label> <input type="text" name="id"
+							class="form-control" value="${Product.pdate}" readonly="readonly" />
+					</div>
+					<input type = "hidden" id = "sessionuserid" value = "${user.userid }">
 				</div>
 			</div>
 
 		</div>
-		
+
 		<div class="box-footer">
-		<input class="btn btn-success" type="button" value="메인으로 돌아가기"  id="main" />
-		<input class="btn btn-primary" type="button" value="목록으로 돌아가기"  id="plist" />
-		<input class="btn btn-warning" type="button" value="상품 수정하기"  id="pupdate" />
-		<input class="btn btn-danger" type="button" value="상품 삭제하기"  id="pdelete" />
+			<input class="btn btn-success" type="button" value="메인으로 돌아가기"
+				id="main" /> <input class="btn btn-primary" type="button"
+				value="목록으로 돌아가기" id="plist" /> <input class="btn btn-warning"
+				type="button" value="상품 수정하기" id="pupdate" /> <input
+				class="btn btn-danger" type="button" value="상품 삭제하기" id="pdelete" />
+			<input class="btn btn-danger" type="button" value="장바구니 담기"
+				id="addcart" />
 		</div>
-	
+
 	</section>
-<hr><p></p><p></p>
+	<hr>
+	<p></p>
+	<p></p>
 
 </body>
 </html>

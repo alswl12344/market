@@ -47,12 +47,12 @@
  	<tr>
  	<td>${Product.pcode}</td>
  	<td><a href="pdetail?pcode=${Product.pcode}"> ${Product.pname} </a></td>
- 	<td>${Product.pimage}</td>
+ 	<td><img src= "${Product.pimage}" style = "width:150px; height:150px"></td>
  	<td>${Product.pdate}</td>
  	<td>${Product.plimit}</td>
  	<td>${Product.pprice}</td>
  	<td>${Product.pcount}</td>
- 	<td>${Product.ptcode}</td>
+ 	<td>${Product.ptcodesub}</td>
  	</tr>
 </c:forEach>
 <tr>

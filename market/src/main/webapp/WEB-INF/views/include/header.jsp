@@ -388,7 +388,7 @@ button {
 			</c:if>
 			</li>
 			<li class="nav-item">
-    			<a class="nav-link" href="${contextPath }/Product/plist">상품목록</a>
+    			<a class="nav-link" href="${contextPath }/Product/ProductPaging">상품목록</a>
     		</li>
     		<li class="nav-item">
     			<a class="nav-link" href="#">특가상품</a>

@@ -2,100 +2,113 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="kr.co.dong.Product">
-  
-  
-  <!-- 상품 전체목록수 -->
-  <select id="plist" resultType="ProductDTO">
-  	select *
-  	from product
-  	where pdel = 0
-  	order by pcode desc
-  </select>
-  
-    <!-- 상품 삭제 목록 수 -->
-  <select id="pdellist" resultType="ProductDTO">
-  	select *
-  	from product
-  	where pdel = 1
-  	order by pcode desc
-  </select>
-  
-  
-  <!--  선택조회(글읽기)   -->
-  <select id="pdetail" parameterType="java.lang.Integer" resultType="ProductDTO">
-  	select *
-  	from product 
-  	where pcode = #{pcode}  	
-  </select>
-  
-<!--   선택조회(등록된 이미지 불러오기) -->
-   <select id="pdetailimg" parameterType="java.lang.Integer" resultType="ImgDTO">
-  	select *
-  	from imagetable
-  	where imgfromno = #{imgfromno}
-  </select>
- 
- <!-- 상품 등록하기 -->
-  
-  <insert id="pinsert" parameterType="ProductDTO">
-  	insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcodesub, pcontent, pdel, puserid) 
-	values(#{pname}, #{pprice}, #{pcount}, now(), now(), #{pimage}, #{ptcodesub}, #{pcontent}, 0, #{puserid})
-  </insert>
-  
+<mapper namespace="kr.co.dong.Product">
 
- <!-- 이미지 등록하기 -->
-  
-  <insert id="pimageinsert" parameterType="ImgDTO">
-  	insert into imagetable(imgfrom, imgfromno, imgrealpath, imgviewpath) 
-	values(#{imgfrom}, #{imgfromno}, #{imgrealpath}, #{imgviewpath})
-  </insert>
-  
-  <!-- 상품 수정하기 -->
-  
-  <update id="pupdate" parameterType="ProductDTO">
-  update product
-  set
-  pname = #{pname}, pprice=#{pprice}, pcount=#{pcount}, pimage = #{pimage}, plimit= now(), ptcode = #{ptcode}, pcontent = #{pcontent}
-  where pcode=#{pcode}
-  </update>
-  
-  <!-- 상품 삭제하기 -->
-  
-  <update id="pdelete">
-  	update product
-  	set
-  	pdel= 1
-  	where pcode = #{pcode}
-  </update>
-  
-  
-  
-  <!-- 총 게시글 갯수 출력 -->
-<select id="countProduct" resultType="java.lang.Integer">
-	select count(*) from product where pdel = 0
-</select>
 
-  <!-- 전체목록수(페이징 처리) -->
+	<!-- 상품 전체목록수 -->
+	<select id="plist" resultType="ProductDTO">
+		select *
+		from product
+		where pdel = 0
+		order by pcode desc
+	</select>
+
+	<!-- 상품 삭제 목록 수 -->
+	<select id="pdellist" resultType="ProductDTO">
+		select *
+		from product
+		where pdel = 1
+		order by pcode desc
+	</select>
+
+
+	<!-- 선택조회(글읽기) -->
+	<select id="pdetail" parameterType="java.lang.Integer"
+		resultType="ProductDTO">
+		select *
+		from product
+		where pcode = #{pcode}
+	</select>
+
+	<!-- 선택조회(등록된 이미지 불러오기) -->
+	<select id="pdetailimg" parameterType="java.lang.Integer"
+		resultType="ImgDTO">
+		select *
+		from imagetable
+		where imgfromno = #{imgfromno}
+	</select>
+
+	<!-- 상품 등록하기 -->
+
+	<insert id="pinsert" parameterType="ProductDTO">
+		insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcodesub,
+		pcontent, pdel, puserid)
+		values(#{pname}, #{pprice}, #{pcount}, now(), now(), #{pimage}, #{ptcodesub},
+		#{pcontent}, 0, #{puserid})
+	</insert>
+
+
+	<!-- 이미지 등록하기 -->
+
+	<insert id="pimageinsert" parameterType="ImgDTO">
+		insert into imagetable(imgfrom, imgfromno, imgrealpath, imgviewpath)
+		values(#{imgfrom}, #{imgfromno}, #{imgrealpath}, #{imgviewpath})
+	</insert>
+
+	<!-- 상품 수정하기 -->
+
+	<update id="pupdate" parameterType="ProductDTO">
+		update product
+		set
+		pname = #{pname}, pprice=#{pprice}, pcount=#{pcount}, pimage = #{pimage},
+		plimit= now(), ptcode = #{ptcode}, pcontent = #{pcontent}
+		where pcode=#{pcode}
+	</update>
+
+	<!-- 상품 삭제하기 -->
+
+	<update id="pdelete">
+		update product
+		set
+		pdel= 1
+		where pcode = #{pcode}
+	</update>
+
+
+
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="countProduct" resultType="java.lang.Integer">
+		select count(*) from product where pdel = 0
+	</select>
+
+	<!-- 전체목록수(페이징 처리) -->
 	<select id="selectProduct" resultType="ProductDTO">
 		select
-		@rownum:=@rownum+1 as no, product.*
+		@rownum:=@rownum+1
+		as no, product.*
 		from product
 		where (@rownum:=0)=0 and pdel = 0
-		order by pcode desc
+		order by
+		pcode desc
 		limit #{start}, #{cntPerPage}
-		
+
 	</select>
-  
-  
-  
-  
-  
-  
-  
-  <!-- 특정 속성으로 상품 정렬하기 -->
-  
-  <!-- 상품 검색하기 -->
-  
-  
-  </mapper>
+
+
+
+
+
+
+
+	<!-- 특정 속성으로 상품 정렬하기 -->
+
+	<!-- 상품 검색하기 -->
+
+	<!-- 상품 장바구니 담기 -->
+	<insert id="AddCart" parameterType="CartDTO">
+		INSERT INTO cart (pcode, cimage, cbuycount, cprice, cuserid, customerid)
+		VALUES (#{pcode}, #{cimage}, #{cbuycount}, #{cprice}, #{cuserid}, #{customerid})
+
+	</insert>
+
+</mapper>

@@ -3,6 +3,7 @@ package kr.co.dong.Product;
 import java.util.List;
 
 import kr.co.dong.ImgDTO;
+import kr.co.dong.cart.CartDTO;
 
 
 
@@ -29,7 +30,8 @@ public interface ProductService {
 	public List<ProductDTO> pdellist();
 	// 게시물 총 갯수
 	public int countProduct();
-
 	// 페이징 처리 게시글 조회
 	public List<ProductDTO> selectProduct(PagingPVO pvo);
+	// 상품 장바구니 담기
+	public int AddCart(CartDTO cartDTO);
 }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hamcrest.core.SubstringMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.dong.ImgDTO;
 import kr.co.dong.board.PagingVO;
+import kr.co.dong.cart.CartDTO;
+import kr.co.dong.user.UserDTO;
 
 @Controller
 public class ProductController {
@@ -62,7 +66,7 @@ public class ProductController {
 	    
 
 		model.addAttribute("Image", imgDTO); 	// img를 포함하는 리스트를 모델에 담아 같이 넘김
-		model.addAttribute("Product", productDTO);
+//		model.addAttribute("Product", productDTO);
 		model.addAttribute("Product", productService.pdetail(pcode));	
 
 		return "product/pdetail";
@@ -81,8 +85,8 @@ public class ProductController {
 	public String pinsert(ProductDTO productDTO, RedirectAttributes rttr, MultipartHttpServletRequest mtfRequest) throws Exception  {
 
 		// 파일 실제저장위치, 이미지 불러올 위치에 대한 기본 경로 정의
-        String realpath = "C:\\Users\\YONSAI\\git\\market2\\market\\src\\main\\webapp\\resources\\images\\";
-        String viewpath = "../resources/images/";
+        String realpath = "C:\\Users\\YONSAI\\git\\market10\\market\\src\\main\\webapp\\resources\\uploadimage\\";
+        String viewpath = "../resources/uploadimage/";
 		
 //		1. 입력받은 섬네일 이미지 정보 처리
 		MultipartFile thumbnail = mtfRequest.getFile("Thumbnail"); // 섬네일 이미지를 받은 input 박스의 name = pimage
@@ -208,4 +212,29 @@ public class ProductController {
 		model.addAttribute("viewAll", productService.selectProduct(pvo));
 		return "product/ProductPaging";
 	}
+	
+	
+	// 상품 장바구니 담기
+	@RequestMapping(value = "Product/addcart", method = RequestMethod.GET)
+	public String AddCart(@RequestParam("pcode") int pcode, @RequestParam("userid") String userid, RedirectAttributes redirectAttributes, Model model) {
+		
+		System.out.println("유저아이디는 : " + userid);
+
+		ProductDTO productDTO = productService.pdetail(pcode);	
+		
+		if(userid.isEmpty()) {
+			System.out.println("IF문 NULL 결과 흐름을 탐 =========================" + userid);
+		    redirectAttributes.addFlashAttribute("msg", "로그인 후 이용해주세요");
+		    redirectAttributes.addAttribute("pcode", pcode);
+		    return "redirect:/Product/pdetail";			
+		}
+		
+		CartDTO cartDTO = new CartDTO(productDTO, userid); // 입력받은 값을 cart 테이블에 저장하기 위해 cartDTO 데이터 생성
+		
+		productService.AddCart(cartDTO); // cart 테이블에 데이터 insert
+
+		return "cart/cart";
+	}	
+	
+	
 }
