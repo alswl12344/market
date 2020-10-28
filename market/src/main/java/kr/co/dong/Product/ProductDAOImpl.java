@@ -134,6 +134,41 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 
+@Override
+public List<ProductReply> pGetDetail(int pcode) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+
+@Override
+public ProductReply pReplyDetail(int preno) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+
+@Override
+public int pReply(ProductReply productReply) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+
+@Override
+public int pReplyUpdate(ProductReply productReply) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+
+@Override
+public int pReplyDelete(int preno) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+
 	}
 
 
