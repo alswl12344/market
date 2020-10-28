@@ -123,7 +123,7 @@ public class ProductController {
 		if (r > 0) {
 			rttr.addFlashAttribute("msg", "상품 등록 성공");
 		}		
-		return "redirect:product/ProductPaging";
+		return "redirect:ProductPaging";
 
 	}
 
@@ -264,7 +264,7 @@ public class ProductController {
 			   
 			   // 상품 정렬 처리 GET 대분류
 			   
-			   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.GET)
+			   @RequestMapping(value="Product/pCategory", method=RequestMethod.GET)
 			   public String ProductSortList1 (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
 				   
 				   logger.info("상품정렬코드: "+ptcodemain);
@@ -283,14 +283,14 @@ public class ProductController {
 				
 					model.addAttribute("paging", spvo);
 					model.addAttribute("viewAll", productService.productSortList(spvo));
-					
-					return "product/ProductPagingSort";
+					model.addAttribute("selptcode", ptcodemain);
+					return "product/pCategory";
 				}
 			   
 			   
 			   // 상품 정렬 처리 POST 대분류
 			   
-			   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.POST)
+			   @RequestMapping(value="Product/pCategory", method=RequestMethod.POST)
 			   public String ProductSortList (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
 				   
 				
@@ -309,10 +309,71 @@ public class ProductController {
 				
 					model.addAttribute("paging", spvo);
 					model.addAttribute("viewAll", productService.productSortList(spvo));
-					
+				
 					logger.info("ptcodemain는: "+  ptcodemain);
 					
-					return "product/ProductPagingSort";
+					return "product/pCategory";
 				}
+			   
+			   
+			   
+  // 상품 정렬 처리 GET 중분류
+			   
+			   @RequestMapping(value="Product/pCategory2", method=RequestMethod.GET)
+			   public String ProductSortList2 (PagingSortPVO2 spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodesub") int ptcodesub, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+				   
+				   logger.info("상품정렬서브코드: "+ptcodesub);
+				   // 전체 숫자
+				   int total = productService.productSort2(ptcodesub);
+					if(nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if(nowPage == null) {
+						nowPage = "1";
+					} else if(cntPerPage == null) {
+						cntPerPage = "5";
+					}
+				
+					spvo = new PagingSortPVO2(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain, ptcodesub);
+				
+					model.addAttribute("paging", spvo);
+					model.addAttribute("viewAll", productService.productSortList2(spvo));
+				
+					
+					return "product/pCategory2";
+				}
+			   
+			   
+			   // 상품 정렬 처리 POST 중분류
+			   
+			   @RequestMapping(value="Product/pCategory2", method=RequestMethod.POST)
+			   public String ProductSortList21 (PagingSortPVO2 spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodesub") int ptcodesub, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+				   
+				
+				   // 전체 숫자
+				   int total = productService.productSort2(ptcodesub);
+					if(nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if(nowPage == null) {
+						nowPage = "1";
+					} else if(cntPerPage == null) {
+						cntPerPage = "5";
+					}
+			
+					spvo = new PagingSortPVO2(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain, ptcodesub);
+				
+					model.addAttribute("paging", spvo);
+					model.addAttribute("viewAll", productService.productSortList2(spvo));
+					
+					logger.info("ptcodesub는: "+  ptcodesub);
+					
+					return "product/pCategory2";
+				}
+			   
+			   
+			   
+			   
+			   
 			   
 }

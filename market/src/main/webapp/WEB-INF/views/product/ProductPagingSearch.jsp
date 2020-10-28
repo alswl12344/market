@@ -50,7 +50,7 @@
 				<td>등록기한</td>
 				<td>상품가격</td>
 				<td>상품수량</td>
-				<td>분류코드</td>
+	
 			</tr>
 			<c:forEach var="Product" items="${viewAll}">
 				<tr>
@@ -62,7 +62,7 @@
 					<td>${Product.plimit}</td>
 					<td>${Product.pprice}</td>
 					<td>${Product.pcount}</td>
-					<td>${Product.ptcode}</td>
+		
 				</tr>
 			</c:forEach>
 			<tr>
@@ -71,11 +71,10 @@
 					class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert" />
 					<input class="btn btn-danger" type="button" value="삭제 상품 목록보기"
 					id="pdellist" />
-					<h6>상품 정렬</h6>
-					<button type="button" id="clothes">의류</button></td>
+			
 			</tr>
 		</table>
-
+ <%@include file="../include/SortSearch.jsp" %>
 		<div style="display: block; text-align: center;">
 			<c:if test="${paging.startPage != 1 }">
 				<a href="${contextPath }/dong/Product/ProductPagingSearch?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">

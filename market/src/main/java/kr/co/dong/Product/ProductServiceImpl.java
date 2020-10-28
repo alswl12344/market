@@ -115,6 +115,18 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.productSortList(spvo);
 	}
 
+	@Override
+	public int productSort2(int ptcodesub) {
+		// TODO Auto-generated method stub
+		return productDAO.productSort2(ptcodesub);
+	}
+
+	@Override
+	public List<ProductDTO> productSortList2(PagingSortPVO2 spvo) throws Exception {
+		// TODO Auto-generated method stub
+		return productDAO.productSortList2(spvo);
+	}
+
 
 
 

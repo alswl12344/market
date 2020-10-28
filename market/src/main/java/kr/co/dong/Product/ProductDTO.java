@@ -1,19 +1,46 @@
 package kr.co.dong.Product;
 
 public class ProductDTO {
-	private int pcode;
-	private String pname;
-	private String pprice;
-	private String pcount;
-	private String pdate;
-	private String plimit;
-	private String pimage;
-	private int ptcodesub;
-	private String pcontent;
-	private String puserid;
-	private int pdel;
+	private int pcode; //상품번호
+	private String pname; //상품명
+	private int pprice; //상품가격
+	private int pbuycount; //상품 구매 수량
+	private int pcount; //상품 재고수량
+	private String pdate; // 상품 등록일
+	private String plimit; //상품 등록 마감일
+	private String pimage; //상품 이미지
+	private int ptcodemain; //상품 대분류코드
+	private int ptcodesub; //상품 중분류 코드 
+	private String pcontent; //상품설명
+	private String puserid; //상품 입력 아이디
+	private int pdel; //상품 삭제 여부 
 	
-	
+	public int getPtcodemain() {
+		return ptcodemain;
+	}
+	public void setPtcodemain(int ptcodemain) {
+		this.ptcodemain = ptcodemain;
+	}
+
+	public int getPprice() {
+		return pprice;
+	}
+	public void setPprice(int pprice) {
+		this.pprice = pprice;
+	}
+	public int getPbuycount() {
+		return pbuycount;
+	}
+	public void setPbuycount(int pbuycount) {
+		this.pbuycount = pbuycount;
+	}
+	public int getPcount() {
+		return pcount;
+	}
+	public void setPcount(int pcount) {
+		this.pcount = pcount;
+	}
+
 	public int getPcode() {
 		return pcode;
 	}
@@ -26,18 +53,7 @@ public class ProductDTO {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public String getPprice() {
-		return pprice;
-	}
-	public void setPprice(String pprice) {
-		this.pprice = pprice;
-	}
-	public String getPcount() {
-		return pcount;
-	}
-	public void setPcount(String pcount) {
-		this.pcount = pcount;
-	}
+
 	public String getPdate() {
 		return pdate;
 	}
@@ -83,9 +99,10 @@ public class ProductDTO {
 	
 	@Override
 	public String toString() {
-		return "ProductDTO [pcode=" + pcode + ", pname=" + pname + ", pprice=" + pprice + ", pcount=" + pcount
-				+ ", pdate=" + pdate + ", plimit=" + plimit + ", pimage=" + pimage + ", ptcodesub=" + ptcodesub
-				+ ", pcontent=" + pcontent + ", puserid=" + puserid + ", pdel=" + pdel + "]";
+		return "ProductDTO [pcode=" + pcode + ", pname=" + pname + ", pprice=" + pprice + ", pbuycount=" + pbuycount
+				+ ", pcount=" + pcount + ", pdate=" + pdate + ", plimit=" + plimit + ", pimage=" + pimage
+				+ ", ptcodemain=" + ptcodemain + ", ptcodesub=" + ptcodesub + ", pcontent=" + pcontent + ", puserid="
+				+ puserid + ", pdel=" + pdel + "]";
 	}
 }
 
