@@ -315,4 +315,14 @@ public class ProductController {
 					return "product/ProductPagingSort";
 				}
 			   
+			   
+			   
+			   
+			   
+			   //상품 댓글 작성하기
+			   
+			   
+			   
+			   
+			   
 }
