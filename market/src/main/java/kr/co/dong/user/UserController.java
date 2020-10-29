@@ -87,7 +87,7 @@ public class UserController {
 //				System.out.println(error);
 			}
 			System.out.println("========= 입력한 정보에 문제가 있음 ============");
-			return "join";
+			return "user/join";
 		}
 		
 		userService.join(userDTO);

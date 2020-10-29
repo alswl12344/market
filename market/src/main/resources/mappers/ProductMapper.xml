@@ -6,11 +6,8 @@
   
   
   <!-- 상품 전체목록수 -->
-  <select id="plist" resultType="ProductDTO">
-  	select *
-  	from product
-  	where pdel = 0
-  	order by pcode desc
+  <select id="plist" resultType="java.lang.Integer">
+ 	 select count(*) from product
   </select>
   
     <!-- 상품 삭제 목록 수 -->
