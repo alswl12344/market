@@ -263,62 +263,118 @@ public class ProductController {
 		return "product/ProductPagingSearch";
 	}
 
-	// 상품 정렬 처리 GET 대분류
-
-	@RequestMapping(value = "Product/ProductPagingSort", method = RequestMethod.GET)
-	public String ProductSortList1(PagingSortPVO spvo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
-			@RequestParam("ptcodemain") int ptcodemain) throws Exception {
-
-		logger.info("상품정렬코드: " + ptcodemain);
-		// 전체 숫자
-		int total = productService.productSort(ptcodemain);
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) {
-			cntPerPage = "5";
+	   
+	   
+	   // 상품 정렬 처리 GET 대분류
+	   
+	   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.GET)
+	   public String ProductSortList1 (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+		   
+		   logger.info("상품정렬코드: "+ptcodemain);
+		   // 전체 숫자
+		   int total = productService.productSort(ptcodemain);
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "5";
+			}
+		
+			spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain);
+		
+			model.addAttribute("paging", spvo);
+			model.addAttribute("viewAll", productService.productSortList(spvo));
+			
+			return "product/ProductPagingSort";
 		}
-
-		spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain);
-
-		model.addAttribute("paging", spvo);
-		model.addAttribute("viewAll", productService.productSortList(spvo));
-
-		return "product/ProductPagingSort";
-	}
-
-	// 상품 정렬 처리 POST 대분류
-
-	@RequestMapping(value = "Product/ProductPagingSort", method = RequestMethod.POST)
-	public String ProductSortList(PagingSortPVO spvo, Model model,
-			@RequestParam(value = "nowPage", required = false) String nowPage,
-			@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
-			@RequestParam("ptcodemain") int ptcodemain) throws Exception {
-
-		// 전체 숫자
-		int total = productService.productSort(ptcodemain);
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) {
-			cntPerPage = "5";
+	   
+	   
+	   // 상품 정렬 처리 POST 대분류
+	   
+	   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.POST)
+	   public String ProductSortList (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+		   
+		
+		   // 전체 숫자
+		   int total = productService.productSort(ptcodemain);
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "5";
+			}
+	
+			spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),ptcodemain);
+		
+			model.addAttribute("paging", spvo);
+			model.addAttribute("viewAll", productService.productSortList(spvo));
+			
+			logger.info("ptcodemain는: "+  ptcodemain);
+			
+			return "product/ProductPagingSort";
 		}
+	   
+	   
+//상품 정렬 처리 GET 중분류
+	   
+	   @RequestMapping(value="Product/pCategory2", method=RequestMethod.GET)
+	   public String ProductSortList2 (PagingSortPVO2 spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodesub") int ptcodesub, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+		   
+		   logger.info("상품정렬서브코드: "+ptcodesub);
+		   // 전체 숫자
+		   int total = productService.productSort2(ptcodesub);
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "5";
+			}
+		
+			spvo = new PagingSortPVO2(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain, ptcodesub);
+		
+			model.addAttribute("paging", spvo);
+			model.addAttribute("viewAll", productService.productSortList2(spvo));
+		
+			
+			return "product/pCategory2";
+		}
+	   
+	   
+	   // 상품 정렬 처리 POST 중분류
+	   
+	   @RequestMapping(value="Product/pCategory2", method=RequestMethod.POST)
+	   public String ProductSortList21 (PagingSortPVO2 spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodesub") int ptcodesub, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
+		   
+		
+		   // 전체 숫자
+		   int total = productService.productSort2(ptcodesub);
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "5";
+			}
+	
+			spvo = new PagingSortPVO2(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain, ptcodesub);
+		
+			model.addAttribute("paging", spvo);
+			model.addAttribute("viewAll", productService.productSortList2(spvo));
+			
+			logger.info("ptcodesub는: "+  ptcodesub);
+			
+			return "product/pCategory2";
+		}
+	
 
-		spvo = new PagingSortPVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), ptcodemain);
-
-		model.addAttribute("paging", spvo);
-		model.addAttribute("viewAll", productService.productSortList(spvo));
-
-		logger.info("ptcodemain는: " + ptcodemain);
-
-		return "product/ProductPagingSort";
-	}
+	   
 
 	// 상품 장바구니 담기
 	@RequestMapping(value = "Product/addcart", method = RequestMethod.GET)

@@ -50,7 +50,7 @@
 				<td>등록기한</td>
 				<td>상품가격</td>
 				<td>상품수량</td>
-				<td>분류코드</td>
+			
 			</tr>
 			<c:forEach var="Product" items="${viewAll}">
 				<tr>
@@ -62,7 +62,7 @@
 					<td>${Product.plimit}</td>
 					<td>${Product.pprice}</td>
 					<td>${Product.pcount}</td>
-					<td>${Product.ptcode}</td>
+				
 				</tr>
 			</c:forEach>
 			<tr>
@@ -75,7 +75,9 @@
 					<button type="button" id="clothes">의류</button></td>
 			</tr>
 		</table>
-
+		
+ <%@include file="../include/SortSearch.jsp" %>
+ 
 		<div style="display: block; text-align: center;">
 			<c:if test="${paging.startPage != 1 }">
 				<a href="${contextPath }/dong/Product/ProductPagingSearch?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">

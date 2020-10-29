@@ -35,10 +35,14 @@ public interface ProductService {
 	public List<ProductDTO> selectProduct(PagingPVO pvo);
 	//게시글 전체 목록 ==> 검색 옵션, 키워드 매개 변수
 	public List<ProductDTO> psearchlist(PagingPVO pvo) throws Exception;
-	//상품 정렬 개수 쿼리
-	public int productSort(int ptcodemain);
-	//소트 정렬 목록 ==> 검색 옵션, 키워드 매개 변수
-	public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception;
+	//상품 정렬 개수 쿼리(대분류)
+			public int productSort(int ptcodemain);
+			//소트 정렬 목록(대분류)
+			public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception;
+			//상품 정렬 개수 쿼리 (중분류)
+			public int productSort2(int ptcodesub);
+			//소트 정렬 목록 (중분류)
+			public List<ProductDTO> productSortList2(PagingSortPVO2 spvo) throws Exception;
 	
 	// 게시물 번호에 해당하는 댓글 번호를 가져오는 메소드
 		public List<ProductReply> pGetDetail(int pcode);

@@ -50,7 +50,7 @@
 				<td>등록기한</td>
 				<td>상품가격</td>
 				<td>상품수량</td>
-				<td>살품코드</td>
+			
 		
 			</tr>
 			<c:forEach var="Product" items="${viewAll }">
@@ -63,7 +63,7 @@
 					<td>${Product.plimit}</td>
 					<td>${Product.pprice}</td>
 					<td>${Product.pcount}</td>
-					<td>${Product.ptcodemain}</td>
+					
 				</tr>
 			</c:forEach>
 			<tr>
