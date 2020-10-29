@@ -67,5 +67,4 @@ public interface ProductDAO {
 	public int pReplyDelete(int preno);
 
 	
-	
 }

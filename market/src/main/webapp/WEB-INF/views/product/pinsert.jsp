@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -36,6 +35,40 @@
 				}; 
 				console.log(image); reader.readAsDataURL(image); } 
 		} 
+	
+	
+	
+	$(function(){
+	    
+	    // 질문유형을 선택한다.
+	    codeType('1' , '10');
+	});
+
+	function codeType(type , select) {
+	    
+	    $('#selCodeType').empty();
+	    
+	    if(type == '1') { // 의류
+	        $('#selCodeType').append("<option value='10' >아우터</option>'");
+	        $('#selCodeType').append("<option value='11' name='ptcodesub' >top</option>'");
+	    } else if (type == '2') {  // 일반관련
+	        $('#selCodeType').append("<option value='20' >꽃</option>'");
+	        $('#selCodeType').append("<option value='21' >조명</option>'");
+	    } else if ( type == '3') {  // 주문관련
+	        $('#selCodeType').append("<option value='30' >해산물</option>'");
+	        $('#selCodeType').append("<option value='31' >과채류</option>'");
+	        $('#selCodeType').append("<option value='32' >가공식품</option>'");
+	  
+	    }
+	    document.getElementById("selCodeType").style.display = "";
+	    
+	    if ($.trim(select) != "") {
+	        $('#select1').val(type);
+	        $('#selCodeType').val(select);
+	    }
+	}
+	
+
 	</script>
 
 
@@ -73,20 +106,20 @@
 				<label>상품 가격</label> <input type="text" name="pprice"
 					class="form-control">
 			</div>
-				<div class="col-sm-4">
-				<label>상품 분류 코드</label> <input type="text" name="ptcodemain"
-					placeholder="1:의류 , 2:기타" class="form-control">
+				<input type="hidden" name="puserid"	placeholder="사용자id" value="${user.userid }" class="form-control">
+			</div>
+			<div>
+			    <label>상품 코드 입력</label>
+				
+				    <select name="ptcodemain" id="select1" onChange="codeType(this.value)" >
+					    <option value="1">의류</option>
+					    <option value="2">잡화</option>
+					    <option value="3">식품</option>
+					</select>    
+					<select id="selCodeType" name="ptcodesub" style="width:120px; display:none;" >
+					</select>
 			
-			<div class="col-sm-4">
-				<label>상품 분류 코드</label> <input type="text" name="ptcodesub"
-					placeholder="1:의류 , 2:기타" class="form-control">
 			</div>
-			<div class="col-sm-4">
-				<label>상품 분류 코드</label> <input type="hidden" name="puserid"
-					placeholder="사용자id" value="${user.userid }" class="form-control">
-			</div>
-		</div>
-
 
 		<div class="box-footer">
 			<button type="submit" class="btn btn-primary">작성완료</button>
@@ -95,4 +128,5 @@
 
 </section>
 <%@include file="../include/footer.jsp"%>
+
 
