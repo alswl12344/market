@@ -3,8 +3,9 @@ package kr.co.dong.Product;
 public class ProductDTO {
 	private int pcode;
 	private String pname;
-	private String pprice;
-	private String pcount;
+	private int pprice;
+	private int pcount;
+	private int pbuycount;
 	private String pdate;
 	private String plimit;
 	private String pimage;
@@ -26,17 +27,24 @@ public class ProductDTO {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public String getPprice() {
+
+	public int getPprice() {
 		return pprice;
 	}
-	public void setPprice(String pprice) {
+	public void setPprice(int pprice) {
 		this.pprice = pprice;
 	}
-	public String getPcount() {
+	public int getPcount() {
 		return pcount;
 	}
-	public void setPcount(String pcount) {
+	public void setPcount(int pcount) {
 		this.pcount = pcount;
+	}
+	public int getPbuycount() {
+		return pbuycount;
+	}
+	public void setPbuycount(int pbuycount) {
+		this.pbuycount = pbuycount;
 	}
 	public String getPdate() {
 		return pdate;

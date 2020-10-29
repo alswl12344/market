@@ -25,7 +25,10 @@
 		$('#pdelete').on('click' , function(){
 			location.href="pdelete?pcode=" + ${Product.pcode};
 		})
-	
+		$('#addcart').on('click' , function(){
+			location.href="addcart?pcode=${Product.pcode}&customerid=${user.userid }";
+			alert('상품이 장바구니에 추가되었습니다');
+		});	
 		$('#pdeldelete').on('click' , function(){
 			location.href="pdeldelete?pcode=" + ${Product.pcode};
 		})
@@ -73,6 +76,7 @@
 					<div class="col-sm-4"><label>등록일자</label> <input type="text" name="id"
 						class="form-control" value="${Product.pdate}" readonly="readonly" />		
 				</div>
+				<input type = "hidden" id = "sessionuserid" value = "${user.userid }">
 				</div>
 			</div>
 
@@ -82,7 +86,8 @@
 		<input class="btn btn-success" type="button" value="메인으로 돌아가기"  id="main" />
 		<input class="btn btn-primary" type="button" value="목록으로 돌아가기"  id="ProductPaging" />
 		<input class="btn btn-warning" type="button" value="상품 수정하기"  id="pupdate" />
-
+		<input class="btn btn-danger" type="button" value="장바구니 담기" id="addcart" />
+		
 		<c:set var="ifdelete" value="${Product.pdel}"/>
 		
 		<c:choose>

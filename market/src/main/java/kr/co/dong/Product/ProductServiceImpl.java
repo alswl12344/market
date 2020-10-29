@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.co.dong.ImgDTO;
+import kr.co.dong.cart.CartDTO;
 
 
 @Service
@@ -25,9 +26,7 @@ public class ProductServiceImpl implements ProductService {
 	public ProductDTO pdetail(int pcode) {
 		// TODO Auto-generated method stub
 		return productDAO.pdetail(pcode);
-	}
-
-	
+	}	
 
 	@Override
 	public List<ImgDTO> pdetailimg(int imgfromno) {

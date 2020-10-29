@@ -52,7 +52,7 @@
  	<td>${Product.plimit}</td>
  	<td>${Product.pprice}</td>
  	<td>${Product.pcount}</td>
-
+ 	<td>${Product.ptcodesub}</td>
  	</tr>
 </c:forEach>
 <tr>
