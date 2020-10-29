@@ -13,6 +13,7 @@ package kr.co.dong.Product;
 import java.util.List;
 
 import kr.co.dong.ImgDTO;
+import kr.co.dong.board.BoardReply;
 import kr.co.dong.board.PagingVO;
 
 public interface ProductDAO {
@@ -49,4 +50,19 @@ public interface ProductDAO {
 	public int productSort(int ptcodemain);
 	//소트 정렬 목록 ==> 검색 옵션, 키워드 매개 변수
 	public List<ProductDTO> productSortList(PagingSortPVO spvo) throws Exception;
+	// 게시물 번호에 해당하는 댓글 번호를 가져오는 메소드
+	public List<ProductReply> pGetDetail(int pcode);
+	
+	// 댓글 보기
+	public ProductReply pReplyDetail(int preno);
+	
+	// 댓글 작성
+	public int pReply(ProductReply productReply);
+
+	// 댓글 수정
+	public int pReplyUpdate(ProductReply productReply);
+	
+	// 댓글 삭제
+	public int pReplyDelete(int preno);
+
 }

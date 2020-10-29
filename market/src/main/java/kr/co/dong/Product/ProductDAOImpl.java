@@ -134,6 +134,41 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 
 
+@Override
+public List<ProductReply> pGetDetail(int pcode) {
+	// TODO Auto-generated method stub
+	return sqlSession.selectList(namespace+".pGetDetail", pcode);
+}
+
+
+@Override
+public ProductReply pReplyDetail(int preno) {
+	// TODO Auto-generated method stub
+	return sqlSession.selectOne(namespace+".pReplyDetail", preno);
+}
+
+
+@Override
+public int pReply(ProductReply productReply) {
+	// TODO Auto-generated method stub
+	return sqlSession.insert(namespace+".pReply", productReply);
+}
+
+
+@Override
+public int pReplyUpdate(ProductReply productReply) {
+	// TODO Auto-generated method stub
+	return sqlSession.update(namespace+".pReplyUpdate", productReply);
+}
+
+
+@Override
+public int pReplyDelete(int preno) {
+	// TODO Auto-generated method stub
+	return sqlSession.delete(namespace+".pReplyDelete", preno);
+}
+
+
 	}
 
 

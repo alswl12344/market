@@ -115,6 +115,36 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.productSortList(spvo);
 	}
 
+	@Override
+	public List<ProductReply> pGetDetail(int pcode) {
+		// TODO Auto-generated method stub
+		return productDAO.pGetDetail(pcode);
+	}
+
+	@Override
+	public ProductReply pReplyDetail(int preno) {
+		// TODO Auto-generated method stub
+		return productDAO.pReplyDetail(preno);
+	}
+
+	@Override
+	public int pReply(ProductReply productReply) {
+		// TODO Auto-generated method stub
+		return productDAO.pReply(productReply);
+	}
+
+	@Override
+	public int pReplyUpdate(ProductReply productReply) {
+		// TODO Auto-generated method stub
+		return productDAO.pReplyUpdate(productReply);
+	}
+
+	@Override
+	public int pReplyDelete(int preno) {
+		// TODO Auto-generated method stub
+		return productDAO.pReplyDelete(preno);
+	}
+
 
 
 
