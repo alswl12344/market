@@ -3,17 +3,31 @@ package kr.co.dong.Product;
 public class ProductDTO {
 	private int pcode;
 	private String pname;
-	private String pprice;
+	private int pprice;
 	private String pcount;
 	private String pdate;
 	private String plimit;
 	private String pimage;
 	private int ptcodesub;
+	private int ptcodemain;
 	private String pcontent;
 	private String puserid;
 	private int pdel;
+	private int pbuycount;
 	
 	
+	public int getPtcodemain() {
+		return ptcodemain;
+	}
+	public void setPtcodemain(int ptcodemain) {
+		this.ptcodemain = ptcodemain;
+	}
+	public int getPbuycount() {
+		return pbuycount;
+	}
+	public void setPbuycount(int pbuycount) {
+		this.pbuycount = pbuycount;
+	}
 	public int getPcode() {
 		return pcode;
 	}
@@ -26,10 +40,11 @@ public class ProductDTO {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public String getPprice() {
+
+	public int getPprice() {
 		return pprice;
 	}
-	public void setPprice(String pprice) {
+	public void setPprice(int pprice) {
 		this.pprice = pprice;
 	}
 	public String getPcount() {
@@ -85,7 +100,8 @@ public class ProductDTO {
 	public String toString() {
 		return "ProductDTO [pcode=" + pcode + ", pname=" + pname + ", pprice=" + pprice + ", pcount=" + pcount
 				+ ", pdate=" + pdate + ", plimit=" + plimit + ", pimage=" + pimage + ", ptcodesub=" + ptcodesub
-				+ ", pcontent=" + pcontent + ", puserid=" + puserid + ", pdel=" + pdel + "]";
+				+ ", ptcodemain=" + ptcodemain + ", pcontent=" + pcontent + ", puserid=" + puserid + ", pdel=" + pdel
+				+ ", pbuycount=" + pbuycount + "]";
 	}
 }
 

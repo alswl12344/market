@@ -16,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
 	private ProductDAO productDAO;
 	
 	@Override
-	public List<ProductDTO> plist() {
+	public int plist() {
 		// TODO Auto-generated method stub
 		return productDAO.plist();
 	}

@@ -13,6 +13,7 @@
  		 <typeAlias alias="ImgDTO" type="kr.co.dong.ImgDTO"/>
  		 	 <typeAlias alias="PagingPVO" type="kr.co.dong.Product.PagingPVO"/>
  		 <typeAlias alias="PagingSortPVO" type="kr.co.dong.Product.PagingSortPVO"/>
- 		 
+ 		 <typeAlias alias="ProductReply" type="kr.co.dong.Product.ProductReply"/>
+ 		  <typeAlias alias="CartDTO" type="kr.co.dong.cart.CartDTO"/>
  	</typeAliases>
  </configuration>

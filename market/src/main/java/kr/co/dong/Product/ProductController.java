@@ -2,7 +2,11 @@ package kr.co.dong.Product;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.hamcrest.core.SubstringMatcher;
 import org.slf4j.Logger;
@@ -21,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.dong.ImgDTO;
 import kr.co.dong.board.PagingVO;
+import kr.co.dong.cart.CartDTO;
+import kr.co.dong.cart.CartService;
 
 @Controller
 public class ProductController {
@@ -28,19 +34,8 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
-	
-	// 상품 목록
-	@RequestMapping(value = "Product/plist", method = RequestMethod.GET)
-	public ModelAndView plist() {
-
-		ModelAndView mav = new ModelAndView();
-		List<ProductDTO> plist = productService.plist();		
-		mav.addObject("plist", plist);
-		mav.setViewName("product/plist");
-
-		return mav;
-
-	}
+	@Autowired
+	CartService cartService;
 
 	// 삭제 상품 목록
 	@RequestMapping(value = "Product/pdellist", method = RequestMethod.GET)
@@ -99,7 +94,7 @@ public class ProductController {
 		List<MultipartFile> fileList = mtfRequest.getFiles("file"); // 다중 이미지를 받는 input 박스 name = file 
         
 		String imgfrom = "Product"; // 상품 등록에서 넣는 이미지라는 것을 명시하기 위해 imgfrom 컬럼값으로 Product 입력
-        int imgfromno = productService.countProduct() + 1; // Product 테이블의 몇번 상품에 입력된 이미지인지 확인을 위해 pcode를 확인 후 1을 더한다
+        int imgfromno = productService.plist() + 1; // Product 테이블의 몇번 상품에 입력된 이미지인지 확인을 위해 pcode를 확인 후 1을 더한다
         
         for (MultipartFile mf : fileList) {// 다중 이미지를 받은 경우 순차대로 for문을 통해 db 저장 및 파일 생성 
         	
@@ -264,7 +259,7 @@ public class ProductController {
 			   
 			   // 상품 정렬 처리 GET 대분류
 			   
-			   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.GET)
+			   @RequestMapping(value="Product/pCategory", method=RequestMethod.GET)
 			   public String ProductSortList1 (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
 				   
 				   logger.info("상품정렬코드: "+ptcodemain);
@@ -284,13 +279,13 @@ public class ProductController {
 					model.addAttribute("paging", spvo);
 					model.addAttribute("viewAll", productService.productSortList(spvo));
 					
-					return "product/ProductPagingSort";
+					return "product/pCategory";
 				}
 			   
 			   
 			   // 상품 정렬 처리 POST 대분류
 			   
-			   @RequestMapping(value="Product/ProductPagingSort", method=RequestMethod.POST)
+			   @RequestMapping(value="Product/pCategory", method=RequestMethod.POST)
 			   public String ProductSortList (PagingSortPVO spvo, Model model, @RequestParam(value="nowPage", required=false)String nowPage, @RequestParam(value="cntPerPage", required=false)String cntPerPage, @RequestParam("ptcodemain") int ptcodemain)throws Exception  {
 				   
 				
@@ -312,7 +307,7 @@ public class ProductController {
 					
 					logger.info("ptcodemain는: "+  ptcodemain);
 					
-					return "product/ProductPagingSort";
+					return "product/pCategory";
 				}
 			   
 			   
@@ -375,8 +370,86 @@ public class ProductController {
 			   
 			   //상품 댓글 작성하기
 			   
+			// ajax 댓글을 위한 매핑, 댓글 목록
+				@ResponseBody
+				@RequestMapping(value="Product/pReplylist",method=RequestMethod.POST)
+				public List<ProductReply> ReplyList(@RequestParam("pcode") int pcode) {
+					return productService.pGetDetail(pcode);
+				}
+				
+				// ajax 쓰기
+				@ResponseBody
+				@RequestMapping(value="Product/pReply", method=RequestMethod.POST)
+				public int pReply(ProductReply productReply) {
+					return productService.pReply(productReply);
+				}
+				
+				// ajax 댓글에 대한 매핑과 메소드 구현
+				@ResponseBody
+				@RequestMapping(value="Product/pReplyUpdate", method=RequestMethod.POST)
+				public Map<String,Object> pReplyUpdate(ProductReply productReply) {
+					Map<String, Object> result = new HashMap<String, Object>();
+					try {
+						productService.pReplyUpdate(productReply);
+						result.put("status","OK");
+					} catch (Exception e) {
+						e.printStackTrace();
+						result.put("status", "fail");
+					}
+					return result;
+				}
+				
+				// 댓글 삭제
+				@ResponseBody
+				@RequestMapping(value="Product/pReplyDelete", method=RequestMethod.POST)
+				public Map<String,Object> pReplyDelete(int preno) {
+					Map<String, Object> result = new HashMap<String, Object>();
+					try {
+						productService.pReplyDelete(preno);
+						result.put("status","OK");
+					} catch (Exception e) {
+						e.printStackTrace();
+						result.put("status", "fail");
+					}
+					return result;
+				}
 			   
-			   
-			   
+				// 상품 장바구니 담기
+				@RequestMapping(value = "Product/addcart", method = RequestMethod.GET)
+				public String AddCart(@RequestParam("pcode") int pcode, @RequestParam("customerid") String customerid,
+						HttpServletRequest request, RedirectAttributes redirectAttributes, Model model) {
+
+					System.out.println("구매자 아이디는 : " + customerid);
+					ProductDTO productDTO = productService.pdetail(pcode); // 다시 상품 상세보기 페이지로 돌아갈 때 사용할 데이터를 만듦
+
+//								===비회원 장바구니 기능 시작 === 
+					if (customerid.isEmpty()) {
+						String non_userIP = request.getRemoteAddr(); // 접속한 pc의 ip 주소를 non_userIP에 저장
+						customerid = non_userIP; // customerid 변수 값을 ip주소 값으로 연결
+						System.out.println("구매자 아이디는 : " + customerid);
+					}
+
+					CartDTO cartDTO = new CartDTO(productDTO, customerid); // 입력받은 값을 cart 테이블에 저장하기 위해 cartDTO 데이터 생성
+					System.out.println("cartDTO 만들기 성공 ");
+
+					System.out.println("데이터 확인 pcode :" + cartDTO.getPcode());
+					System.out.println("데이터 확인 customerid :" + cartDTO.getCustomerid());
+					System.out.println("데이터 확인 customerid :" + cartDTO.getCuserid());
+					int chk = cartService.CheckCart(cartDTO);
+
+					System.out.println("중복검사 성공 ");
+
+					if (chk >= 1) { // 만약 장바구니에 넣으려는 상품이 이미 장바구니에 있다면
+						System.out.println("상품 개수 추가 ");
+						cartService.BuyCountUpdate(cartDTO); // 구매하려는 수량값만큼 장바구니 상품 수량 증가
+
+					} else {
+						System.out.println("상품 추가 ");
+						cartService.AddCart(cartDTO); // 장바구니에 없는 상품이면 해당 상품을 장바구니에 추가
+					}
+
+					redirectAttributes.addAttribute("pcode", pcode); // redirect시킬 때 pcode를 get방식 조건값으로 넣어주는 코드
+					return "redirect:/Product/pdetail";
+				} 
 			   
 }

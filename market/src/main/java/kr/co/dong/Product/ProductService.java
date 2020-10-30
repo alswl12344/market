@@ -8,7 +8,7 @@ import kr.co.dong.ImgDTO;
 
 public interface ProductService {
 	//상품 전체보기 
-	public List<ProductDTO> plist();
+	public int plist();
 	//상품 상세보기
 	public ProductDTO pdetail(int pcode);
 	//상품 상세보기(이미지)

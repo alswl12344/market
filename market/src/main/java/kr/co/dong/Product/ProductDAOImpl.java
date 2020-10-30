@@ -32,9 +32,9 @@ public class ProductDAOImpl implements ProductDAO{
 	private static final String namespace ="kr.co.dong.Product";
 	
 	@Override
-	public List<ProductDTO> plist() {
+	public int plist() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".plist");
+		return sqlSession.selectOne(namespace+".plist");
 	}
 	
 

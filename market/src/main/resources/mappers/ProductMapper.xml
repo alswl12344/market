@@ -169,4 +169,50 @@ limit #{start}, #{cntPerPage}
 
   
   
+  
+  
+  	<!-- 게시글 번호에 해당하는 모든 댓글 조회 SQL -->
+	<select id="pGetDetail" parameterType="java.lang.Integer" resultType="ProductReply">
+		select *
+		from productreply
+		where pcode = #{pcode}
+		order by preno desc
+	</select>
+
+	<!-- 댓글 쓰기 -->
+	<insert id="pReply" parameterType="ProductReply">
+		insert into
+		productreply(pwriter,pmemo,predate,pcode)
+		values(#{pwriter},#{pmemo},curdate(),#{pcode})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="pReplyUpdate" parameterType="ProductReply">
+		update productreply
+		set
+		pwriter = #{pwriter},
+		pmemo = #{pmemo},
+		predate = curdate()
+		where preno = #{preno}
+	</update>
+
+	<select id="preplydetail" parameterType="java.lang.Integer" resultType="ProductReply">
+  		select *
+  		from productreply
+  		where preno = #{preno}
+  	</select>
+  	
+  	<!-- 댓글 삭제 -->
+  	<delete id="pReplyDelete" parameterType="java.lang.Integer">
+		delete from productreply
+		where preno = #{preno}
+  	</delete>
+  
+  
+  
+  
+  
+  
+  
+  
   </mapper>
