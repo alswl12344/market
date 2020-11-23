@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>상품 목록</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false"
 	onselectstart="return false">

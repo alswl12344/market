@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>댓글 쓰기</title>
 <!-- 상세 보기  -->
 </head>
 <body>

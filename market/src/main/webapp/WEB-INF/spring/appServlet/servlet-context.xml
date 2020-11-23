@@ -3,10 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
-
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -43,7 +44,29 @@
    </beans:property>
 </beans:bean>	
 
-
+		<beans:bean class="kr.co.dong.chat.EchoHandler" id="echoHandler" />
+			<websocket:handlers>
+		<websocket:mapping path="/echo"
+			handler="echoHandler" />
+		<websocket:sockjs />
+			</websocket:handlers>
+    
 	<context:component-scan base-package="kr.co.dong" />	
 	
+		
+	 <!-- 인터셉터 설정 -->
+	   <beans:bean class="kr.co.dong.common.AuInterceptor" id="auth" />
+	   <!-- 인터셉터를 위한 매핑경로설정하여 메소드를 수행하게한다. -->
+	   <interceptors>
+	      <interceptor>
+	         <mapping path="/board/insert" />
+	         <mapping path="/board/detail" />
+	         <mapping path="/board/update" />
+	         <mapping path="/board/delete" />
+	         <mapping path="/Product/pinsert" />
+	         <mapping path="/Product/pupdate" />
+	          <mapping path="/chat/chatroom" />
+	         <beans:ref bean="auth" />     
+	      </interceptor>
+	   </interceptors>
 </beans:beans>

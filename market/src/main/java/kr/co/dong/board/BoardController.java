@@ -60,7 +60,7 @@ public class BoardController {
 		if(r>0) { //성공
 			rttr.addFlashAttribute("msg", "글을 등록했습니다.");
 		}
-		return "redirect:board/paginglist";
+		return "redirect:paginglist";
 	}
 	
 	// 상세 보기
@@ -85,7 +85,7 @@ public class BoardController {
 		if(r>0) {
 			rttr.addFlashAttribute("msg", "수정되었습니다.");
 		}
-		return "redirect:board/paginglist";
+		return "redirect:paginglist";
 	}
 
 	// 글 삭제
@@ -95,7 +95,7 @@ public class BoardController {
 		if(r>0) {
 			rttr.addFlashAttribute("msg", "삭제되었습니다.");
 		}
-		return "redirect:board/paginglist";
+		return "redirect:paginglist";
 	}
 	
 	// ajax 댓글을 위한 매핑, 댓글 목록

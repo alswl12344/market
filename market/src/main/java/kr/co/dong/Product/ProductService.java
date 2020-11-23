@@ -29,6 +29,8 @@ public interface ProductService {
 	public List<ProductDTO> pdellist();	
 	// 게시물 총 갯수
 	public int countProduct();
+	// 게시물 최종 번호 확인
+	public int MaxProduct();
 	// 게시물 선택 갯수
 	public int countProduct2(PagingPVO pvo);
 	// 페이징 처리 게시글 조회
@@ -58,4 +60,6 @@ public interface ProductService {
 		
 		// 댓글 삭제
 		public int pReplyDelete(int preno);
+		// 상품 구매 수량 증가
+		public int BuycountUpdate(ProductDTO productDTO);
 }

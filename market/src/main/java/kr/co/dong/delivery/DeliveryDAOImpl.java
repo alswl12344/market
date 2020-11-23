@@ -24,9 +24,9 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 	}
 
 	@Override
-	public List<ManagementDTO> management() {
+	public List<ManagementDTO> management(String userid) {
 		// 주소록 관리 목록
-		return sqlSession.selectList(NameSpace + ".management");
+		return sqlSession.selectList(NameSpace + ".management", userid);
 	}
 
 	@Override

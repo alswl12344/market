@@ -24,9 +24,9 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public int CartNumChange() {
+	public int CartNumChange(CartDTO cartDTO) {
 		// TODO Auto-generated method stub
-		return 0;
+		return cartDAO.CartNumChange(cartDTO);
 	}
 
 	@Override
@@ -40,7 +40,54 @@ public class CartServiceImpl implements CartService{
 		// TODO Auto-generated method stub
 		return cartDAO.BuyCountUpdate(cartDTO);
 	}
-	
+
+	@Override
+	public int DeleteNonUserCart() {
+		// TODO Auto-generated method stub
+		return cartDAO.DeleteNonUserCart();
+		}
+
+	@Override
+	public int DeleteCart(int cartcode) {
+		// TODO Auto-generated method stub
+		return cartDAO.DeleteCart(cartcode);
+	}
+
+	@Override
+	public CartDTO BuyCart(int cartcode) {
+		// TODO Auto-generated method stub
+		return cartDAO.BuyCart(cartcode);
+	}
+
+	@Override
+	public int CartStatusUpdate(int cartcode) {
+		// TODO Auto-generated method stub
+		return cartDAO.CartStatusUpdate(cartcode);
+	}
+
+	@Override
+	public int CartClear(String customerid) {
+		// TODO Auto-generated method stub
+		return cartDAO.CartClear(customerid);
+	}
+
+	@Override
+	public List<CartDTO> OrderingCart(String customerid) {
+		// TODO Auto-generated method stub
+		return cartDAO.OrderingCart(customerid);
+	}
+
+	@Override
+	public int OrderingCartComfirm(CartDTO cartDTO) {
+		// TODO Auto-generated method stub
+		return cartDAO.OrderingCartComfirm(cartDTO);
+	}
+
+	@Override
+	public List<CartDTO> SelectDeliveryView() {
+		// TODO Auto-generated method stub
+		return cartDAO.SelectDeliveryView();
+	}
 
 
 	

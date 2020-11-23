@@ -15,6 +15,7 @@ public class UserDTO {
 	
 	@NotEmpty
 	@Pattern(regexp="^[0-9a-zA-Z]*$")
+	@Length(min=4, max=8)
 	private String userid;
 
 	@NotEmpty
@@ -23,7 +24,6 @@ public class UserDTO {
 	private String userpw;
 	
 	@NotEmpty
-	@Length
 	private String username;	
 	
 	@NotEmpty
@@ -31,7 +31,7 @@ public class UserDTO {
 	private String birth;
 	
 	@NotEmpty
-	private String  email;
+	private String email;
 	
 	@NotEmpty
 	private String phone;

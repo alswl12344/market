@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <html>
 <head>
-<title>main</title></head><body>
+</head><body>
 
 <%@include file="include/header.jsp"%>
 <section class="content">

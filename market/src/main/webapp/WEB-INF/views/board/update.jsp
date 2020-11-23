@@ -1,45 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="ContextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="ContextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시판 글 작성</title>
+<!-- 글 수정  -->
 </head>
-		
-		<%@include file="../include/header.jsp"%>
-		
-		<section class="content">
+<body>
+<%@ include file="../include/header.jsp"%>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
 			<div class="box-header">
-				<h3 class="box-title">게시판 수정하기</h3>
+				<h3 class="box-title">글 수정</h3>
 			</div>
 		
 			<form role="form" method="post">
 				<div class="box-body">
 					<div class="form-group">
-						<label>제목</label> <input type="text"
-							name='title' class="form-control"  value="${board.btitle}">
+						<input type="text" name="btitle" class="form-control" value="${board.btitle}">
 					</div>
 					<div class="form-group">
-						<label>내용</label>
-						<textarea class="form-control" name="content" rows="3">${board.bcontent}</textarea>
-					</div>
-		
-					<div class="form-group">
-						<label>작성자</label> <input type="text"
-							name="id" class="form-control"  
-							readonly="readonly"  value="${user.name }">
+						<textarea class="form-control" name="bcontent" id="bcontent">${board.bcontent}</textarea>
+						<script>CKEDITOR.replace('content');</script>
 					</div>
 					<!-- 수정에 사용할 글번호 -->
 					<input type="hidden" name="bno" value="${board.bno }" />
+					<!-- 수정하는 사람 -->
+					<input type="hidden" name="id" value="${user.username }"/>
 				</div>
 		
 				<div class="box-footer">
-					<button type="submit" class="btn btn-primary">수정완료</button>
+					<button type="submit" class="mng-button">수정</button>
 				</div>
+				<br>
 			</form>
-		</section>
-		<%@include file="../include/footer.jsp"%>
+		</div>
+	</div>
+</div>
+<%@include file="../include/footer.jsp"%>
 					

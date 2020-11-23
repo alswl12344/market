@@ -19,8 +19,8 @@
   	
   	<!-- 글 추가 -->
   	<insert id="insert" parameterType="BoardDTO">
-  		insert into board(bno,btitle,bcontent,bwriter,bdate,breadcnt,bcategory,bcategorydetail)
-  		values(#{bno},#{btitle},#{bcontent},#{bwriter},curdate(),0,#{bcategory},#{bcategorydetail})
+  		insert into board(bno,btitle,bcontent,bwriter,bdate,breadcnt,bcategory)
+  		values(#{bno},#{btitle},#{bcontent},#{bwriter},curdate(),0,#{bcategory})
   	</insert>
   		
   	 <!-- 글 수정하는 SQL -->

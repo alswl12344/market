@@ -4,8 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
-<head>
-<title>Home</title></head><body>
+<body>
 
 <%@include file="../include/header.jsp"%>
 <section class="content">

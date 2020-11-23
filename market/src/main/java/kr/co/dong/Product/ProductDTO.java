@@ -10,11 +10,19 @@ public class ProductDTO {
 	private String plimit;
 	private String pimage;
 	private int ptcodesub;
+	private int ptcodemain;
 	private String pcontent;
 	private String puserid;
 	private int pdel;
 	
 	
+	
+	public int getPtcodemain() {
+		return ptcodemain;
+	}
+	public void setPtcodemain(int ptcodemain) {
+		this.ptcodemain = ptcodemain;
+	}
 	public int getPcode() {
 		return pcode;
 	}

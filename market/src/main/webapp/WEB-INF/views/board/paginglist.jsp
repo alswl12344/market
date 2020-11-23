@@ -6,94 +6,96 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>List</title>
-<script>
-	function selChange() {
-		var sel = document.getElementById('cntPerPage').value;
-		location.href="${contextPath }/dong/board/paginglist?nowPage=${paging.nowPage}&cntPerPage="+sel;
-	}
-</script>
 </head>
-<body oncontextmenu="return false" ondragstart="return false"
-	onselectstart="return false">
+<body>
 <%@include file="../include/header.jsp" %>
 <div class="container">
 		<div class="row">
-			<div class="col-sm-12">
-					<div class="box-header">
-						<h3 class="box-title">게시판</h3>
-					</div>
-<div id="outter">
-	<div style="float: right;">
-		<select id="cntPerPage" name="sel" onchange="selChange()">
-			<option value="5"
-				<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
-			<option value="10"
-				<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
-			<option value="15"
-				<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
-			<option value="20"
-				<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
-		</select>
-	</div> 
- <div>${msg}</div>
+		<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+				<div class="logo">
+					<img src="../resources/logo/logo.png" class="logo-detail"/>
+					<br>
+				</div>
 <div class="table-responsive">
-  <table class="table">
-  <tr>
-  	<td>글번호</td>
-  	<td>제목</td>
-  	<td>작성일</td>
-  	<td>작성자</td>
-  	<td>조회수</td>
+  <table class="list-table">
+  <tr class="list-tr-top">
+  	<th></th>
+  	<th width = "40%" class="list-td">제목</th>
+  	<th class="list-td">작성일</th>
+  	<th class="list-td">작성자</th>
+  	<th width = "10%" class="list-td">조회수</th>
   </tr>
 <c:forEach var="board" items="${listAll }">
- 	<tr>
- 	<td>${board.bno}</td>
- 	<td><a href="detail?bno=${board.bno}"> ${board.btitle} </a></td>
- 	<td>${board.bdate}</td>
- 	<td>${board.bwriter}</td>
- 	<td><span class="badge">${board.breadcnt }</span></td>
+ 	<tr class="list-tr">
+ 	<td class="list-td">${board.bno}</td>
+ 	<td class="list-td-title"><a href="detail?bno=${board.bno}"> ${board.btitle} </a></td>
+ 	<td class="list-td">${board.bdate}</td>
+ 	<td class="list-td">${board.bwriter}</td>
+ 	<td class="list-td">${board.breadcnt }</td>
  	</tr>
 </c:forEach>
 	</table>
-	
-	<div style="display: block; text-align: center;">		
-		<c:if test="${paging.startPage != 1 }">
-			<a href="${contextPath }/board/paginglist?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == paging.nowPage }">
-					<b>${p }</b>
-				</c:when>
-				<c:when test="${p != paging.nowPage }">
-					<a href="${contextPath }/board/paginglist?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="${contextPath }/board/paginglist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
-		</c:if>
-	</div>
-	<input class="btn btn-success" type="button" value="메인으로" 
-id="main" />
-<input class="btn" type="button" value="글쓰기" 
-id="insert" />
+	<div>
+	<table width="100%" style="margin-top:10px;">
+		<tr>
+			<td width="30%">
+			<form>
+		    <input type="text" name="keyword" placeholder="Search for..." class="search-field">
+		    <button type="submit" class="search-icon">
+		    <img src="../resources/logo/search.png" width="20px">
+		    </button>
+			</form>
+			</td>
+			<td>
+		 <ul class="pagination">
+			  	<c:if test="${paging.startPage != 1 }">
+			  		<li class="page-item">
+						<a href="${contextPath }/board/paginglist?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}" class="page-link">&lt;</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == paging.nowPage }">
+							<li class="page-item">
+							<a class="page-link">${p }</a>
+							</li>
+						</c:when>
+						<c:when test="${p != paging.nowPage }">
+							<li class="page-item">
+								<a href="${contextPath }/board/paginglist?nowPage=${p}&cntPerPage=${paging.cntPerPage}" class="page-link">${p }</a>
+							</li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${paging.endPage != paging.lastPage}">
+			    	<li class="page-item">
+						<a href="${contextPath }/board/paginglist?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}" class="page-link">&gt;</a>
+					</li>
+				</c:if>
+			</ul>
+			</td>
+			<td width="30%">
+				<div align="right">
+					<button class="list-insert" id="insert">
+					<img src="../resources/logo/writing.png" width="20px">
+					&nbsp;글 작성</button>
+				</div>
+			</td>
+		</tr>
+	</table>
 <br>
 </div>
-
 </div>
 </div>
 </div>
+<div class="col-sm-1"></div>
 </div>
-
+<br>
 <%@include file="../include/footer.jsp" %>
 </body>
 
 <script>
-	$('#main').on('click' , function(){
-		location.href="${pageContext.request.contextPath}";
-	})
 	$('#insert').on('click' , function(){
 		location.href="insert";
 	})

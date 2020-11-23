@@ -156,6 +156,18 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.productSortList2(spvo);
 	}
 
+	@Override
+	public int BuycountUpdate(ProductDTO productDTO) {
+		// TODO Auto-generated method stub
+		return productDAO.BuycountUpdate(productDTO);
+	}
+
+	@Override
+	public int MaxProduct() {
+		// TODO Auto-generated method stub
+		return productDAO.MaxProduct();
+	}
+
 
 
 

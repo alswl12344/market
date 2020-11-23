@@ -12,7 +12,12 @@
  		 <typeAlias alias="UserDTO" type="kr.co.dong.user.UserDTO"/>
  		 <typeAlias alias="ImgDTO" type="kr.co.dong.ImgDTO"/>
  		 <typeAlias alias="PagingPVO" type="kr.co.dong.Product.PagingPVO"/>
+ 		 <typeAlias alias="PagingUVO" type="kr.co.dong.user.PagingUVO"/>
  		 <typeAlias alias="PagingSortPVO" type="kr.co.dong.Product.PagingSortPVO"/>
  		 <typeAlias alias="CartDTO" type="kr.co.dong.cart.CartDTO"/>
+ 		 <typeAlias alias="OrderDTO" type="kr.co.dong.order.OrderDTO"/>
+ 		  <typeAlias alias="ProductReply" type="kr.co.dong.Product.ProductReply"/>
+ 		  <typeAlias alias="ChatroomDTO" type="kr.co.dong.chat.ChatroomDTO"/>
+ 		  <typeAlias alias="FriendDTO" type="kr.co.dong.user.FriendDTO"/>
  	</typeAliases>
  </configuration>

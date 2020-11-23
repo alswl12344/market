@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결과값</title>
 </head>
 <body>
 전송 결과값 <br>

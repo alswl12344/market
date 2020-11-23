@@ -4,9 +4,11 @@ import kr.co.dong.Product.ProductDTO;
 
 public class CartDTO {
 	private int cartcode; 		// 장바구니 테이블 컬럼의 PK, AI 설정할 코드
+	private int ordernumber; 		// 결제 완료 시 결제코드가 들어올 컬럼
 	private int pcode; 			// 장바구니에 담을 물건의 상품코드
 	private int cbuycount;	 	// 구매할 수량 
 	private int cprice;			// 상품가격
+	private int cartstatus;			// 상품가격
 	private String cimage;		// 구매할 상품의 썸네일 이미지
 	private String cname;		// 구매할 상품의 썸네일 이미지	
 	private String cuserid;		// 판매자 id 
@@ -25,6 +27,20 @@ public class CartDTO {
 		setCname(productDTO.getPname());
 	}		
 	
+
+	
+	public int getCartstatus() {
+		return cartstatus;
+	}
+	public void setCartstatus(int cartstatus) {
+		this.cartstatus = cartstatus;
+	}
+	public int getOrdernumber() {
+		return ordernumber;
+	}
+	public void setOrdernumber(int ordernumber) {
+		this.ordernumber = ordernumber;
+	}
 	public String getCname() {
 		return cname;
 	}

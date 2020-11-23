@@ -7,89 +7,102 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
 </head>
-
-<script>
-	function selChange(){
-		var sel = document.getElementById('cntPerPage').value;
-		
-		location.href="${contextPath }/dong/Product/ProductPaging?nowPage=${paging.nowPage}&cntPerPage="+sel;
-	}
-</script>
 
 <body>
 <%@include file="../include/header.jsp" %>
- <div>${msg}</div>
-<div class="table-responsive">
-  <div style="float:right;">
-  	<select id="cntPerPage" name="sel" onchange="selChange()">
-  		<option value="5" <c:if test="${paging.cntPerPage == 5 }">selected</c:if>>5줄 보기</option>
-  		<option value="10" <c:if test="${paging.cntPerPage == 10 }">selected</c:if>>10줄 보기</option>
-  		<option value="15" <c:if test="${paging.cntPerPage == 15 }">selected</c:if>>15줄 보기</option>
-  		<option value="20" <c:if test="${paging.cntPerPage == 20 }">selected</c:if>>20줄 보기</option>
-  			
-  	</select>
-  </div>
-  
-  <table class="table">
-   <tr>
-  	<td>상품 번호</td>
-  	<td>상품명</td>
-  	<td>상품 이미지</td>
-  	<td>작성일</td>
-  	<td>등록기한</td>
-  	<td>상품가격</td>
-  	<td>상품수량</td>
-
-  </tr>
+<div class="container">
+		<div class="row">
+		<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+			<div class="logo">
+					<a href="${contextPath }/Product/ProductPaging">
+					<img src="../resources/logo/logo.png" class="logo-detail"/>
+					</a>
+					<br>
+				</div>
+			   <%@include file="../include/SortSearch.jsp" %>
+<c:set var="i" value="0" />
+<c:set var="j" value="3" />
+<table style="width:100%;">
+	<c:if test="${i%j == 0 }">
+	<tr>
+	</c:if>
 <c:forEach var="Product" items="${viewAll}">
- 	<tr>
- 	<td>${Product.pcode}</td>
- 	<td><a href="pdetail?pcode=${Product.pcode}"> ${Product.pname} </a></td>
- 	<td><img src="${Product.pimage}" style = "width:150px; height:150px"></td>
- 	<td>${Product.pdate}</td>
- 	<td>${Product.plimit}</td>
- 	<td>${Product.pprice}</td>
- 	<td>${Product.pcount}</td>
- 	<td>${Product.ptcodesub}</td>
- 	</tr>
-</c:forEach>
-<tr>
-<td colspan="5" align="center">
-<input class="btn btn-success" type="button" value="메인으로" 
-id="main" />
-<input class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert"/>
-<input class="btn btn-danger" type="button" value="삭제 상품 목록보기" id="pdellist"/>
-
-</td>
-</tr>
+	<td style="width:30%; padding-left:30px;">
+	<div align="center">
+	 	<img src="${Product.pimage}" style = "width:200px; height:200px; margin-top:40px;">
+ 	</div>
+		<br><a href="pdetail?pcode=${Product.pcode}" style="text-decoration: none; color:black; font-weight:bold;">
+		<span style="font-size:20pt;">${Product.pname}</span></a>
+	 	<br><span style="font-size:14pt; color: #5f4f6e; font-weight:bold;">${Product.pprice}원</span>
+	 	<div style="margin-bottom:40px;"></div></td>
+	<c:if test="${i%j == j-1 }">
+	</tr>
+	</c:if>
+	<c:set var="i" value="${i+1 }" />
+	</c:forEach>
+</table>
+  <table style="width:100%; margin-top:20px;">
+  	<tr>
+  		<td style="width:30%;">
+  			 <!-- 검색 창 div -->
+	  			<div>
+				<form method ="post" action="${contextPath }/Product/ProductPagingSearch?nowPage=${paging.startPage }&cntPerPage=${paging.cntPerPage}">
+					<select name="SearchOption">
+						<option value="pname">제목</option>
+					</select>
+					<input type="text" name="keyWord" id = "keyWord" placeholder="Search for..." class="search-field">
+	<!-- 				<input type="hidden" name="nowPage" value="" /> -->
+	<%-- 				<input type="hidden" name="cntPerPage" value="${paging.cntPerPage}"/> --%>
+					<button type="submit" class="search-icon">
+				    	<img src="../resources/logo/search.png" width="20px">
+				    </button>
+					</form>
+				</div>
+  		</td>
+  		<td>
+  		<ul class="pagination">
+			  	<c:if test="${paging.startPage != 1 }">
+			  		<li class="page-item">
+						<a href="${contextPath }/Product/ProductPaging?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}" class="page-link">&lt;</a>
+					</li>
+				</c:if>
+				<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == paging.nowPage }">
+							<li class="page-item">
+							<a class="page-link">${p }</a>
+							</li>
+						</c:when>
+						<c:when test="${p != paging.nowPage }">
+							<li class="page-item">
+								<a href="${contextPath }/Product/ProductPaging?nowPage=${p}&cntPerPage=${paging.cntPerPage}" class="page-link">${p }</a>
+							</li>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+			    <c:if test="${paging.endPage != paging.lastPage}">
+			    	<li class="page-item">
+						<a href="${contextPath }/Product/ProductPaging?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}" class="page-link">&gt;</a>
+					</li>
+				</c:if>
+			</ul>
+  		</td>
+  		<td style="width:30%;">
+  			<div align="right">
+  				<c:if test="${user.userid == 'admin'}">
+		  			<input type="button" class="product-button" value="상품 등록" id="pinsert"/>
+					<input type="button" class="product-button" value="삭제 상품" id="pdellist"/>
+  				</c:if>
+			</div>
+  		</td>
+  	</tr>
   </table>
+	<br>
   </div>
-   <%@include file="../include/SortSearch.jsp" %>
-   
-  <div>
-	
-  
-  <div style="display: block; text-align: center;">
-  	<c:if test="${paging.startPage != 1 }">
-  		<a href="${contextPath }/dong/Product/ProductPaging?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}"> &lt; </a>
-  	</c:if>
-  	<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-  		<c:choose>
-  			<c:when test="${p == paging.nowPage }">
-  				<b>&nbsp; ${p } &nbsp;</b>
-  			</c:when>
-  			<c:when test="${p != paging.nowPage }">
-  				<a href="${contextPath }/dong/Product/ProductPaging?nowPage=${p }&cntPerPage=${paging.cntPerPage}">&nbsp; ${p } &nbsp;</a>
-  			</c:when>
-  		</c:choose>
-  	</c:forEach>
-  	<c:if test="${paging.endPage != paging.lastPage }">
-  		<a href="${contextPath }/dong/Product/ProductPaging?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}"> &gt; </a>
-  	</c:if>
-  </div>
-  
+<div class="col-sm-1"></div>
+</div>
 </div>
 
 
@@ -97,9 +110,6 @@ id="main" />
 </body>
 
 <script>
-	$('#main').on('click' , function(){
-		location.href="${pageContext.request.contextPath}";
-	})
 	
 	$('#pinsert').on('click', function(){
 		location.href="pinsert";
