@@ -8,7 +8,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
 </head>
 
 <script>
@@ -67,15 +66,11 @@
 			</c:forEach>
 			<tr>
 				<td colspan="5" align="center"><input class="btn btn-success"
-					type="button" value="메인으로" id="main" /> <input
-					class="btn btn-primary" type="button" value="상품 등록하기" id="pinsert" />
-					<input class="btn btn-warning" type="button" value="목록 초기화" id="paging">
-					<input class="btn btn-danger" type="button" value="삭제 상품 목록보기"
-					id="pdellist" /></td>
+					type="button" value="메인으로" id="main" /> 
 			</tr>
 		</table>
 			</div>
- <%@include file="../include/SortSearch.jsp" %>
+    <%@include file="../include/SortSearch.jsp" %>
 
 		<div style="display: block; text-align: center;">
 			<c:if test="${paging.startPage != 1 }">

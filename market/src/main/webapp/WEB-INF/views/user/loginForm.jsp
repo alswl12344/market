@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 폼</title>
 </head>
 <body>
 	로그인 폼 : ${test }<br>

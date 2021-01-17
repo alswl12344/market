@@ -6,54 +6,51 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>상품 목록</title>
 </head>
 <body>
 <%@include file="../include/header.jsp" %>
- <div>${msg}</div>
+<div class="container">
+		<div class="row">
+		<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+			<div class="box-header">
+					<h3 class="box-title">삭제 상품</h3>
+				</div>
 <div class="table-responsive">
-  <table class="table">
-  <tr>
-  	<td>상품 번호</td>
-  	<td>상품명</td>
-  	<td>상품 이미지</td>
-  	<td>작성일</td>
-  	<td>등록기한</td>
-  	<td>상품가격</td>
-  	<td>상품수량</td>
-  	<td>분류코드</td>
+  <table class="list-table">
+  <tr class="list-tr-top">
+  	<th class="list-td">상품 번호</th>
+  	<th class="list-td">상품명</th>
+  	<th class="list-td">이미지</th>
+  	<th class="list-td">작성일</th>
+  	<th class="list-td">등록 기한</th>
+  	<th class="list-td">가격</th>
+  	<th class="list-td">수량</th>
   </tr>
 <c:forEach var="Product" items="${pdellist }">
- 	<tr>
+ 	<tr class="list-tr" style="text-align: center;">
  	<td>${Product.pcode}</td>
  	<td><a href="pdetail?pcode=${Product.pcode}"> ${Product.pname} </a></td>
- <td><img src="${Product.pimage}" style = "width:150px; height:150px"></td>
- 	<td>${Product.pdate}</td>
- 	<td>${Product.plimit}</td>
- 	<td>${Product.pprice}</td>
- 	<td>${Product.pcount}</td>
+ <td><div align="center"><img src="${Product.pimage}" style = "width:150px; height:150px"></div></td>
+ 	<td class="list-td">${Product.pdate}</td>
+ 	<td class="list-td">${Product.plimit}</td>
+ 	<td class="list-td">${Product.pprice}</td>
+ 	<td class="list-td">${Product.pcount}</td>
  	</tr>
 </c:forEach>
-
-<tr>
-<td colspan="5" align="center">
-<input class="btn btn-success" type="button" value="메인으로" 
-id="main" />
-<input class="btn btn-primary" type="button" value="상품목록으로 돌아가기 " 
-id="plist" />
-</td></tr>
-
   </table>
+  <div align="center">
+<input class="cart-button" type="button" value="상품 목록" id="plist" />
 </div>
-
+</div>
+</div>
+<div class="col-sm-1"></div>
+</div>
+</div>
 <%@include file="../include/footer.jsp" %>
 </body>
 
 <script>
-	$('#main').on('click' , function(){
-		location.href="${pageContext.request.contextPath}";
-	})
-	
 	$('#plist').on('click' , function(){
 		location.href="ProductPaging";
 	})

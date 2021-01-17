@@ -24,9 +24,9 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public int CartNumChange() {
+	public int CartNumChange(CartDTO cartDTO) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(nameSpace+".CartNumChange", cartDTO);
 	}
 	
 	@Override
@@ -45,6 +45,55 @@ public class CartDAOImpl implements CartDAO {
 	public int BuyCountUpdate(CartDTO cartDTO) {
 		// TODO Auto-generated method stub
 		return sqlSession.update(nameSpace+".BuyCountUpdate", cartDTO);
+	}	
+
+	@Override
+	public int DeleteNonUserCart() {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(nameSpace+".DeleteNonUserCart");
+	}
+
+
+	@Override
+	public int DeleteCart(int cartcode) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(nameSpace+".DeleteCart", cartcode);
+	}
+
+	@Override
+	public CartDTO BuyCart(int cartcode) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(nameSpace+".BuyCart", cartcode);
+	}
+
+	@Override
+	public int CartStatusUpdate(int cartcode) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(nameSpace+".CartStatusUpdate", cartcode);
+	}
+
+	@Override
+	public int CartClear(String customerid) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(nameSpace+".CartClear", customerid);
+	}
+
+	@Override
+	public List<CartDTO> OrderingCart(String customerid) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(nameSpace+".OrderingCart", customerid);
+	}
+
+	@Override
+	public int OrderingCartComfirm(CartDTO cartDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(nameSpace+".OrderingCartComfirm", cartDTO);
+	}
+
+	@Override
+	public List<CartDTO> SelectDeliveryView() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(nameSpace+".SelectDeliveryView");
 	}
 	
 }

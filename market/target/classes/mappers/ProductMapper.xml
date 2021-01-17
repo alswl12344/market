@@ -28,7 +28,7 @@
   
 <!--   선택조회(등록된 이미지 불러오기) -->
    <select id="pdetailimg" parameterType="java.lang.Integer" resultType="ImgDTO">
-  	select *
+  	select * 
   	from imagetable
   	where imgfromno = #{imgfromno}
   </select>
@@ -36,8 +36,8 @@
  <!-- 상품 등록하기 -->
   
   <insert id="pinsert" parameterType="ProductDTO">
-  	insert into product(pname, pprice, pcount, pdate, plimit, pimage, ptcodemain, ptcodesub, pcontent, pdel, puserid) 
-	values(#{pname}, #{pprice}, #{pcount}, now(), now(), #{pimage}, #{ptcodemain}, #{ptcodesub}, #{pcontent}, 0, #{puserid})
+  	insert into product(pname, pprice, pcount, pbuycount, pdate, plimit, pimage, ptcodemain, ptcodesub, pcontent, pdel, puserid) 
+	values(#{pname}, #{pprice}, #{pcount}, #{pbuycount}, now(), now(), #{pimage}, #{ptcodemain}, #{ptcodesub}, #{pcontent}, 0, #{puserid})
   </insert>
   
 
@@ -79,7 +79,12 @@
   
   <!-- 총 게시글 갯수 출력 -->
 <select id="countProduct" resultType="java.lang.Integer">
-	select count(*) from product where pdel = 0
+	select count(*) from product
+</select>
+
+  <!-- 게시글 최대번호 확인 -->
+<select id="MaxProduct" resultType="java.lang.Integer">
+	select IFNULL(max(pcode),0) from product
 </select>
 
   <!-- 전체목록수(페이징 처리) -->
@@ -140,11 +145,6 @@
   	limit #{start}, #{cntPerPage}
   </select>
  
- 
- 
- 
-   
-  
     <!-- 속성 게시글 갯수 출력 -->
 <select id="countProduct2" parameterType="PagingPVO" resultType="java.lang.Integer">
 	select count(*) from product
@@ -166,7 +166,50 @@ limit #{start}, #{cntPerPage}
 
   </select>
   
+<!-- 게시글 번호에 해당하는 모든 댓글 조회 SQL -->
+	<select id="pGetDetail" parameterType="java.lang.Integer" resultType="ProductReply">
+		select *
+		from productreply
+		where pcode = #{pcode}
+		order by preno desc
+	</select>
 
+	<!-- 댓글 쓰기 -->
+	<insert id="pReply" parameterType="ProductReply">
+		insert into
+		productreply(pwriter,pmemo,predate,pcode)
+		values(#{pwriter},#{pmemo},curdate(),#{pcode})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="pReplyUpdate" parameterType="ProductReply">
+		update productreply
+		set
+		pwriter = #{pwriter},
+		pmemo = #{pmemo},
+		predate = curdate()
+		where preno = #{preno}
+	</update>
+
+	<select id="preplydetail" parameterType="java.lang.Integer" resultType="ProductReply">
+  		select *
+  		from productreply
+  		where preno = #{preno}
+  	</select>
+  	
+  	<!-- 댓글 삭제 -->
+  	<delete id="pReplyDelete" parameterType="java.lang.Integer">
+		delete from productreply
+		where preno = #{preno}
+  	</delete>
   
+    
+	<!-- 상품구매 시 구매 수량 증가  -->
+	<update id = "BuycountUpdate" parameterType="ProductDTO">
+		update product
+		set pbuycount = pbuycount + #{pbuycount}
+		where pcode = #{pcode}
+	</update>
+
   
   </mapper>

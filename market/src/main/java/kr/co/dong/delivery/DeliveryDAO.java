@@ -4,10 +4,10 @@ import java.util.List;
 
 
 public interface DeliveryDAO {
-	//배송지 리스트
+  //배송지 리스트
   public List<DeliveryDTO> dview();
   //주소록 관리
-  public List<ManagementDTO> management();
+  public List<ManagementDTO> management(String userid);
   // 주소 추가
   public int insert(ManagementDTO managementDTO); 
   // 주소 삭제 

@@ -12,9 +12,10 @@
 	</select>
 	
 	<!-- 주소록 관리 목록 -->
-	<select id="management" resultType="ManagementDTO">
+	<select id="management" parameterType="java.lang.String" resultType="ManagementDTO">
 		select *
-		from management		
+		from management 
+		where userid = #{userid}
 		order by mcode desc
 	</select>
 	

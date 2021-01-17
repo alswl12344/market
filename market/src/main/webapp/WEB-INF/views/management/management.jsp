@@ -6,10 +6,8 @@
 
 <html>
 <head>
-<title>주소지 관리</title>
 </head>
-<body oncontextmenu="return false" ondragstart="return false"
-	onselectstart="return false">
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	<%@include file="../include/header.jsp"%>
 	<div class="container">
 		<div class="row">
@@ -17,36 +15,36 @@
 					<div class="box-header">
 						<h3 class="box-title">주소록 관리</h3>
 					</div>
-				
+<section class="content">
 <div class="table-responsive">
-  <table class="table">
+  <table class="del-table">
 <c:forEach var="delivery" items="${list }">
- 	<tr>
- 	<td> ${delivery.mname}
- 	<button onclick='location.href="delete?mcode=" + ${delivery.mcode}' class="mng-button">삭제</button>
- 	<button onclick='location.href="mupdate?mcode=" + ${delivery.mcode}' class="mng-button">수정</button>
+ 	<tr class="del-first-tr">
+ 	<td class="del-title"> ${delivery.mname}</td>
+ 	<td style="width: 30%">
+ 	<div align="center">
+ 	<button onclick='location.href="mupdate?mcode=" + ${delivery.mcode}' class="del-list">
+ 	수정</button>
+ 	<button onclick='location.href="delete?mcode=" + ${delivery.mcode}' class="del-list">
+ 	삭제</button>
+ 	</div>
  	</td>
  	</tr>
- 	<tr>
-  	<td> ${delivery.maddress}<br>
+ 	<tr class="del-second-tr">
+  	<td colspan="2" class="del-content"> ${delivery.maddress}<br>
   	 ${delivery.mnum}
   	 </td>
   	</tr>
 </c:forEach>
 </table>
 <div align="center">
-	<button onclick='location.href="minsert"' class="mng-button" id="insert">등록</button>
-	<input class="mng-button-white" type="button" value="메인으로" id="main" />
-<br>
+	<button onclick='location.href="minsert"' class="del-button" id="insert">등록</button>
 </div>
 </div>
 </div>
 </div>
 </div>
 <script>
-	$('#main').on('click' , function(){
-		location.href="${pageContext.request.contextPath}";
-	})
 
 	$('#mdelete').on('click' , function(){
 		location.href="delete?mcode=" + ${delivery.mcode};
@@ -54,7 +52,7 @@
 </script>
 
 
-
+</section>
 
 <%@include file="../include/footer.jsp" %>
 </body>

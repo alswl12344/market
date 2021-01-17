@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.dong.order">
+
+
+
+<!-- 	전체 결제내역 조회 관리자용 (오더 테이블 데이터 조회) -->
+	<select id = "OrderList" resultType="OrderDTO">
+		select * 
+        from ordertb a left join ordertype b
+		on a.orderpaytype = b.ordertypecode
+		order by a.ordercode desc;
+	</select>
+	
+	<!-- 	결제내역 조회 유저용 (오더 테이블 데이터 조회) -->
+	<select id = "OrderListUser" resultType="OrderDTO" parameterType="java.lang.String">
+		select * 
+        from ordertb a left join ordertype b
+		on a.orderpaytype = b.ordertypecode
+		where a.orderuserid = #{orderuserid}
+		order by a.ordercode desc;
+	</select>
+	
+
+<!-- 	결제 버튼 클릭 -->
+	<insert id = "OrderConfirm" parameterType="OrderDTO">
+	 <selectKey resultType="java.lang.Integer" keyProperty="ordernumber" order="BEFORE">
+        SELECT IFNULL(max(ordernumber)+1,1) FROM ordertb       
+    </selectKey> 
+		INSERT INTO ordertb(orderprice, ordernumber, orderpaytype, orderreceivename, orderuserid, orderstatus, ordermanagementaddress, orderdate)
+		VALUES (#{orderprice}, #{ordernumber}, #{orderpaytype}, #{orderreceivename}, #{orderuserid}, #{orderstatus}, #{ordermanagementaddress}, curdate())
+	</insert>
+
+<!-- 결제 테이블에서 상품의 ordernumber 가져오기 -->
+	<select id = "GetOrderNumber" parameterType="OrderDTO" resultType="OrderDTO">
+		select ordernumber
+		from ordertb
+		where orderreceivename = #{orderreceivename}
+		and orderuserid = #{orderuserid}
+		and orderprice= #{orderprice}	
+	</select>
+	
+<!-- 	입금대기중인 결제 건에 대해서 입금 확인처리 -->
+	<update id = "MoneyCheck" parameterType="java.lang.Integer">
+		update ordertb
+		set orderpaytype = 4, orderstatus = '입금완료'
+		where ordercode = #{ordercode}
+	</update>
+	
+</mapper>

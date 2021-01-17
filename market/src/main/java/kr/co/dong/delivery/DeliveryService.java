@@ -7,7 +7,7 @@ public interface DeliveryService {
 	//배송지 목록
 	public List<DeliveryDTO> dview();
 	//주소록 관리 목록
-	public List<ManagementDTO> management();
+	public List<ManagementDTO> management(String userid);
 	// 주소 추가
 	public int insert(ManagementDTO managementDTO); 
 	// 주소 삭제 

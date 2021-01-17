@@ -6,7 +6,6 @@
 
 <html>
 <head>
-<title>비밀번호 찾기</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	<%@include file="../include/header.jsp"%>

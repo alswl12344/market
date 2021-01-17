@@ -17,9 +17,9 @@ public class DeliveryServiceImpl implements DeliveryService{
 	}
 
 	@Override
-	public List<ManagementDTO> management() {
+	public List<ManagementDTO> management(String userid) {
 		// 주소록 목록
-		return deliveryDAO.management();
+		return deliveryDAO.management(userid);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class PagingVO {
 	// DB 쿼리에서 사용할 start, end 값 계산
 	private void calcStartEnd(int nowPage, int cntPerPage) {
 		setEnd(nowPage * cntPerPage);
-		setStart(getEnd() - cntPerPage + 1);
+		setStart(getEnd() - cntPerPage);
 		if(nowPage > lastPage) {
 			setExPage(lastPage);
 		}else {
@@ -34,7 +34,7 @@ public class PagingVO {
 		if(getLastPage() < getEndPage()) {
 			setEndPage(getLastPage());
 		}
-		setStartPage(getEndPage() - cntPage + 1);
+		setStartPage(getEndPage() - cntPage);
 		if(getStartPage() < 1) {
 			setStartPage(1);
 		}

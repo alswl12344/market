@@ -37,6 +37,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.mysql.cj.Session;
 
+import kr.co.dong.Product.PagingPVO;
+
 
 @Controller
 public class UserController {
@@ -201,4 +203,166 @@ public class UserController {
 		}
 		return "redirect:Mypage?userid="+userDTO.getUserid();
 	}
-}
+	
+//회원 삭제
+	@RequestMapping(value="user/Userdelete", method=RequestMethod.GET)
+	public String Delete(@RequestParam("usercode") int usercode,RedirectAttributes rttr) {
+		int r = userService.Userdelete(usercode);
+		if(r>0) {
+			rttr.addFlashAttribute("msg", "삭제되었습니다.");
+		}
+		return "redirect:UserList";
+	}
+	
+// 회원 관리 등급 변결
+	@RequestMapping(value = "user/UserUpgrade", method = RequestMethod.GET)
+	public String Upgrade(@RequestParam("usercode") int usercode,RedirectAttributes rttr) {
+		
+		int r = userService.UserUpgrade(usercode);
+		if(r>0) {
+			rttr.addFlashAttribute("msg", "유저 레벨 업데이트.");
+		}
+		return "redirect:UserList";
+	}
+	
+	
+	
+	
+	@RequestMapping(value="chat/friend", method = RequestMethod.GET)
+	public ModelAndView friend () {
+		
+		ModelAndView mav = new ModelAndView();
+
+		
+		return mav;
+		
+	}
+	
+	//유저 검색하기
+		@ResponseBody
+		@RequestMapping(value="chat/friend", method = RequestMethod.POST)
+		public ArrayList<UserDTO> userSearch(@RequestParam("username") String username) {
+			
+			ArrayList<UserDTO> ulist = new ArrayList<UserDTO>();
+			
+			ulist.add(userService.userSearchlist(username));
+	
+			return ulist;
+		}
+		
+		
+		// 친구 추가하기 
+		
+		@RequestMapping(value="chat/insertfriend", method= {RequestMethod.POST, RequestMethod.GET})
+		public String insertfriend (FriendDTO fDTO, Model model, RedirectAttributes rttr) {
+			
+			int r = userService.insertFriend(fDTO);
+			if (r > 0) {
+				rttr.addFlashAttribute("msg", "친구 등록 성공");
+				return "redirect:/chat/chatroom";
+
+			}
+			return "redirect:/";
+		
+		}
+		
+		// 회원 전체 리스트 
+		@RequestMapping(value = "user/UserList", method = RequestMethod.GET)
+		public String ProductPaging(PagingUVO uvo, Model model,
+				@RequestParam(value = "nowPage", required = false) String nowPage,
+				@RequestParam(value = "cntPerPage", required = false) String cntPerPage) {
+			int total = userService.countUser();
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) {
+				cntPerPage = "5";
+			}
+
+			uvo = new PagingUVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), uvo.getkeyWord());
+			model.addAttribute("paging", uvo);
+			model.addAttribute("viewAll", userService.userAll(uvo));
+
+			return "user/UserList";
+		}
+
+	
+
+//		회원 리스트 GET
+		@RequestMapping(value = "user/UserListSearch", method = RequestMethod.GET)
+		public String UserList(PagingUVO uvo, Model model,
+				@RequestParam(value = "nowPage", required = false) String nowPage,
+				@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+				@RequestParam(value = "keyWord", required = false) String keyWord) throws Exception {
+			int total = userService.countUserSearch(uvo);
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) {
+				cntPerPage = "5";
+			}
+			uvo = new PagingUVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), keyWord);
+			model.addAttribute("paging", uvo);
+			model.addAttribute("viewAll", userService.usearchlist(uvo));
+			return "user/UserListSearch";
+		}
+		
+		// 회원 리스트 POST
+
+		@RequestMapping(value = "user/UserListSearch", method = RequestMethod.POST)
+		public String ProductPagingSearch1(PagingUVO uvo, Model model,
+				@RequestParam(value = "nowPage", required = false) String nowPage,
+				@RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+				@RequestParam(value = "keyWord", required = false) String keyWord) throws Exception {
+			logger.info("키워드1 " + uvo.getkeyWord());
+			logger.info("키: " + keyWord);
+			int total = userService.countUserSearch(uvo);
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) {
+				cntPerPage = "5";
+			}
+			logger.info(cntPerPage);
+			logger.info(nowPage);
+
+			uvo = new PagingUVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), keyWord);
+
+			model.addAttribute("paging", uvo);
+			model.addAttribute("viewAll", userService.usearchlist(uvo));
+
+			return "user/UserListSearch";
+		}
+
+//		포인트 충전페이지로 이동 user/chargepoint
+		@RequestMapping(value = "user/chargepoint", method = RequestMethod.GET) 
+		public String MoveChargePoint() throws Exception {
+		
+			return "point/point";
+		}
+		
+//		포인트 충전 user/chargepoint
+		@ResponseBody 
+		@RequestMapping(value = "user/chargepoint", method = RequestMethod.POST) 
+		public String ChargePoint(int amount, HttpSession session) throws Exception {
+			
+			System.out.println("충전금액은 : "+amount);
+			UserDTO userDTO = (UserDTO) session.getAttribute("user"); // 세션에서 아이디 포함하는 userDTO 빈을 가져옴
+			userDTO.setPoint(amount);		 						  // 충전할 금액을 빈의 point변수에 추가
+			int chk = userService.ChargePoint(userDTO);				  // 포인트 업데이트
+			
+			// 업데이트된 포인트를 다시 세션에 갱신
+			String userid = userDTO.getUserid();
+			UserDTO userPoint = userService.Mypage(userid);
+			session.setAttribute("point", userPoint.getPoint());
+			return "redirect:/";
+		}
+		
+		
+	}

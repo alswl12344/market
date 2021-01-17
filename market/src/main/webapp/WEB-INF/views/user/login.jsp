@@ -6,7 +6,6 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <html>
 <head>
-<title>로그인</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
@@ -33,7 +32,7 @@
 						<div class="input-group mb-3">
 						   <div class="input-width">
 						   <br>
-						   <input type="text" name="userpw" placeholder="비밀번호를 입력해주세요." class="login-box"/><br>
+						   <input type="password" name="userpw" placeholder="비밀번호를 입력해주세요." class="login-box"/><br>
 						   <br>
 						   </div>
 						</div>

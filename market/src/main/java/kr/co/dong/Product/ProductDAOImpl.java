@@ -185,6 +185,20 @@ public int pReplyDelete(int preno) {
 }
 
 
+@Override
+public int BuycountUpdate(ProductDTO productDTO) {
+	// TODO Auto-generated method stub
+	return sqlSession.update(namespace+".BuycountUpdate", productDTO);
+}
+
+
+@Override
+public int MaxProduct() {
+	// TODO Auto-generated method stub
+	return sqlSession.selectOne(namespace+".MaxProduct");
+}
+
+
 	}
 
 

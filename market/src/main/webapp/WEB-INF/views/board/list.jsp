@@ -6,16 +6,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>게시판</title>
 
 </head>
 <body>
 <%@include file="../include/header.jsp" %>
+<br>
+<br>
  <div>${msg}</div>
 <div class="table-responsive">
-  <table class="table">
-  <tr>
-  	<td>글번호</td>
+  <table class="list-table">
+  <tr class="list-tr">
+  	<td></td>
   	<td>제목</td>
   	<td>작성일</td>
   	<td>작성자</td>
@@ -23,11 +24,11 @@
   </tr>
 <c:forEach var="board" items="${list }">
  	<tr>
- 	<td>${board.bno}</td>
- 	<td><a href="detail?bno=${board.bno}"> ${board.btitle} </a></td>
- 	<td>${board.bdate}</td>
- 	<td>${board.bwriter}</td>
- 	<td><span class="badge">${board.breadcnt }</span></td>
+	 	<td>${board.bno}</td>
+	 	<td><a href="detail?bno=${board.bno}"> ${board.btitle} </a></td>
+	 	<td>${board.bdate}</td>
+	 	<td>${board.bwriter}</td>
+	 	<td><span class="badge">${board.breadcnt }</span></td>
  	</tr>
 </c:forEach>
 <tr>
@@ -39,7 +40,8 @@ id="main" />
 </tr>
   </table>
 </div>
-
+<br>
+<br>
 
 <%@include file="../include/footer.jsp" %>
 </body>

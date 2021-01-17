@@ -1,247 +1,285 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="ContextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="ContextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Detail</title>
+<title>${board.btitle}</title>
 <!-- 상세 보기  -->
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	<%@ include file="../include/header.jsp"%>
-<script>
-	// ajax를 통한 댓글 쓰기
-	$(document).ready(function(){
-		console.log("1111");
-		// var str = "<h3>아작스 댓글 목록</h3>"
-		// 댓글 목록 불러오는 아작스 함수 작성
-		replylist();
-		
-		// $("#ajaxReply").html(str);
-		
-		// 댓글 저장 버튼 클릭 이벤트 (댓글 쓰기)
-		// $("#btnReplySave").on('click', function)
-		$(document).on('click','#btnReplySave', function(){
-			var rememo = $("#rememo").val();
-			var rewriter = $("#rewriter").val();
-			var url = "${pageContext.request.contextPath}/board/reply"; //아작스 수정
-			var paramData = {
-					"rewriter" : rewriter,
+	<script>
+		$(document).ready(function() {
+			console.log("댓글 연결 완료");
+			replylist();
+			$(document).on('click', '#btnReplySave', function() {
+				var rememo = $("#rememo").val();
+				var rewriter = $("#rewriter").val();
+				var redate = $("#redate").val();
+				var url = "${pageContext.request.contextPath}/board/reply";
+				var paramData = {
+					"rewriter" : '${user.username}',
 					"rememo" : rememo,
+					"redate" : redate,
 					"bno" : '${board.bno}'
-			}; //추가 데이터
-			
-			$.ajax({
-				type: "POST",
-				url: url,
-				data: paramData,
-				dataType: 'json',
-				success: function(result){ // result<=>data<=>log
-					replylist();
-					$("#rememo").val('');
-					$("#rewriter").val('');
-				},
-				error: function(data){
-					console.log(data);
-					alert("에러");
-				}
+				};
+
+				$.ajax({
+					type : "POST",
+					url : url,
+					data : paramData,
+					dataType : 'json',
+					success : function(result) {
+						Swal.fire({
+							icon : 'success',
+							title : '댓글을 등록하였습니다.'
+						})
+						replylist();
+						$("#rememo").val('');
+						$("#rewriter").val('');
+						$("#redate").val('');
+					},
+					error : function(data) {
+						console.log(data);
+						Swal.fire({
+							icon : 'error',
+							title : data
+						})
+					}
+				});
+
 			});
-			
 		});
-	});
-	
-	
-	
-	// 댓글 아작스 통신 실시
-	function replylist() {
-		var url = "${pageContext.request.contextPath}/board/replylist";
-		var paramData = {"bno" : "${board.bno}"}
-		$.ajax({
-			url: url, // 주소 -> 컨트롤 매핑 주소
-			data: paramData, // 요청 데이터(해당 글번호)
-			dataType: 'json', // 데이터 타입
-			type: 'POST', // 전송 방식(GET/POST)
-			success: function(result){ // result 혹은 data (지정 변수)
-				alert("성공");
-				var htmls = "";
-				if(result.length < 1){
-					htmls = htmls + "<h3>등록된 댓글이 없습니다.</h3>";
-				}
-				else {
-					$(result).each(function(){
-						htmls = htmls + '<div class="media text-muted pt-3" id="reno' +this.reno+'">';
-										//<div id="reno12"> <div id="reno13">
-						htmls += '<span class="d-block">';
-			            htmls += this.reno + ' - ';
-			          	htmls += '<strong class="text-gray-dark">' + this.rewriter + '</strong>';
-			      		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-			           	htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.reno + ', \'' + this.rewriter + '\', \'' + this.rememo + '\' )" style="padding-right:5px">수정</a>';
-			     		htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.reno + ')" >삭제</a>';
-			      		htmls += '</span>';
-			            htmls += '</span><br>';
-			        	htmls += this.rememo;
-			        	htmls += '</p>';
-			        	htmls += '</div>';      
-	
-					}); // each End
-				}
-				$("#replylist").html(htmls);
-				// $("replylist").html(result)
-				
-			}, // Ajax success End
-			error: function(data){
-				alert("에러 발생"+data);
+
+		// 댓글 아작스 통신 실시
+		function replylist() {
+			var url = "${pageContext.request.contextPath}/board/replylist";
+			var paramData = {
+				"bno" : "${board.bno}"
 			}
-		});
-		
-	} // replylist() End
-	
-	function fn_editReply(reno, rewriter, rememo){
-		var htmls = "";
-		htmls = htmls + '<div class="media text-muted pt-3" id="reno' +reno+'">';
-		//<div id="reno12"> <div id="reno13">
-		htmls += '<span class="d-block">';
-		htmls += reno + ' - ';
-		htmls += '<strong class="text-gray-dark">' + rewriter + '</strong>';
-		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-		htmls += '<a href="javascript:void(0)" onclick="fn_updateReply(' + reno + ', \'' + rewriter + '\')" style="padding-right:5px">저장</a>';
-		htmls += '<a href="javascript:void(0)" onclick="replyList()" >취소</a>';
-		htmls += '</span>';
-		htmls += '</span><br>';
-		htmls += '<textarea name="editmemo" id="editmemo" class="form-control" rows="3">'
-		htmls += rememo;
-		htmls += '</textarea>'
-		htmls += '</p>';
-		htmls += '</div>';
-		
-		// 선택한 요소를 다른 것으로 바꿉니다. (변경 : replaceWith)
-		// 선택자 $('#reno'+reno)
-		$('#reno'+reno).replaceWith(htmls);
-		$('#reno'+reno+' #editmemo').focus();
-		// focus : 초점 옮기는 거 (커서가 깜빡이게 하는 것)
-	} // fn_editReply End
-	
-	function fn_updateReply(reno,rewriter){
-		// val = value
-		var editmemo = $("#editmemo").val();
-		console.log(rewriter);
-		var url = "${pageContext.request.contextPath}/board/replyUpdate"; //아작스 수정
-		var paramData = {
+			$.ajax({
+				url : url,
+				data : paramData,
+				dataType : 'json',
+				type : 'POST',
+				success : function(result) {
+					var htmls = "";
+					if (result.length < 1) {
+						
+					} else {
+						$(result).each(function() {
+								htmls = htmls+ '<div id="reno' + this.reno + '">';
+								htmls += '<hr><span class="d-block">';
+								htmls += '<strong class="reply-list"><span style="font-size:12pt">'+ this.rewriter + '</span></strong>';
+								htmls += '<span style="font-size: 9pt; color: #999399;">';
+								htmls += '<br>'+ this.redate;
+								htmls += '</span>';
+								htmls += '<br>';
+								htmls += '<div style="padding-left:10px; padding-top:5px;">';
+								htmls += this.rememo;
+								htmls += '</div>';
+								htmls += '<div align="right" class="reply-button">';
+								htmls += '<span style="font-size: 9pt">';
+								htmls += '<a href="javascript:void(0)" onclick="fn_editReply('
+									+ this.reno + ', \''
+									+ this.rewriter + '\', \''
+									+ this.rememo + '\' )" style="padding-right:10px;">수정</a>';
+								htmls += '<a href="javascript:void(0)" style="padding-right:10px;" onclick="fn_deleteReply('+ this.reno
+									+ ')" >삭제</a>';
+								htmls += '</span>';
+								htmls += '</span>';
+								htmls += '</div>';
+								htmls += '</div>';
+								}); // each End
+							}
+							$("#replylist").html(htmls);
+
+						}, // Ajax success End
+						error : function(data) {
+							Swal.fire({
+								icon : 'error',
+								title : data
+							})
+						}
+					});
+
+		} // replylist() End
+
+		function fn_editReply(reno, rewriter, rememo) {
+			var htmls = "";
+			htmls = htmls+ '<div id="reno' +reno+'">';
+			htmls += '<hr><span class="d-block">';
+			htmls += '<strong class="reply-list"><span style="font-size:12pt">' + rewriter + '</strong></span>';
+			htmls += '</span>';
+			htmls += '<div style="padding-top:10px; padding-bottom:10px;">';
+			htmls += '<textarea name="editmemo" id="editmemo" class="form-control" rows="3">'
+			htmls += rememo;
+			htmls += '</textarea>'
+			htmls += '</div>';
+			htmls += '<div align="right" class="reply-button">';
+			htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+			htmls += '<a href="javascript:void(0)" onclick="fn_updateReply('
+					+ reno + ', \'' + rewriter
+					+ '\')" style="padding-right:10px">저장</a>';
+			htmls += '<a href="javascript:void(0)" style="padding-right:10px;" onclick="replylist()" >취소</a>';
+			htmls += '</span>';
+			htmls += '</span><br>';
+			htmls += '</p>';
+			htmls += '</div>';
+
+			$('#reno' + reno).replaceWith(htmls);
+			$('#reno' + reno + ' #editmemo').focus();
+
+		} // fn_editReply End
+
+		function fn_updateReply(reno, rewriter) {
+			// val = value
+			var editmemo = $("#editmemo").val();
+			console.log(rewriter);
+			var url = "${pageContext.request.contextPath}/board/replyUpdate"; //아작스 수정
+			var paramData = {
 				"reno" : reno,
 				"rewriter" : rewriter,
 				"rememo" : editmemo
-		}; //수정 데이터
-		
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: paramData,
-			dataType: 'json',
-			success: function(result){ // result<=>data<=>log
-				console.log(result);
-				replylist();
-			},
-			error: function(data){
-				console.log(data);
-				alert("에러");
-			}
-		});
-	}
-	
-	function fn_deleteReply(reno){
-		var url = "${pageContext.request.contextPath}/board/replyDelete2"; //아작스 삭제
-		var paramData = {
-				"reno" : reno,
-		}; //삭제 데이터
-		
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: paramData,
-			dataType: 'json',
-			success: function(result){ // result<=>data<=>log
-				console.log(result);
-				replylist();
-			},
-			error: function(data){
-				console.log(data);
-				alert("에러");
-			}
-		});
-	}
+			}; //수정 데이터
 
-</script>
-	<section class="content">
-		<div class="box">
-			<div class="box-header">
-				<h3 class="box-title">상세보기</h3>
-			</div>
-			<div class="box-body">
-				<div class="form-group">
-					<label>제목</label> <input type="text" name="title"
-						class="form-control" value="${board.btitle}" readonly="readonly" />
-				</div>
+			$.ajax({
+				type : "POST",
+				url : url,
+				data : paramData,
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+					replylist();
+				},
+				error : function(data) {
+					console.log(data);
+					Swal.fire({
+						icon : 'error',
+						title : '댓글이 수정되지 않았습니다.'
+					})
+				}
+			});
+		}
 
-				<div class="form-group">
-					<label>내용</label>
-					<textarea name="content" rows="5" readonly="readonly"
-						class="form-control">${board.bcontent}</textarea>
-				</div>
+		function fn_deleteReply(reno) {
+			var url = "${pageContext.request.contextPath}/board/replyDelete";
+			var paramData = {
+				"reno" : reno
+			};
 
-				<div class="form-group">
-					<label>작성자</label> <input type="text" name="id"
-						class="form-control" value="${user.name}" readonly="readonly" />
-				</div>
-			</div>
-
-		</div>
-		<div class="box-footer">
-			<button class="btn btn-success">메인</button>
-			<button class="btn btn-warning">수정</button>
-			<button class="btn btn-danger">삭제</button>
-			<button class="btn btn-primary">목록</button>
-		</div>
-		</div>
-	</section>
-				<script>
-	$(function(){
-		//메인 버튼을 눌렀을 때 처리
-		$(".btn-success").click(function(){
-			location.href="../";
-		});
-		//목록 버튼을 눌렀을 때 처리
-		$(".btn-primary").click(function(){
-			location.href="paginglist";
-		});
-		//삭제 버튼을 눌렀을 때 처리
-		$(".btn-danger").click(function(){
-			location.href="delete?bno=" + ${board.bno};
-		});
-		//수정 버튼을 눌렀을 때 처리
-		$(".btn-warning").click(function(){
-			location.href="update?bno=" + ${board.bno};
-		});
-	})
+			$.ajax({
+				type : "POST",
+				url : url,
+				data : paramData,
+				dataType : 'json',
+				success : function(result) {
+					console.log(result);
+					replylist();
+				},
+				error : function(data) {
+					console.log(data);
+					Swal.fire({
+						icon : 'error',
+						title : data
+					})
+				}
+			});
+		}
 	</script>
-	<div>
-		<div class="box-body">
-			<table>
-				<tr>
-					<td rowspan="2" width="70%"><textarea class="form-control" rows="3" name="rememo" id="rememo" placeholder="댓글을 입력하세요."></textarea></td>
-					<td><input type="text" name="rewriter" id="rewriter" placeholder="댓글 작성자"></td>
-				</tr>
-				<tr>
-					<td><button type="button" id="btnReplySave">저장</button></td>
-				</tr>
-			</table>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+			<div class="logo">
+				<img src="../resources/logo/logo.png" class="logo-detail"/>
+			</div>
+				<br>
+				<div>
+					<button class="detail-list" id="board-list">
+					<img src="../resources/logo/list.png" width="20px">
+					&nbsp;목록</button>
+					<c:if
+						test="${user.userid eq 'admin' or user.username eq board.bwriter }">
+						<button class="detail-list" id="board-update">
+						<img src="../resources/logo/update.png" width="20px">
+						&nbsp;수정</button>
+						<button class="detail-list" id="board-delete">
+						<img src="../resources/logo/delete.png" width="20px">
+						&nbsp;삭제</button>
+					</c:if>
+				</div>
+				<div class="box-body">
+					<table class="detail-table">
+						<tr class="detail-tr">
+							<td class="detail-title">제목</td>
+							<td colspan="3" class="detail-label">${board.btitle}</td>
+						</tr>
+						<tr class="detail-tr-center">
+							<td class="detail-title">작성자</td>
+							<td colspan="3" class="detail-label">${board.bwriter}</td>
+						</tr>
+						<tr class="detail-tr">
+							<td class="detail-title">작성일</td>
+							<td class="detail-label">${board.bdate}</td>
+							<td class="detail-title">조회수</td>
+							<td class="detail-label">${board.breadcnt}</td>
+						</tr>
+						<tr>
+							<td colspan="4" class="detail-main">${board.bcontent}</td>
+						</tr>
+					</table>
+				</div>
+
+
+
+				<script>
+					$(function() {
+						//목록 버튼을 눌렀을 때 처리
+						$("#board-list").click(function() {
+							location.href = "paginglist";
+						});
+						//삭제 버튼을 눌렀을 때 처리
+						$("#board-delete").click(function() {
+							location.href = "delete?bno=" + ${board.bno};
+						});
+						//수정 버튼을 눌렀을 때 처리
+						$("#board-update").click(function() {
+							location.href = "update?bno=" + ${board.bno};
+						});
+					})
+				</script>
+				<div>
+					<div class="box-body">
+					<br>
+						<table class="reply-input">
+							<tr>
+								<td>
+								<textarea class="form-control" rows="4" name="rememo" id="rememo" placeholder="댓글을 입력하세요."></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								<div align="right">
+								<button type="button" id="btnReplySave" class="reply-save">
+								<img src="../resources/logo/writing.png" width="20px">
+								&nbsp;저장</button>
+								</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="replylist" style="width:100%;"></div>
+			</div>
+			
+			<div class="col-sm-1"></div>
 		</div>
 	</div>
 	<br>
-	<div id="replylist">
-	</div>
-
-
+	<%@include file="../include/footer.jsp"%>
 </body>
 </html>

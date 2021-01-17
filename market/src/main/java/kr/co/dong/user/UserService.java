@@ -1,5 +1,9 @@
 package kr.co.dong.user;
 
+import java.util.List;
+
+import kr.co.dong.Product.ProductDTO;
+
 public interface UserService {
 
 //	이동	회원가입	user/join	
@@ -24,8 +28,42 @@ public interface UserService {
 //	마이페이지	user/Mypage
 	public UserDTO Mypage(String userid);
 	
+//	포인트 충전
+	public int ChargePoint(UserDTO userDTO);
+	
+//	포인트 계산
+	public int PayPoint(UserDTO userDTO);
+	
+	
 //	이동	회원 정보 수정	user/UserUpdate
 //	회원 정보 수정	user/UserUpdate
 	public int UserUpdate(UserDTO userDTO);
 	
+// 회원 삭제하기
+	public int Userdelete(int usercode);
+	
+// 회원 관리 등급 변경
+	public int UserUpgrade(int usercode);	
+	
+// 회원 이름 검색
+	public UserDTO userSearchlist(String username);
+	
+// 회원 친구 추가하기
+	public int insertFriend(FriendDTO fDTO);
+
+// 친구 목록 불러오기
+	public List<FriendDTO> flist(String userid);
+	
+// 회원 목록 총 갯수
+	public int countUser();
+
+// 페이징 처리 전체 회원 조회
+	public List<UserDTO> userAll(PagingUVO uvo);	
+	
+// 회원 목록 총 갯수
+	public int countUserSearch(PagingUVO uvo);	
+		
+// 회원 목록 검색
+	public List<UserDTO> usearchlist(PagingUVO uvo) throws Exception;	
+
 }

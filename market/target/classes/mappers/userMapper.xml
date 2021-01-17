@@ -21,7 +21,7 @@
 <!-- //	로그인	user/login -->
 <!-- 	public int login(UserDTO userDTO); -->
 	<select id="login" parameterType="UserDTO" resultType="UserDTO">
-		select userid, username
+		select userid, username, usercode
 		from user
 		where userid = #{userid}
 		and userpw = #{userpw}
@@ -55,6 +55,20 @@
 		where a.lvcode = b.lvcode
 		and a.userid = #{userid}
 	</select>
+	
+	<!-- 	포인트 충전하기  -->
+	<update id = "ChargePoint" parameterType="UserDTO">
+		update user
+		set point = point + #{point}
+		where userid = #{userid}
+	</update>
+	
+<!-- 	상품 구매 포인트 차감하기 -->
+	<update id = "PayPoint" parameterType="UserDTO">
+		update user
+		set point = point - #{point}
+		where userid = #{userid}
+	</update>
 
 <!-- //	회원 정보 수정	user/UserUpdate -->
 <!-- 	public int UserUpdate(UserDTO userDTO); -->
@@ -62,5 +76,84 @@
 		update user
 		set userpw = #{userpw},	 email = #{email},	  phone = #{phone}
 	</update>
+	
+	<!-- 회원 삭제하기 -->
+	<delete id="Userdelete" parameterType="UserDTO">
+		delete from user
+		where usercode = #{usercode}
+	</delete>
+
+	<!-- 회원 레벨 업그레이드 -->
+	
+	<update id="UserUpgrade">
+		update user
+		set lvcode = 2
+		where usercode=#{usercode}
+	</update>
+
+	<!-- 검색하기 -->
+	  <select id="userSearchlist" resultType="UserDTO" parameterType="String">
+		  select username, userid, usercode
+		  from user
+		  where 
+		  username = #{username}
+	</select>
+	
+	<!-- 친구 추가하기 -->
+	<insert id="insertFriend" parameterType="FriendDTO">
+		
+		 insert into friend (usercode, userid, friendcode, friendname, friendid)
+		 values (#{usercode}, #{userid}, #{friendcode}, #{friendname}, #{friendid})
+	</insert>
+	
+	
+	<!-- 친구 목록보기 -->
+	<select id="flist"  parameterType="java.lang.String" resultType="FriendDTO">
+	
+		select *
+		from friend
+		where userid = #{userid}
+	
+	</select>
+	
+
+	
+	  <!-- 총 게시글 갯수 출력 -->
+	<select id="countUser" resultType="java.lang.Integer">
+	select count(*) from user
+	</select>
+
+ <!-- 페이징 처리 전체 회원 조회 -->
+	<select id="userAll" resultType="UserDTO">
+		select
+		@rownum:=@rownum+1 as no, user.*
+		from user
+		where (@rownum:=0)=0
+		order by usercode desc
+		limit #{start}, #{cntPerPage}
+		
+	</select>
+  
+	
+  <!-- 회원 목록 검색 수  -->
+		<select id="countUserSearch" parameterType="PagingUVO" resultType="java.lang.Integer">
+			select count(*) from user
+			where 
+			username like CONCAT('%',#{keyWord},'%') 
+			or userid like CONCAT('%',#{keyWord},'%') 
+		</select>
+  
+<!-- 검색하기 -->
+	  <select id="usearchlist" resultType="UserDTO" parameterType="PagingUVO">
+		  select usercode, username, birth, email, phone, point, lvcode, userid
+		  from user
+	      where 
+		  username like CONCAT('%',#{keyWord},'%') 
+		  or userid like CONCAT('%',#{keyWord},'%') 
+		  order by usercode desc
+		  limit #{start}, #{cntPerPage}
+	
+	  </select>	
+		
 	
 </mapper>
